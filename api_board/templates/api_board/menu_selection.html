@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="container my-auto justify-content-center">
+      <div class="row">
+        <div class="text-center mx-auto">
+            <h1 class="text-uppercase text-white d-flex app_title">
+                Tableau API
+            </h1>
+             <div class="justify-content-center">
+                 <div class="row">
+                 <div class="text-center col-xs-11 col-sm-6 col-md-6 col-lg-6">
+                 <form class="" role="form" method="post" action="{% url 'api_board:consonant_menu' %}">
+                    {% csrf_token %}
+                    <button type="submit" id="consonant_section_button" class="sound index_btn green col-lg-6">Consonnes</button>
+                </form>
+                 </div>
+
+                 <div class="text-center col-xs-11 col-sm-6 col-md-6 col-lg-6">
+                 <form class="" role="form" method="post" action="{% url 'api_board:consonant_menu' %}">
+                    {% csrf_token %}
+                    <button id="vowels_section_button" class="sound index_btn green col-lg-6">Voyelles</button>
+                 </form>
+                 </div>
+                     </div>
+             </div>
+        </div>
+      </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+# IDE
+*.pyc
+__pycache__/*.pyc
+.idea/
+
+# Migrations
+training/migrations/*
+api_board/migrations/*
+quiz/migrations/*
+user/migrations/*
+
+# test
+htmlcov/
+/.coverage
+/.coveragerc
+
+
+# prod
+vocal_trainer/settings/production.py
+
+# conf
+newrelic.ini
+
+# virtual environments
+env/*
