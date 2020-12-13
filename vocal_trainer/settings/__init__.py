@@ -54,7 +54,6 @@ SECRET_KEY = 'dummy-secret-key'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'user.authentication.EmailAuthBackend',
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -79,6 +78,7 @@ INSTALLED_APPS = [
     'training',
     'quiz',
     'api_board',
+    'user',
     'debug_toolbar',
 ]
 
@@ -119,6 +119,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
             ],
+            'libraries':{
+                'api_board_tags': 'api_board.templatestags.api_board_tags',
+}
         },
     },
 ]
@@ -132,6 +135,7 @@ WSGI_APPLICATION = 'vocal_trainer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# POSTGRES
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
@@ -142,6 +146,18 @@ DATABASES = {
        'PORT': '5432',
     },
 }
+
+# MYSQL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'vocal_trainer',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
@@ -189,5 +205,5 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
     )
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT,"resources/sounds")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT,"resources")
 MEDIA_URL = '/media/'

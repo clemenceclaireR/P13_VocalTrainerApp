@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import SubPhonemeType, PhonemeInformation, ExampleWord
 
 
 def index(request):
@@ -15,8 +16,12 @@ def api_board_menu(request):
     return render(request, 'api_board/menu_selection.html', locals())
 
 
-def consonant_menu(request):
+def consonant_table(request):
     """
     Display consonants
     """
-    return render(request, 'api_board/consonant_menu.html', locals())
+    consonants_type = SubPhonemeType.objects.filter(phoneme_type=1).order_by('subtype_name')
+    print(consonants_type)
+    phoneme_information = PhonemeInformation.objects.all().order_by('label')
+    example_words = ExampleWord.objects.all().order_by('label')
+    return render(request, 'api_board/consonant_table.html', locals())

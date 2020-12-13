@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     var audioElement = document.createElement("audio");
-    audioElement.src = "{{ MEDIA_URL }}{{ elem.1 }}";
+    audioElement.src = "{{ MEDIA_URL }}/sounds/{{ elem.1 }}";
     $('#play_{{ elem.2 }}_button').click(function(){
         audioElement.play();
     });

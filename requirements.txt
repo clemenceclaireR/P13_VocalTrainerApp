@@ -16,3 +16,5 @@ raven==6.10.0
 sentry-sdk==0.17.3
 newrelic==5.18.0.148
 selenium==3.141.0
+#pymysql==0.10.1
+mysqlclient==2.0.2
