@@ -1,4 +1,5 @@
 from django.shortcuts import render
+#from django.db.models import Q
 from .models import SubPhonemeType, PhonemeInformation, ExampleWord
 
 
@@ -21,7 +22,39 @@ def consonant_table(request):
     Display consonants
     """
     consonants_type = SubPhonemeType.objects.filter(phoneme_type=1).order_by('subtype_name')
-    print(consonants_type)
-    phoneme_information = PhonemeInformation.objects.all().order_by('label')
+    phoneme_information = PhonemeInformation.objects.all().order_by('id')
     example_words = ExampleWord.objects.all().order_by('label')
     return render(request, 'api_board/consonant_table.html', locals())
+
+
+def vowels_type_menu(request):
+    """
+    Display vowels menu
+    """
+    return render(request, 'api_board/vowel_menu.html', locals())
+
+
+def diphthong_table(request):
+    """
+    Display diphthong vowels
+    """
+
+    vowels = PhonemeInformation.objects.filter(sub_phoneme_type=11)
+    example_words = ExampleWord.objects.all().order_by('label')
+
+    return render(request, 'api_board/diphthong_table.html', locals())
+
+
+def simple_vowel_table(request):
+    """
+    Display vowels
+    """
+
+    vowels_type = ['Pré-fermées', 'Fermées', 'Semi-ouvertes', 'Ouvertes', 'Moyennes']
+    sub_phoneme_types_ids = SubPhonemeType.objects.filter(subtype_name__in=vowels_type).values_list('id', flat=True)
+    vowels = PhonemeInformation.objects.filter(sub_phoneme_type__in=sub_phoneme_types_ids)
+    example_words = ExampleWord.objects.all().order_by('label')
+    for v in vowels:
+        print(v)
+
+    return render(request, 'api_board/simple_vowel_table.html', locals())

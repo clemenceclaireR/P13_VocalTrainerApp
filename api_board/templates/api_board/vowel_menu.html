@@ -10,21 +10,21 @@
       <div class="row">
         <div class="text-center mx-auto">
             <h1 class="text-uppercase text-white d-flex app_title page_title_padding">
-                Tableau API
+                Voyelles
             </h1>
              <div class="justify-content-center">
                  <div class="row">
                  <div class="text-center col-xs-11 col-sm-6 col-md-6 col-lg-6">
-                 <form class="" role="form" method="post" action="{% url 'api_board:consonant_table' %}">
+                 <form class="" role="form" method="post" action="{% url 'api_board:simple_vowel_table' %}">
                     {% csrf_token %}
-                    <button type="submit" id="consonant_section_button" class="sound index_btn green col-lg-6">Consonnes</button>
+                    <button type="submit" id="consonant_section_button" class="index_btn green">Simples</button>
                 </form>
                  </div>
 
                  <div class="text-center col-xs-11 col-sm-6 col-md-6 col-lg-6">
-                 <form class="" role="form" method="post" action="{% url 'api_board:vowel_menu' %}">
+                 <form class="" role="form" method="post" action="{% url 'api_board:diphthong_table' %}">
                     {% csrf_token %}
-                    <button id="vowels_section_button" class="sound index_btn green col-lg-6">Voyelles</button>
+                    <button id="vowels_section_button" class="index_btn green">Diphtongues</button>
                  </form>
                  </div>
                      </div>

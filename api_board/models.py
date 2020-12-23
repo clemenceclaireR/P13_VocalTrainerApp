@@ -28,7 +28,7 @@ class SubPhonemeType(models.Model):
     subtype_name = models.CharField(max_length=254
                                     , verbose_name='Sub Type name'
                                     , help_text='Sub Type name'
-                                    , db_column='sub_type_name'
+                                    , db_column='subtype_name'
                                     )
     phoneme_type = models.ForeignKey(PhonemeType
                                      , on_delete=models.CASCADE
@@ -50,20 +50,16 @@ class PhonemeInformation(models.Model):
                              , help_text='Phoneme name'
                              , db_column='label'
                              )
-    phoneme_ipa_name = models.CharField(max_length=254
-                                        , help_text='Phoneme International Phonetic Alphabet (IPA) name'
-                                        , db_column='phoneme_ipa_name'
-                                        )
     sound_file_name = models.CharField(max_length=254
                                        , help_text='Associated file name'
                                        , db_column='sound_file_name'
                                        )
-    sub_phoneme_type = models.ForeignKey(PhonemeType
-                                         , on_delete=models.CASCADE
-                                         , help_text='Associated phoneme type'
-                                         , db_column='sub_phoneme_type_id'
-                                         , null=True
-                                         )
+    sub_phoneme_type = models.ForeignKey(SubPhonemeType
+                                            , on_delete=models.CASCADE
+                                            , help_text='Associated phoneme type'
+                                            , db_column='sub_phoneme_type_id'
+                                            , null=True
+                                            )
 
 
 class ExampleWord(models.Model):

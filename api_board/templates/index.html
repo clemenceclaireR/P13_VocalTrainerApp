@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<div class="container-fluid footer_padding index_background">
 
 <div class="container my-auto justify-content-center">
 
@@ -14,20 +15,49 @@
          Vocal Trainer
     </h1>
 
-             <div class="d-flex justify-content-center ">
+<!--             <div class="d-flex justify-content-center ">-->
 
-            <button id="api_board_section_button" class="sound index_btn green col-lg-6">
-                Tableau API
-            </button>
-            <button id="training_section_button" class="sound index_btn green col-lg-6">Entraînement</button>
-            <button id="quiz_section_button" class="sound index_btn green col-lg-6">Quizz</button>
-    </div>
+<!--            <button id="api_board_section_button" class="sound index_btn green col-lg-6">-->
+<!--                Tableau API-->
+<!--            </button>-->
+<!--            <button id="training_section_button" class="sound index_btn green col-lg-6">Entraînement</button>-->
+<!--            <button id="quiz_section_button" class="sound index_btn green col-lg-6">Quizz</button>-->
+<!--    </div>-->
+
+
+             <div class="justify-content-center">
+                 <div class="row">
+                 <div class="text-center col-xs-11 col-sm-4 col-md-4 col-lg-4">
+                 <form class="" role="form" method="post" action="{% url 'api_board:api_board_menu' %}">
+                    {% csrf_token %}
+                    <button type="submit" id="api_board_section_button" class="index_btn green">Tableau API</button>
+                </form>
+                 </div>
+
+                     <div class="text-center col-xs-11 col-sm-4 col-md-4 col-lg-4">
+                 <form class="" role="form" method="post" action="{% url 'training:minimal_pair' %}">
+                    {% csrf_token %}
+                    <button type="submit" id="training_section_button" class="index_btn green">Entraînement</button>
+                </form>
+                 </div>
+
+                 <div class="text-center col-xs-11 col-sm-4 col-md-4 col-lg-4">
+                 <form class="" role="form" method="post" action="{% url 'api_board:consonant_table' %}">
+                    {% csrf_token %}
+                    <button id="vowels_section_button" class="index_btn green">Quizz</button>
+                 </form>
+                 </div>
+                     </div>
+             </div>
+
         </div>
 
       </div>
       </header>
 
 
+
+</div>
 
 </div>
 

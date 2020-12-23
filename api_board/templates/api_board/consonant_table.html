@@ -5,11 +5,11 @@
 
 {% block content %}
 
-
+<div class="container-fluid footer_padding board_background">
 
 <div id="content" class="login_background">
   <div class="text-center  text-white">
-    <h2 class="page-section">Tableau API : Consonnes</h2>
+    <h2 class="page_title_padding">Tableau API : Consonnes</h2>
   </div>
 </div>
 
@@ -23,10 +23,10 @@
                 <div class="row">
                   <div class="col-12">
                       {% for consonant_title in consonants_type %}
-                    <h2 class="">{{ consonant_title.subtype_name }} </h2>
+                    <h2 class="subtype_section">{{ consonant_title.subtype_name }} </h2>
 
 
-                        <div class="consonant_sub_group form-inline col-xs-12 col-sm-10 col-md-8 col-lg-3">
+                        <div class="consonant_sub_group form-inline col-xs-12 col-sm-10 col-md-8 col-lg-8">
                             {% for phoneme in phoneme_information|phoneme:consonant_title.id %}
                             <div class="dropdown">
 
@@ -54,7 +54,7 @@
                                     function say(m) {
                                         var msg = new SpeechSynthesisUtterance();
                                         var voices = window.speechSynthesis.getVoices();
-                                        msg.voice = voices[1];
+                                        msg.voice = voices[2];
                                         msg.voiceURI = "native";
                                         msg.volume = 1;
                                         msg.rate = 1;
@@ -65,21 +65,21 @@
                                      }
 
                                     $(document).ready(function(){
-                                        var audioElement = document.createElement("audio");
-                                        audioElement.src = "{{ MEDIA_URL }}/consonants_audio/{{ phoneme.sound_file_name }}";
-                                        $('#play_{{ phoneme.label }}').click(function(){
-                                            audioElement.play();
-                                        });
-                                    });
 
-                                    </script>
-                                    <script type="text/javascript">
-                                    $(document).ready(function(){
+                                        var consonantElement = document.createElement("audio");
+                                        consonantElement.src = "{{ MEDIA_URL }}/consonants_audio/{{ phoneme.sound_file_name }}";
+                                        $('#play_{{ phoneme.label }}').click(function(){
+                                            consonantElement.play();
+                                        });
+
                                         var audioElement = document.createElement("audio");
                                         $('#play_{{ example.label }}').click(function(){
                                             say('{{ example.label }}');
                                             });
+
                                         });
+
+
                                     </script>
                                     {% endblock %}
 
@@ -106,6 +106,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 

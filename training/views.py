@@ -1,5 +1,4 @@
 import urllib
-import simpleaudio as sa
 from django.shortcuts import render
 from . import utils
 

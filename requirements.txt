@@ -1,5 +1,5 @@
 Django==3.1.2
-simpleaudio==1.0.4
+# simpleaudio==1.0.4
 psycopg2==2.8.5
 dj-database-url==0.5.0
 psycopg2-binary==2.8.5
@@ -17,4 +17,4 @@ sentry-sdk==0.17.3
 newrelic==5.18.0.148
 selenium==3.141.0
 #pymysql==0.10.1
-mysqlclient==2.0.2
+# mysqlclient==2.0.2
