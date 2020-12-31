@@ -75,7 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'training',
+    'minimal_pair',
     'quiz',
     'api_board',
     'user',
@@ -121,6 +121,7 @@ TEMPLATES = [
             ],
             'libraries':{
                 'api_board_tags': 'api_board.templatestags.api_board_tags',
+                'check_if_label_exists': 'minimal_pair.templatestags.check_if_label_exists',
 }
         },
     },

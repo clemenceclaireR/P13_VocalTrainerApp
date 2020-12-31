@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -47,11 +48,11 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto menu ">
-                                 <li class="nav-item">
+              <li class="nav-item">
            <a class="nav-link js-scroll-trigger" href="{% url 'api_board:api_board_menu' %}">Tableau API</a>
                  </li>
                  <li class="nav-item">
-           <a class="nav-link js-scroll-trigger" href="">Entraînement</a>
+           <a class="nav-link js-scroll-trigger" href="{% url 'minimal_pair:minimal_pair_menu' %}">Paires minimales</a>
                  </li>
                       <li class="nav-item">
            <a class="nav-link js-scroll-trigger" href="">Quizz</a>
@@ -96,8 +97,7 @@
           </div>
         </div>
       </nav>
-
-
+ 
 
        {% block content %}
 
@@ -122,7 +122,7 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
     <!-- Core theme JS-->
-   <script src="{% static 'js/scripts.js' %}"></script>
+   <script src="{% static 'js/script.js' %}"></script>
 
   <!-- remove the message after 2 seconds -->
    <script>

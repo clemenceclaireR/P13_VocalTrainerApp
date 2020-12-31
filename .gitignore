@@ -4,8 +4,8 @@ __pycache__/*.pyc
 .idea/
 
 # Migrations
-training/migrations/*.py
-!training/migrations/__init__.py
+minimal_pair/migrations/*.py
+!minimal_pair/migrations/__init__.py
 api_board/migrations/*
 !api_board/migrations/__init__.py
 quiz/migrations/*

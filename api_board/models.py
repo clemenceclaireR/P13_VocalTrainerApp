@@ -11,10 +11,10 @@ class PhonemeType(models.Model):
         db_table = 'phoneme_type'
 
     type_name = models.CharField(max_length=254
-                                , verbose_name='Type name'
-                                , help_text='Type name'
-                                , db_column='type_name'
-                                )
+                                 , verbose_name='Type name'
+                                 , help_text='Type name'
+                                 , db_column='type_name'
+                                 )
 
 
 class SubPhonemeType(models.Model):
@@ -36,6 +36,29 @@ class SubPhonemeType(models.Model):
                                      , db_column='phoneme_type_id'
                                      , null=True
                                      )
+    order = models.IntegerField(null=True
+                                , db_column='order'
+                                , help_text='Order in which types are displayed in template'
+                                )
+
+
+# class PhonemeTypeCategory(models.Model):
+#     """
+#     Precise category of the phoneme
+#     """
+#     class Meta:
+#         db_table = 'phoneme_type_category'
+#
+#     label = models.CharField(max_length=254
+#                              , help_text='Phoneme name'
+#                              , db_column='label'
+#                              )
+#     parent_type_id = models.ForeignKey(SubPhonemeType
+#                                      , on_delete=models.CASCADE
+#                                      , help_text='Parent type'
+#                                      , db_column='parent_type_id'
+#                                      , null=True
+#                                      )
 
 
 class PhonemeInformation(models.Model):
@@ -55,11 +78,17 @@ class PhonemeInformation(models.Model):
                                        , db_column='sound_file_name'
                                        )
     sub_phoneme_type = models.ForeignKey(SubPhonemeType
-                                            , on_delete=models.CASCADE
-                                            , help_text='Associated phoneme type'
-                                            , db_column='sub_phoneme_type_id'
-                                            , null=True
-                                            )
+                                         , on_delete=models.CASCADE
+                                         , help_text='Associated phoneme type'
+                                         , db_column='sub_phoneme_type_id'
+                                         , null=True
+                                         )
+    # associated_phoneme_id = models.ForeignKey('self'
+    #                                           , on_delete=models.CASCADE
+    #                                           , help_text='Similar phoneme id'
+    #                                           , db_column='associated_phoneme_id'
+    #                                           , null=True
+    #                                           )
 
 
 class ExampleWord(models.Model):
