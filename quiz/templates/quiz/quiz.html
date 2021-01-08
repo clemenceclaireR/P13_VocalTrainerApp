@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container-fluid footer_padding board_background justify-content-center">
+
+<div id="content">
+  <div class="text-center  text-white">
+    <h2 class="page_title_padding">Quiz </h2>
+  </div>
+
+<div class="container mx-auto card o-hidden border-0 shadow my-5" style="height: 500px;">
+  <div class="col-xl-12 col-lg-12 col-md-12">
+      <div class="card-body p-0">
+           <h2 class="">Sélectionnez le bon mot</h2>
+
+            {% for sound_object in questions %}
+
+          <form>
+                <div class="radio" id="first_answer">
+                    <label><input name="answer" type="radio" id="answer_1" value="{{ sound_object.label }}"> {{ sound_object.label }}</label>
+                 </div>
+              <div class="radio" id="second_answer">
+                     <label><input type="radio" name="answer" id="answer_2" value="{{ sound_object.associated_sound_id.label }}">
+                         {{ sound_object.associated_sound_id.label }}</label>
+                </div>
+              </form>
+
+                    <script>
+        var right_answer_place = Math.floor(Math.random() * 2);
+
+        if (right_answer_place === 0) {
+            console.log('is 0');
+            var d = document.getElementById('first_answer');
+            console.log(d);
+            d.parentNode.appendChild(d);
+        }
+
+        </script>
+
+          {% block jquery %}
+          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+          <!-- Web Speech API - text to speech -->
+          <script src="{% static 'js/say.js' %}"></script>
+
+         <script type="text/javascript">
+            $(document).ready(function(){
+                  say('{{ sound_object.label }}');
+               });
+           </script>
+
+          {% endblock %}
+
+          {% endfor %}
+
+
+          <div class="paginator">
+            <div class="form-group">
+                {%  if questions.has_next %}
+                <a href="?page={{ questions.next_page_number }}"><button class="btn form-control btn-primary" id="next">Suivant</button></a>
+                <!-- on click, send result -->
+                {% else %}
+                <a href="{% url 'quiz:score' category_id %}"><button class="btn form-control btn-success" id="finish">Terminer</button></a>
+                <!-- on click, send result -->
+                {% endif %}
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+<script src="{% static 'js/quiz.js' %}"></script>
+
+{% endblock %}

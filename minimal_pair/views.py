@@ -20,7 +20,7 @@ def minimal_pair_consonant_menu(request):
     """
     consonants_type = SubPhonemeType.objects.filter(phoneme_type=1).values_list('id', flat=True)
     minimal_pairs = MinimalPairCategory.objects.filter(sub_phoneme_type_id__in=consonants_type)
-    return render(request, 'minimal_pair/minimal_pair_submenu.html', locals())
+    return render(request, 'minimal_pair/minimal_pair_consonant_menu.html', locals())
 
 
 def minimal_pair_diphthong_menu(request):
@@ -29,7 +29,8 @@ def minimal_pair_diphthong_menu(request):
     """
     diphthong_type = SubPhonemeType.objects.get(id=11)
     minimal_pairs = MinimalPairCategory.objects.filter(sub_phoneme_type_id=diphthong_type.id)
-    return render(request, 'minimal_pair/minimal_pair_submenu.html', locals())
+
+    return render(request, 'minimal_pair/minimal_pair_diphthong_menu.html', locals())
 
 
 def minimal_pair_table(request, phoneme):

@@ -4,7 +4,7 @@ function say(m) {
    msg.voice = voices[2];
    msg.voiceURI = "native";
    msg.volume = 1;
-   msg.rate = 0.5;
+   msg.rate = 0.6;
    msg.pitch = 0.8;
    msg.text = m;
    msg.lang = 'en-US';

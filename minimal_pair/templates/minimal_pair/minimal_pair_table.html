@@ -36,6 +36,16 @@
         > {{ category.phoneme.label }} // {{ category.associated_phoneme|check_if_label_exists }}
     </div>
 
+     <div class="row">
+    <div class="d-flex mx-auto text-center col-xs-12 col-sm-12 col-md-4 col-lg-4 justify-content-center">
+                <form class="" role="form" method="post" action="{% url 'quiz:quiz' category.id %}">
+                    {% csrf_token %}
+                    <button type="submit" id="api_board_section_button" class="index_btn green ">
+                        S'entraîner</button>
+                </form>
+            </div>
+            </div>
+
     <div class="row">
         <div class="col-5 text-center">
             <button  id="play_{{ category.phoneme.label }}" class="phoneme_btn red transparent">
