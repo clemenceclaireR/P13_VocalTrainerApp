@@ -102,7 +102,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #  'yourapp.middleware.filter_ip_middleware.FilterIPMiddleware'
+    'quiz.middleware.clean_quiz_answers_middleware.CleanQuizAnswerMiddleware',
 ]
+# quiz\middleware\clean_quiz_answers_middleware.py
 
 ROOT_URLCONF = 'vocal_trainer.urls'
 

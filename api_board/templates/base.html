@@ -22,6 +22,12 @@
       <link href="{% static 'css/custom_style.css' %}" rel="stylesheet">
       <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
+
+
+
+
+
+
       <!-- Third party plugin CSS-->
       <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
 
@@ -109,7 +115,7 @@
 
 
     <!-------------SCRIPTS ---------------->
-
+ {% block scripts %}
   <!-- external load of jquery -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -132,6 +138,8 @@
       }
     }, 2000)
   </script>
+
+  {% endblock %}
 
 </body>
 </html>

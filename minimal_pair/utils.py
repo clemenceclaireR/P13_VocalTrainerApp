@@ -1,14 +1,4 @@
 import random
-from tkinter import messagebox
-# import simpleaudio as sa
-
-
-# def play_given_sound(given_sound):
-#     """
-#     Find and play sound according to its name
-#     """
-#     son = sa.WaveObject.from_wave_file('resources/sounds/{}.wav'.format(given_sound))
-#     son.play()
 
 
 def read_sound_list(filename):

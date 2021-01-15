@@ -1,3 +1,105 @@
+/* css button */
+
+// The code is a bit of a mess at the moment! Sorry about that.
+
+
+.checkbox input[type="checkbox"] {
+    opacity: 0;
+}
+
+input[type="radio"] {
+  display: none;
+
+
+}
+
+
+label {
+    cursor: pointer;
+  font-size: 1.5rem;
+  height: 100%;
+  width: 70%;
+  display: block;
+  background: white;
+  border: 2px solid hsl(208, 36.1%, 32.5%);
+  border-radius: 20px;
+
+  padding: 1rem;
+  /*
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  */
+
+  text-align: center;
+  box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);
+  position: relative;
+}
+
+
+input[type="radio"]:checked + label {
+  background: hsl(186.1, 43.6%, 60.4%);
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px hsla(258.5, 46.2%, 76.7%, 0.75);
+  &::after {
+    color: hsla(215, 5%, 25%, 1);
+    font-family: FontAwesome;
+    border: 2px solid hsla(150, 75%, 45%, 1);
+    content: "\f00c";
+    font-size: 24px;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 30%;
+    background: white;
+    box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);
+  }
+}
+
+.quiz_next_btn {
+    background:#db9c97;
+    color: white;
+    padding: 1rem;
+    width: 8%;
+    float: right;
+    cursor: pointer;
+    font-size: 1.5 em;
+    font-weight: 600;
+    text-align: center;
+    border-radius: .30rem;
+    border: 2px solid #936d6d;
+}
+
+.quiz_replay_sound {
+    background:#dfffff;
+    padding: 1em;
+    margin: 1em;
+    width: 15%;
+    float: left;
+    cursor: pointer;
+    font-size: 1.5 em;
+    text-align: center;
+    border-radius: .30rem;
+    border: 2px solid #3d343e;
+}
+
+@media only screen and (max-width: 700px) {
+  section {
+    flex-direction: column;
+  }
+  .quiz_next_btn {
+    width: 100%;
+  }
+  }
+
+/* end quiz css button */
+
+
+
 .index_btn {
     border: 2px solid transparent;
     box-sizing: border-box;
@@ -133,7 +235,7 @@
 }
 
 .app_title {
-padding: 8rem;
+    padding: 8rem;
 }
 
 .consonant_sub_group {
@@ -176,6 +278,10 @@ padding: 8rem;
 
 .page_title_padding {
   padding: 3em;
+}
+
+.quiz_title_padding {
+    padding: 1.5em;
 }
 
 .schema_section {

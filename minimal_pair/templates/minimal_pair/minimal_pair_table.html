@@ -6,6 +6,7 @@
 {% block content %}
 
 
+
 <div class="container-fluid footer_padding board_background">
 
 
@@ -13,7 +14,7 @@
 <div id="content">
 
 
-  <div class="text-center  text-white">
+  <div class="text-center text-white">
     <h2 class="page_title_padding">Paires minimales : {{ category.phoneme.label }} // {{ category.associated_phoneme|check_if_label_exists }}</h2>
   </div>
 </div>
@@ -79,8 +80,18 @@
             </div>
           {% endif %}
 
+
+          {% with minimal_pair_phoneme_letters=minimal_pair.id|get_phoneme_letters %}
+
+          {% with minimal_pair_ipa_letters=minimal_pair.id|get_phoneme_ipa_letters %}
+
+
+
+
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
           <script type="text/javascript">
+
+
            var audioElement = document.createElement("audio");
                  $('#play_first_{{ minimal_pair.label }}').click(function(){
                     say('{{ minimal_pair.label }}');
@@ -90,49 +101,60 @@
                      });
 
 
-    $("#{{ minimal_pair.label }}_word:contains('{{ minimal_pair.id|get_phoneme_letters }}')").each(function () {
-     $(this).html($(this).html().replace("{{ minimal_pair.id|get_phoneme_letters }}",
-    "<span style='color:red;'>{{ minimal_pair.id|get_phoneme_letters }}</span>"));
+    $("#{{ minimal_pair.label }}_word:contains('{{ minimal_pair_phoneme_letters }}')").each(function () {
+     $(this).html($(this).html().replace("{{minimal_pair_phoneme_letters}}",
+    "<span style='color:red;'>{{minimal_pair_phoneme_letters}}</span>"));
     });
 
-    $("#{{ minimal_pair.label }}_associated_word:contains('{{ minimal_pair.id|get_phoneme_letters }}')").each(function () {
+    $("#{{ minimal_pair.label }}_associated_word:contains('{{ minimal_pair_phoneme_letters }}')").each(function () {
     // if word is sees, its phoneme being s, JS colors the first s encountered by default.
     // here we move it manually to the second s encountered.
     if ("{{ minimal_pair.label }}" === 'sees') {
     $(this).html($(this).html().replace("{{ minimal_pair.label }}",
     "see<span style='color:red;'>s</span>"));
        } else {
-    $(this).html($(this).html().replace("{{ minimal_pair.id|get_phoneme_letters }}",
-    "<span style='color:red;'>{{ minimal_pair.id|get_phoneme_letters }}</span>"));
+    $(this).html($(this).html().replace("{{ minimal_pair_phoneme_letters }}",
+    "<span style='color:red;'>{{ minimal_pair_phoneme_letters }}</span>"));
     }
     });
 
     $("#{{ minimal_pair.label }}_associated_ipa_word:contains('{{ minimal_pair.ipa_label }}')").each(function () {
-    $(this).html($(this).html().replace("{{ minimal_pair.id|get_phoneme_ipa_letters }}",
-    "<span style='color:red;'>{{ minimal_pair.id|get_phoneme_ipa_letters }}</span>"));
+    $(this).html($(this).html().replace("{{ minimal_pair_ipa_letters }}",
+    "<span style='color:red;'>{{ minimal_pair_ipa_letters }}</span>"));
     });
 
 
     $("#{{ minimal_pair.label }}_ipa_word:contains('{{ minimal_pair.ipa_label }}')").each(function () {
-    $(this).html($(this).html().replace("{{ minimal_pair.id|get_phoneme_ipa_letters }}",
-    "<span style='color:red;'>{{ minimal_pair.id|get_phoneme_ipa_letters }}</span>"));
+    $(this).html($(this).html().replace("{{ minimal_pair_ipa_letters }}",
+    "<span style='color:red;'>{{ minimal_pair_ipa_letters }}</span>"));
     });
 
+
                 </script>
+          {% endwith %}
+          {% endwith %}
 
           {% endfor %}
 
 
-                    {% block jquery %}
-               <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-              <!-- Web Speech API - text to speech -->
+      </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    {{ block.super }}
+                  <!-- Web Speech API - text to speech -->
                <script src="{% static 'js/say.js' %}"></script>
 
 
               <script type="text/javascript">
                $(window).bind("load", function () {
-
 
                 var phonemeElement = document.createElement("audio");
                 phonemeElement.src = "{{ MEDIA_URL }}/consonants_audio/{{ category.phoneme.sound_file_name }}";
@@ -152,12 +174,8 @@
 
 
                 </script>
-                {% endblock %}
 
-      </div>
 
-    </div>
-</div>
 
 
 {% endblock %}
