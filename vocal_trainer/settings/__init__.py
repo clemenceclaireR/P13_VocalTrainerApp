@@ -62,8 +62,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'index'
-LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'api_board:index'
+LOGIN_REDIRECT_URL = 'api_board:index'
 
 
 # Application definition
@@ -125,6 +125,7 @@ TEMPLATES = [
             'libraries':{
                 'api_board_tags': 'api_board.templatestags.api_board_tags',
                 'check_if_label_exists': 'minimal_pair.templatestags.check_if_label_exists',
+                'compare_answers': 'quiz.templatestags.compare_answers',
 }
         },
     },

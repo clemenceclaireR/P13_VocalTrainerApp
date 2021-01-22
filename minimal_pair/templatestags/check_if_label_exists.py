@@ -17,6 +17,9 @@ def check_if_label_exists(phoneme):
 
 @register.filter
 def get_phoneme_letters(label_id):
+    """
+    Returns words phoneme letters
+    """
     sound = MinimalPairInformation.objects.get(id=label_id)
     phoneme_letters = MinimalPairWordPhonemePlace.objects.get(minimal_pair_id=sound.id)
     return phoneme_letters.letters
@@ -24,6 +27,9 @@ def get_phoneme_letters(label_id):
 
 @register.filter
 def get_phoneme_ipa_letters(label_id):
+    """
+    Returns words international phonetic alphabet phoneme letters
+    """
     sound = MinimalPairInformation.objects.get(id=label_id)
     phoneme_letters = MinimalPairWordPhonemePlace.objects.get(minimal_pair_id=sound.id)
     return phoneme_letters.ipa_letters

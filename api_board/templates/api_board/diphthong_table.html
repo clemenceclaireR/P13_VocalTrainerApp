@@ -5,24 +5,25 @@
 
 {% block content %}
 
-<div class="container-fluid justify-content-center footer_padding board_background">
+<div class="container-fluid justify-content-center footer_padding">
 
 <div id="content">
   <div class="text-center  text-white">
-    <h2 class="page_title_padding">Tableau API : Voyelles - Diphtongues</h2>
+    <h3 class="page_title_padding">Tableau API : Voyelles - Diphtongues</h3>
   </div>
 
 <div class="my-auto justify-content-center o-hidden my-5  ">
     <div class="row">
   <div class="col-xl-6 col-lg-8 col-md-10 col-sm-10 col-xs-10 mx-auto">
       <div class="card-body p-0">
+          <p id="warning" style="color:grey;">Votre navigateur n'est pas compatible avec Web Speech API.</p>
               {% include 'message.html' %}
               <div class="p-5">
                 <table class="schema_section">
                     <tbody>
                     <tr>
                         <td style="width: 100%; text-align: center; font-size: 120%;">
-                        <div class="breadcrumbs" >
+                        <div class="breadcrumbs" style="margin-bottom:1.5rem;">
                         <a href="{% url 'api_board:index' %}">Index</a> >
                         <a href="{% url 'api_board:api_board_menu' %}">Menu du tableau API</a> >
                         <a href="{% url 'api_board:vowel_menu' %}">Voyelles</a>
@@ -92,33 +93,33 @@
                       {% if vowel.label == 'aɪ' %}
                         <div class="dropdown"
                              style="position: absolute; left: 33%; width: 2.33em; top: 40%; color: blue; ">
-                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
+                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
 
                         {% elif vowel.label == 'oʊ' %}
                             <div class="dropdown"
                              style="position: absolute; left: 80%; width: 2.33em; top: 22%; color: #f09132; ">
-                                <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
+                                <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
 
                         {% elif vowel.label == 'ɔɪ'  %}
                                 <div class="dropdown"
                              style="position: absolute; left: 49%; width: 2.33em; top: 28%; color: black; ">
-                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
+                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                            {% elif vowel.label == 'eɪ'  %}
                             <div class="dropdown"
                              style="position: absolute; left: 18%; width: 2.33em; top: 23%; color: #349961; ">
-                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
+                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                             {% elif vowel.label == 'aʊ' %}
                              <div class="dropdown"
                              style="position: absolute; left: 55%; width: 2.33em; top: 43%; color: #c554c7; ">
-                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
+                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                 data-toggle="dropdown">{{ vowel.label }}</p>
 
 
@@ -139,7 +140,7 @@
                                  class="dropdown-menu card-body p-2"
                                  aria-labelledby="dropDownButton_{{ vowel.label }}">
                                 <form>
-                                <p class="quit-cross float-right"><i class="fas fa-times"></i></p>
+                                <p id="quit_cross_{{ vowel.label }}" class="quit-cross float-right"><i class="fas fa-times"></i></p>
                                 <p class="info-section-consonant-title">Diphtongue {{ vowel.label }}</p>
                                 <p id="play_{{ vowel.label }}" class="listen-button"><i class="fas fa-volume-up"></i>  Ecouter</p>
                                 <p class="info-section-consonant-title">Exemples</p>
@@ -150,13 +151,16 @@
                                     {% block jquery %}
                                     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-                                    <!-- Web Speech API - text to speech -->
-                                    <script src="{% static 'js/say.js' %}"></script>
+
 
                                     <script type="text/javascript">
 
 
                                     $(document).ready(function(){
+
+                                       if (!window.speechSynthesis) {
+                                       $("#warning").style.display = "block";
+                                         }
 
 
                                         var audioElement = document.createElement("audio");
@@ -170,8 +174,24 @@
                                         </script>
                             {% endblock %}
 
+
                                     {% endfor %}
+
+
+
                                 </form>
+
+                                <script>
+
+                                    $(document).ready(function(){
+                                    $('#quit_cross_{{ vowel.label }}').click(function () {
+
+                                        $('#collapse_{{ vowel.label }}').dropdown('toggle');
+                                        })
+                                        });
+
+
+                                    </script>
                              </div>
                              </div></div></div></div></div>
 
@@ -197,6 +217,10 @@
 
 
 
+{% endblock %}
 
+{% block scripts %}
+
+    {{ block.super }}
 
 {% endblock %}

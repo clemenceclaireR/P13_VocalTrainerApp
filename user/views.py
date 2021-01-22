@@ -57,3 +57,11 @@ def user_login(request):
     else:
         login_form = LoginForm()
     return render(request, 'registration/login.html', locals())
+
+
+def user_score_history(request):
+    """
+    User quiz score history
+    """
+    return render(request, 'user/user_score_history.html', locals())
+

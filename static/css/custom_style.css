@@ -64,6 +64,7 @@ input[type="radio"]:checked + label {
     background:#db9c97;
     color: white;
     padding: 1rem;
+    margin-bottom: 2em;
     width: 8%;
     float: right;
     cursor: pointer;
@@ -87,14 +88,7 @@ input[type="radio"]:checked + label {
     border: 2px solid #3d343e;
 }
 
-@media only screen and (max-width: 700px) {
-  section {
-    flex-direction: column;
-  }
-  .quiz_next_btn {
-    width: 100%;
-  }
-  }
+
 
 /* end quiz css button */
 
@@ -277,11 +271,13 @@ input[type="radio"]:checked + label {
 }
 
 .page_title_padding {
-  padding: 3em;
+  padding-top: 4em;
+  padding-bottom: 2em;
 }
 
 .quiz_title_padding {
     padding: 1.5em;
+
 }
 
 .schema_section {
@@ -300,3 +296,53 @@ input[type="radio"]:checked + label {
   padding-left: 1.5rem;
 }
 
+#warning {
+  color: red;
+  display: none;
+  font-size: 1.4rem;
+}
+
+.save_score_button {
+    color:#000000;
+    font-weight: bold;
+    font-size: 1.15rem;
+
+}
+
+.save_score_button:hover {
+    color:#000000;
+    text-decoration: none;
+    text-shadow: #000000 1px 0 2px;
+}
+
+@media only screen and (max-width: 700px) {
+
+  section {
+    flex-direction: column;
+  }
+  .quiz_next_btn {
+    width: 100%;
+  }
+
+  .consonant_sub_group {
+        height: 9rem;
+  }
+
+  .quiz_replay_sound {
+    width: 100%;
+}
+  }
+
+@media only screen and (min-width: 701px) and (max-width: 900px) {
+
+  .consonant_sub_group {
+        height: 7rem;
+  }
+  }
+
+@media only screen and (max-width: 1000px) {
+
+  .quiz_replay_sound {
+    width: 30%;
+}
+  }

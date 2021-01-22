@@ -1,22 +1,60 @@
 {% extends "base.html" %}
 {% load static %}
+{% load compare_answers %}
 
 {% block content %}
 
-<div class="container-fluid footer_padding board_background justify-content-center">
+<div class="container-fluid footer_paddingjustify-content-center">
 
 <div id="content">
-  <div class="text-center  text-white">
-    <h2 class="page_title_padding">Quiz </h2>
+  <div class="text-center text-white">
+    <h3 class="page_title_padding">Résultats</h3>
   </div>
 
-<div class="container mx-auto card o-hidden border-0 shadow my-5" style="height: 500px;">
-  <div class="col-xl-12 col-lg-12 col-md-12">
-      <div class="card-body p-0">
+<div class="container col-lg-3 col-md-6 col-sm-8 col-xs-10 card o-hidden border-0 shadow my-5" style="height: 500px;">
 
-  <h3>Résultat : {{ score }}/{{ length_list }}</h3>
-</div>
+      <div class="card-body p-0 align-content-center">
+
+  <h3 class="text-center" style="padding:1em;">Résultat : {{ score }}/{{ length_list }}</h3>
+
+        {% for user_answer, right_answer in quiz_answers|zip:RIGHT_ANSWERS_LIST %}
+
+    <div class="row">
+        <div class="col-3">
+            {{ forloop.counter }}
+        </div>
+      {% if user_answer == right_answer %}
+        <div class="col-4">
+            <i style="color: green;"class="fas fa-check"></i>
+        </div>
+        <div class="col-5 " >
+          <p style="color:green;">{{ user_answer }}</p>
+        </div>
+      {% else %}
+        <div class="col-4">
+            <i style="color: red;" class="fas fa-times"></i>
+        </div>
+       <div class="col-5 " style="color:green;">
+           <p><span style="color:red; text-decoration: line-through;">{{ user_answer }}</span>
+               <span style="color:green;">({{ right_answer }})</span></p>
+        </div>
+        {% endif %}
+    </div>
+        {% endfor %}
+
+
+          {% if user.is_authenticated %}
+          <div class="text-center" id="">
+              <form action="{% url 'quiz:save_results' category_id %}" role="form" method="post">
+                  {% csrf_token %}
+                  <button class="save_score_button" type="submit">Enregistrer</button>
+              </form>
+        </div>
+          {% endif %}
+
   </div>
+
+
 </div>
 
 </div>

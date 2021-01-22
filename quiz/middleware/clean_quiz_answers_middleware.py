@@ -1,4 +1,4 @@
-from quiz.views import QuizData
+from quiz.constants import QuizData
 
 
 class CleanQuizAnswerMiddleware:
@@ -16,9 +16,7 @@ class CleanQuizAnswerMiddleware:
         list_view_can_keep_score_list = ['quiz', 'answer', 'score']
         # if url does not contains quiz url keywords, then the user answers are cleared
         if not any(ext in current_url for ext in list_view_can_keep_score_list):
-            print('SENT ANSWER LIST BEFORE CLEAN ' + str(QuizData.SENT_ANSWERS_LIST))
             QuizData.SENT_ANSWERS_LIST.clear()
-            print('DONE')
 
         response = self.get_response(request)
         return response

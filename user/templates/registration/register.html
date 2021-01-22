@@ -5,16 +5,16 @@
 
 {% block content %}
 
+<div class="container-fluid footer_padding index_background">
+
 <div id="content">
   <div class="text-center text-white">
-    <h2 class="page-section">Inscription</h2>
+    <h3 class="page_title_padding">Inscription</h3>
   </div>
-</div>
 
-<div class="container my-auto justify-content-center">
-  <div class="col-xl-12 col-lg-12 col-md-9">
-    <div class="card o-hidden border-0 shadow-lg my-5" >
-      <div class="card-body p-0">
+
+<div class="container col-lg-6 col-md-9 col-sm-10 col-xs-10 my-auto justify-content-center card o-hidden border-0 shadow my-5">
+    <div class="card-body p-0 align-content-center" >
         {% if not  user.is_authenticated %}
           <div class="row">
               <div class="col-lg-12">
@@ -42,6 +42,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 

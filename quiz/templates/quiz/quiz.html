@@ -5,14 +5,14 @@
 
 
 
-<div class="container-fluid footer_padding board_background justify-content-center">
+<div class="container-fluid footer_padding justify-content-center">
 
 <div id="content">
-  <div class="text-center  text-white">
-    <h2 class="page_title_padding">Quiz </h2>
+  <div class="text-center text-white">
+    <h3 class="page_title_padding">Quizz</h3>
   </div>
 
-<div class="container mx-auto card o-hidden border-0 shadow my-5" style="height: 500px;">
+<div class="container mx-auto card o-hidden border-0 shadow my-5" >
   <div class="col-xl-12 col-lg-12 col-md-12">
       <div class="card-body p-0">
 
@@ -20,7 +20,7 @@
            <h2 class="text-center quiz_title_padding">Sélectionnez le bon mot</h2>
 
         <div class="d-flex justify-content-center">
-          <div id="replay_sound" class="text-center quiz_replay_sound ">
+          <div id="replay_sound" class="text-center quiz_replay_sound">
               <i class="far fa-play-circle"></i> Rejouer le son
           </div>
         </div>
@@ -50,10 +50,8 @@
               </div>
               </form>
 
-
-
           <script>
-        var right_answer_place = Math.floor(Math.random() * 2);
+      var right_answer_place = Math.floor(Math.random() * 2);
 
         if (right_answer_place === 0) {
             console.log('is 0');
@@ -61,28 +59,50 @@
             console.log(d);
             d.parentNode.appendChild(d);
         }
-
         </script>
 
-          {% block jquery %}
-          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-          <!-- Web Speech API - text to speech -->
-          <script src="{% static 'js/say.js' %}"></script>
+
+
+          {% block jquery %}
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 
          <script type="text/javascript">
             $(document).ready(function(){
                   say('{{ sound_object.label }}');
+                   $('#next').hide();
+                $('#finish').hide();
                });
 
+
                var audioElement = document.createElement("audio");
+
+
                $('#replay_sound').click(function(){
                  say('{{ sound_object.label }}');
                 });
 
+                $('#answer_1').change(function(){
+                show_button();
+                });
+
+                $('#answer_2').change(function(){
+                show_button();
+                });
+
+                show_button = function() {
+                      $('#next').show();
+                        $('#finish').show();
+                    };
+
+
            </script>
 
+
+
           {% endblock %}
+
 
           {% endfor %}
 
@@ -112,6 +132,17 @@
 
 </div>
 
+{% block scripts %}
+
+    {{ block.super }}
+
+
 <script src="{% static 'js/quiz.js' %}"></script>
+
+
+
+
+{% endblock %}
+
 
 {% endblock %}

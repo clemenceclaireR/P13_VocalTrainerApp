@@ -50,10 +50,9 @@ def simple_vowel_table(request):
     """
 
     vowels_type = ['Pré-fermées', 'Fermées', 'Semi-ouvertes', 'Ouvertes', 'Moyennes']
-    sub_phoneme_types_ids = SubPhonemeType.objects.filter(subtype_name__in=vowels_type).values_list('id', flat=True)
+    sub_phoneme_types_ids = SubPhonemeType.objects.filter(subtype_name__in=vowels_type)\
+        .values_list('id', flat=True)
     vowels = PhonemeInformation.objects.filter(sub_phoneme_type__in=sub_phoneme_types_ids)
     example_words = ExampleWord.objects.all().order_by('label')
-    for v in vowels:
-        print(v)
 
     return render(request, 'api_board/simple_vowel_table.html', locals())

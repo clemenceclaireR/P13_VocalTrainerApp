@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 
 class PhonemeType(models.Model):
@@ -42,25 +41,6 @@ class SubPhonemeType(models.Model):
                                 )
 
 
-# class PhonemeTypeCategory(models.Model):
-#     """
-#     Precise category of the phoneme
-#     """
-#     class Meta:
-#         db_table = 'phoneme_type_category'
-#
-#     label = models.CharField(max_length=254
-#                              , help_text='Phoneme name'
-#                              , db_column='label'
-#                              )
-#     parent_type_id = models.ForeignKey(SubPhonemeType
-#                                      , on_delete=models.CASCADE
-#                                      , help_text='Parent type'
-#                                      , db_column='parent_type_id'
-#                                      , null=True
-#                                      )
-
-
 class PhonemeInformation(models.Model):
     """
     Data about the different phonemes (vowels and consonants)
@@ -83,12 +63,6 @@ class PhonemeInformation(models.Model):
                                          , db_column='sub_phoneme_type_id'
                                          , null=True
                                          )
-    # associated_phoneme_id = models.ForeignKey('self'
-    #                                           , on_delete=models.CASCADE
-    #                                           , help_text='Similar phoneme id'
-    #                                           , db_column='associated_phoneme_id'
-    #                                           , null=True
-    #                                           )
 
 
 class ExampleWord(models.Model):

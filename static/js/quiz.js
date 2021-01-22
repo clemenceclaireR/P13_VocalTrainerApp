@@ -1,6 +1,6 @@
 window.onload = initall;
 var  saveAnswerButton ;
-var  saveAnswerButton2 ;
+
 
 function initall() {
 
