@@ -102,10 +102,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    #  'yourapp.middleware.filter_ip_middleware.FilterIPMiddleware'
     'quiz.middleware.clean_quiz_answers_middleware.CleanQuizAnswerMiddleware',
 ]
-# quiz\middleware\clean_quiz_answers_middleware.py
+
 
 ROOT_URLCONF = 'vocal_trainer.urls'
 
@@ -125,7 +124,7 @@ TEMPLATES = [
             'libraries':{
                 'api_board_tags': 'api_board.templatestags.api_board_tags',
                 'check_if_label_exists': 'minimal_pair.templatestags.check_if_label_exists',
-                'compare_answers': 'quiz.templatestags.compare_answers',
+                'quiz_tools': 'quiz.templatestags.quiz_tools',
 }
         },
     },

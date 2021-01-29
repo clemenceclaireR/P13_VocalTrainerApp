@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load quiz_tools %}
 
 {% block content %}
-
 
 
 <div class="container-fluid footer_padding justify-content-center">
@@ -17,7 +17,7 @@
       <div class="card-body p-0">
 
 
-           <h2 class="text-center quiz_title_padding">Sélectionnez le bon mot</h2>
+           <h4 class="text-center quiz_title_padding">Sélectionnez le bon mot</h4>
 
         <div class="d-flex justify-content-center">
           <div id="replay_sound" class="text-center quiz_replay_sound">
@@ -34,18 +34,20 @@
 
                     <input name="answer" type="radio" id="answer_1" value="{{ sound_object.label }}" class=""
                                style="margin-bottom : 1em; margin-top: 1em; ">
-                     <label for="answer_1">
+                     <label for="answer_1" class="quiz_answer_label">
                          {{ sound_object.label }}
                     </label>
                  </div>
               <div class="radio text-center col-xs-12 col-sm-12 col-md-6 col-lg-6 " id="second_answer"
                    style="padding-bottom: 2em; padding-top:2em;" >
 
-                  <input type="radio" name="answer" id="answer_2" value="{{ sound_object.associated_sound_id.label }}"
+                    {% with associated_sound_label=sound_object.associated_sound_id_id|get_associated_sound_id %}
+                  <input type="radio" name="answer" id="answer_2" value="{{ associated_sound_label }}"
                          style="margin-bottom : 1em; margin-top: 1em; ">
-                  <label for="answer_2">
-                      {{ sound_object.associated_sound_id.label }}
+                  <label for="answer_2" class="quiz_answer_label">
+                      {{ associated_sound_label }}
                      </label>
+                  {% endwith %}
                 </div>
               </div>
               </form>
@@ -54,18 +56,16 @@
       var right_answer_place = Math.floor(Math.random() * 2);
 
         if (right_answer_place === 0) {
-            console.log('is 0');
             var d = document.getElementById('first_answer');
             console.log(d);
             d.parentNode.appendChild(d);
         }
         </script>
 
-
-
-
           {% block jquery %}
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+          <script src="{% static 'js/quiz.js' %}"></script>
 
 
          <script type="text/javascript">
@@ -103,20 +103,19 @@
 
           {% endblock %}
 
-
           {% endfor %}
 
 
           <div class="paginator">
             <div class="form-group">
                 {%  if questions.has_next %}
-                <a href="?page={{ questions.next_page_number }}">
-                    <div class="quiz_next_btn" id="next"><i class="fas fa-angle-double-right fa-lg"></i></div>
+                <a id="next" href="?page={{ questions.next_page_number }}">
+                    <div class="quiz_next_btn" ><i class="fas fa-angle-double-right fa-lg"></i></div>
                 </a>
                 <!-- on click, send result -->
                 {% else %}
                 <a href="{% url 'quiz:score' category_id %}">
-                    <button class="btn form-control btn-success" id="finish">Terminer</button>
+                    <div class="quiz_finish_btn" id="finish">Terminer</div>
                 </a>
                 <!-- on click, send result -->
                 {% endif %}
@@ -132,17 +131,13 @@
 
 </div>
 
-{% block scripts %}
-
-    {{ block.super }}
-
-
-<script src="{% static 'js/quiz.js' %}"></script>
-
-
 
 
 {% endblock %}
+
+{% block scripts %}
+
+    {{ block.super }}
 
 
 {% endblock %}

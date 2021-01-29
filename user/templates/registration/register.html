@@ -7,10 +7,7 @@
 
 <div class="container-fluid footer_padding index_background">
 
-<div id="content">
-  <div class="text-center text-white">
-    <h3 class="page_title_padding">Inscription</h3>
-  </div>
+<div id="content" style="padding-top:5rem;">
 
 
 <div class="container col-lg-6 col-md-9 col-sm-10 col-xs-10 my-auto justify-content-center card o-hidden border-0 shadow my-5">
@@ -22,10 +19,8 @@
                   <div class="text-center">
                     <h2 class="h4 text-gray-900 mb-4">Inscription</h2>
                   </div>
-                  <form action="." method="post">
+                  <form action="{% url 'user:register' %}" method="post">
                     {{ user_form.as_p }}
-
-
                     {% csrf_token %}
                     <p><input type="submit" value="S'inscrire" class="btn btn-primary btn-user btn-block"></p>
                   </form>

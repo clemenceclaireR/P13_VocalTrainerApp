@@ -2,17 +2,16 @@
 
 ## Presentation
 
+### Compatibility
+
+This application uses Mozilla Web Speech API for playing sounds directly from the word written.
+Though its scope or compatibility is quite broad, you can experience some troubles with Opera or 
+Firefox on Linux.
+Its guaranteed to work on Chrome. 
+
 ##Installation
 
 ### Install on Debian 
-
-#### MySQL Database
-You have to run this command before installing 
-__requirements.txt__ file, otherwise __mysqlclient__ library
-installation will fail:
-
-    sudo apt install default-libmysqlclient-dev
-
 
 #### PostgreSQL Database
 
@@ -29,13 +28,15 @@ Run the migrations and migrate command in order to build the tables :
     python manage.py makemigrations    
     python manage.py migrate    
 
-Once your tables ready, insert the data with the script in tools/sql_scripts.
-According to your database, the files contains the command to write in your 
-terminal. For MySQL :
- 
-    mysql -u <user> -p < insert_data_mysql.sql 
-    
-Or, for PostgreSQL:
+
+Then insert data:
     
     psql -U <user> -h localhost -d vocal_trainer -f insert_data_postgres.sql
  You can also copy and paste their content in your application.
+ 
+ 
+### Tests
+ 
+Tests are configured to run on chrome driver. Download the chrome driver
+matching the version currently installed on your computer :
+https://chromedriver.chromium.org/downloads

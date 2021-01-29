@@ -118,7 +118,7 @@
                                     $(window).bind("load", function () {
 
                                         var vowelElement = document.createElement("audio");
-                                        vowelElement.src = "{{ MEDIA_URL }}/vowels_audio/{{ vowel.sound_file_name }}";
+                                        vowelElement.src = "{{ MEDIA_URL }}/phonemes/{{ vowel.sound_file_name }}";
                                         $('#play_{{ vowel.label }}').click(function(){
                                             vowelElement.play();
                                         });

@@ -93,7 +93,7 @@
                                          }
 
                                         var consonantElement = document.createElement("audio");
-                                        consonantElement.src = "{{ MEDIA_URL }}/consonants_audio/{{ phoneme.sound_file_name }}";
+                                        consonantElement.src = "{{ MEDIA_URL }}/phonemes/{{ phoneme.sound_file_name }}";
                                         $('#play_{{ phoneme.label }}').click(function(){
                                             consonantElement.play();
                                         });
