@@ -17,6 +17,7 @@ import dj_database_url
 import sys
 from django.contrib.messages import constants as messages
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -59,8 +60,8 @@ AUTHENTICATION_BACKENDS = [
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-LOGIN_URL = 'login'
+ALLOWED_HOSTS = ['127.0.0.1', ' 139.59.151.115']
+LOGIN_URL = 'user:login'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'api_board:index'
 LOGIN_REDIRECT_URL = 'api_board:index'
@@ -81,7 +82,6 @@ INSTALLED_APPS = [
     'user',
     'debug_toolbar',
 ]
-
 
 
 MESSAGE_TAGS = {
@@ -150,19 +150,6 @@ DATABASES = {
        'PORT': '5432',
     },
 }
-
-# MYSQL
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'vocal_trainer',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

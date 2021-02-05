@@ -2,8 +2,11 @@ import random
 import json
 import time
 from django.core import serializers
+from django.contrib import messages
+from django.views.decorators.cache import never_cache
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
@@ -11,14 +14,15 @@ from minimal_pair.models import MinimalPairInformation, MinimalPairCategory
 from api_board.models import SubPhonemeType, PhonemeType
 from quiz.models import Score
 from django.core.cache import cache
+from django.views.decorators.csrf import csrf_exempt
 
 
+@never_cache
 def quiz(request, category_id):
     """
     Renders quiz page.
     Paginates in order to display one question (sound couple) as a time
     """
-
     page = request.GET.get('page')
 
     # get all the minimal pairs associated to the category sent
@@ -28,7 +32,7 @@ def quiz(request, category_id):
         .values_list('id', flat=True)
 
     # takes only 8 sounds randomly only when quiz is at the beginning
-    # in order to avoid the query to be executed everytime
+    # in order to avoid the query to be executed each time
 
     if page is None:
         random_sound_list = random.sample(list(all_pairs), min(len(all_pairs), 8))
@@ -39,10 +43,10 @@ def quiz(request, category_id):
         # store a random value in order to mix the query
         random_val = random.random()
 
-        request.session['ORIGINAL_QUIZ_QUERY'] = sorted(quiz_query_randomized.values(),
-                                     key=lambda x: random_val)
+        request.session['quiz_query'] = sorted(quiz_query_randomized.values(),
+                                                        key=lambda x: random_val)
 
-    paginator = Paginator(request.session['ORIGINAL_QUIZ_QUERY'], 1)
+    paginator = Paginator(request.session['quiz_query'], 1)
 
     try:
         questions = paginator.page(page)
@@ -61,7 +65,7 @@ def score(request, category_id):
     Display score at the end of the quiz
     """
     # wait for save answer function to finish its job
-    time.sleep(1)
+    time.sleep(2)
     request.session['score'] = 0
     category_id = category_id
 
@@ -72,38 +76,63 @@ def score(request, category_id):
 
     answers_label = []
 
-    for sound_object in request.session['ORIGINAL_QUIZ_QUERY']:
+    for sound_object in request.session['quiz_query']:
         answers_label.append(sound_object['label'])
 
     right_answers_list = list(dict.fromkeys(answers_label))
-    sent_answers_list = request.session["SENT_ANSWER_LIST"]
+    sent_answers_list = request.session["user_answers_list"]
+    user_answers_label = []
+    for data_dict in sent_answers_list:
+        user_answers_label.append(data_dict['answer'])
+
     length_list = len(right_answers_list)
-    print('sent_answer_list ' + str(sent_answers_list))
+    print('just answers ' + str(user_answers_label))
     print('right_answers_list ' + str(right_answers_list))
-    for i in range(len(sent_answers_list)):
-        if sent_answers_list[i] == right_answers_list[i]:
-            request.session['score'] += 1
+
+    for i in range(len(user_answers_label)):
+        try:
+            if user_answers_label[i] == right_answers_list[i]:
+                request.session['score'] += 1
+        except IndexError:
+            message = messages.add_message(request, messages.ERROR,
+                                           'Une erreur est survenue lors de l\'enregistreme,t'
+                                           'des résultats.')
 
     # for display in template
     score = request.session['score']
     return render(request, 'quiz/score.html', locals())
 
 
-@csrf_exempt
 def save_answer(request):
     """
     Get user answer from Ajax and store in into list
+    Each answer is associated with its page in order
+    to get one answer per page.
     """
     if request.method == 'POST':
 
-        print(request.POST.get('answer'))
         answer = request.POST.get('answer')
-        request.session["SENT_ANSWER_LIST"] += [answer]
-        print(request.session["SENT_ANSWER_LIST"])
+        page = request.POST.get('page')
+
+        answer_by_page = {'answer': answer, 'page': page}
+        answers_by_page_list = []
+        answers_by_page_list.append({'answer': answer, 'page': page})
+        request.session["user_answers_list"] = request.session["user_answers_list"][:] + answers_by_page_list.copy()
+        print(request.session["user_answers_list"])
+
+        sent_answers_list = request.session["user_answers_list"]
+        pages_number_list = []
+        for data_dict in sent_answers_list:
+            if not data_dict['page'] in pages_number_list:
+                pages_number_list.append(data_dict['page'])
+            else:
+                sent_answers_list.remove(data_dict)
+
         response = JsonResponse(request.POST.get('answer'), safe=False)
         return response
 
 
+@login_required
 def save_results(request, category_id):
     """
     Store user result with associated minimal

@@ -1,10 +1,37 @@
+console.time("program");
+var script = document.createElement('script');
+script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
+
 window.onload = function() {
 var saveAnswerButton ;
- initall();
+var cookie = document.cookie
+var csrfToken = cookie.substring(cookie.indexOf('=') + 1)
+var audioElement = document.createElement("audio");
+
+$('#next').hide();
+$('#finish').hide();
+
+initall();
+
+$('#answer_1').change(function(){
+     show_button();
+});
+
+$('#answer_2').change(function(){
+    show_button();
+});
+
+$('#replay_sound').click(function(){
+   say(sound);
+});
+
 
 
 function initall() {
-
+    say(sound);
+    placeAnswersRandomly()
     saveAnswerButton=document.getElementById('finish');
     if (saveAnswerButton == null) {
         saveAnswerButton=document.getElementById('next');
@@ -17,49 +44,52 @@ function initall() {
 }
 
 
+
+function hideButtons() {
+     $('#next').hide();
+     $('#finish').hide();
+}
+
+function show_button() {
+     $('#next').show();
+     $('#finish').show();
+}
+
+
 function save_answers() {
     console.log('in save_answer');
-    //document.querySelector('input:radio[name=answer]:checked').value;
     var answer = $("input:radio[name=answer]:checked").val();
+
     console.log('answer ' + answer);
-    //var url = '/save_answer?answer=' + encodeURIComponent(answer);
-    var url = '/save_answer';
-    console.log(url);
-    ajaxPostRequest(url, answer);
+
+    $.ajax({
+      type: "POST",
+      url: "/save_answer",
+      data: {
+        'answer':answer, 'page':page, 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+      },
+      headers: {
+           'X-CSRFToken': csrfToken
+         },
+      dataType: 'json',
+      success: function (data) {
+        console.log("SUCCESS")
+      },
+    }
+    );
+
 }
 
-
-
-function ajaxPostRequest(url, answer) {
-    // POST request treatment and check its response
-    // If okay, send data
-    var req = new XMLHttpRequest();
-
-    req.data = {'answer':answer};
-    req.open('POST', url);
-    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    req.addEventListener('load', function() {
-    console.log('status' + req.status);
-        if ((req.status >= 200 && req.status < 400)) {
-            console.log(req.status);
-        } else {
-            console.error(req.status + " " + req.statusText + " " + url);
+function placeAnswersRandomly() {
+        var right_answer_place = Math.floor(Math.random() * 2);
+        if (right_answer_place === 0) {
+            var d = document.getElementById('first_answer');
+            console.log(d);
+            d.parentNode.appendChild(d);
         }
-    });
-    req.addEventListener('error', function() {
-        console.error("Network failure with URL " + url);
-    });
-
-    req.send("answer="+answer);
-    console.log(req)
-    console.log('answer sent : ' + answer);
-    console.log('data sent');
+    }
 }
 
 
-
-
-
-
-}
+console.timeEnd("program");
 

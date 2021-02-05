@@ -18,7 +18,6 @@ htmlcov/
 /.coverage
 /.coveragerc
 
-
 # prod
 vocal_trainer/settings/production.py
 

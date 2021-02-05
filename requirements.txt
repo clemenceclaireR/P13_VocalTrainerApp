@@ -12,8 +12,6 @@ requests==2.24.0
 django-debug-toolbar==2.2
 whitenoise==5.1.0
 raven==6.10.0
-sentry-sdk==0.17.3
+sentry-sdk==0.19.5
 newrelic==5.18.0.148
 selenium==3.141.0
-#pymysql==0.10.1
-# mysqlclient==2.0.2

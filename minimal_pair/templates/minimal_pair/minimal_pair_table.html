@@ -14,6 +14,7 @@
 
   <div class="text-center text-white">
     <h3 class="page_title_padding">Paires minimales : {{ category.phoneme.label }} // {{ category.associated_phoneme|check_if_label_exists }}</h3>
+
   </div>
 
 <div class="container my-auto justify-content-center card o-hidden border-0 shadow my-5">
@@ -60,21 +61,21 @@
       <div class="row">
           {% for minimal_pair in minimal_pairs %}
           {% if minimal_pair.associated_sound_id.id|divisibleby:2 %}
-            <div class="col-5 text-center">
-                <button  id="play_first_{{ minimal_pair.label }}" class="pair_minimal_btn">
-                    <span id="{{ minimal_pair.label }}_word">{{ minimal_pair.label }}</span>
-                    <span id="{{ minimal_pair.label }}_ipa_word">( {{ minimal_pair.ipa_label }} )</span>
+            <div class="col-5 text-center align-items-center ">
+                <div  id="play_first_{{ minimal_pair.label }}" class="minimal_pair_label">
+                    <span  id="{{ minimal_pair.label }}_word">{{ minimal_pair.label }}</span>
+                    <span  id="{{ minimal_pair.label }}_ipa_word">( {{ minimal_pair.ipa_label }} )</span>
 
-                </button>
+                </div>
             </div>
           <div class="d-flex justify-content-center col-2 align-items-center my-auto"><i class="fas fa-not-equal"></i></div>
           {% else %}
           <div class="col-5 text-center">
-                <button  id="play_second_{{ minimal_pair.label }}" class="pair_minimal_btn">
+                <div  id="play_second_{{ minimal_pair.label }}" class="minimal_pair_label">
                     <!-- templatetag à créer pour gérer les mots qui nécessitent un traitement exceptionnel -->
                     <span id="{{ minimal_pair.label }}_associated_word">{{ minimal_pair.label }}</span>
                     <span id="{{ minimal_pair.label }}_associated_ipa_word">( {{ minimal_pair.ipa_label  }} )</span>
-                </button>
+                </div>
             </div>
           {% endif %}
 
@@ -143,6 +144,7 @@
 
 
 
+
 {% endblock %}
 
 {% block scripts %}
@@ -153,18 +155,20 @@
                $(window).bind("load", function () {
 
                 var phonemeElement = document.createElement("audio");
-                phonemeElement.src = "{{ MEDIA_URL }}/phonemes/{{ category.phoneme.sound_file_name }}";
+                phonemeElement.src = "{{ MEDIA_URL }}phonemes/{{ category.phoneme.sound_file_name }}";
                 $('#play_{{ category.phoneme.label }}').click(function(){
                   phonemeElement.play();
                 });
 
                 var associatedPhonemeElement = document.createElement("audio");
-                if ($('#play_{{ category.associated_phoneme.label }}').length > 0) {
-                  associatedPhonemeElement.src = "{{ MEDIA_URL }}/phonemes/{{ category.associated_phoneme.sound_file_name }}";
+
+                if ('{{ category.associated_phoneme.label }}' !== '') {
+                  associatedPhonemeElement.src = "{{ MEDIA_URL }}phonemes/{{ category.associated_phoneme.sound_file_name }}";
                   $('#play_{{ category.associated_phoneme.label }}').click(function(){
                     associatedPhonemeElement.play();
                   });
                 }
+
 
                 if (!window.speechSynthesis) {
                     $("#warning").style.display = "block";

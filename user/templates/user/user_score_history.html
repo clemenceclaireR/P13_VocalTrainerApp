@@ -5,8 +5,6 @@
 
 {% block content %}
 
-{% if not chosen_cat %}
-  {% with chosen_cat='' %}
 
 
 <div class="container-fluid footer_padding " style="padding-top:5rem;">
@@ -16,15 +14,32 @@
 <div class="container card o-hidden border-0 shadow my-5" style="width=100%;">
     <div class="card-body p-0">
         <div class="row">
-            <div class="col-2 my-auto">
+            <div class="col-2 my-auto score_history_menu" >
+
                 <p><a href="{% url 'user:user_score_history' %}">Tout</a></p>
-                <p><a href="{% url 'user:user_score_history' %}">Consonnes</a></p>
-                <p><a href="{% url 'user:user_score_history' %}">Voyelles </a></p>
+                <p><a href="{% url 'user:user_score_history' consonants.id %}">Consonnes</a></p>
+                <p>Voyelles</p>
+                    <ul id="nav">
+                        <li><a href="{% url 'user:user_score_history' vowels.id %}">Tout</a></li>
+                        <li><a href="{% url 'user:user_score_history' vowels.id simple_vowel.id %}">Voyelles simples</a></li>
+                        <li><a href="{% url 'user:user_score_history' vowels.id diphthong.id %}">Diphtongues</a></li>
+                    </ul>
+
             </div>
+
 
         <div class="col-10">
 
+
+            {% if not type_id is None %}
+              {% if vowel_type is None %}
+                <canvas id="score_chart" data-url="{% url 'user:score_chart' type_id %}"></canvas>
+              {% else %}
+                <canvas id="score_chart" data-url="{% url 'user:score_chart' type_id vowel_type %}"></canvas>
+              {% endif %}
+            {% else %}
             <canvas id="score_chart" data-url="{% url 'user:score_chart' %}"></canvas>
+            {% endif %}
         </div>
         </div>
     </div>
@@ -32,8 +47,6 @@
   </div>
 </div>
 
-{% endwith %}
-{% endif %}
 
   <!-- external load of jquery -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -43,11 +56,13 @@
 
 <script>
 
+
     $(function () {
 
       var $scoreChart = $("#score_chart");
       $.ajax({
-        url: $scoreChart.data("url"),
+        url: $scoreChart.data("url")
+        ,
         success: function (data) {
 
           var ctx = $scoreChart[0].getContext("2d");

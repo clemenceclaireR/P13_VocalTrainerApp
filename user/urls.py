@@ -9,9 +9,11 @@ urlpatterns = [
     path('accounts/logout', auth_views.LogoutView.as_view(), name='logout'),
     path('register', views.register, name='register'),
     path('user_score_history', views.user_score_history, name='user_score_history'),
-    path('user_score_history', views.user_score_history, name='user_score_history'),
+    path('user_score_history/<int:type_id>', views.user_score_history, name='user_score_history'),
+    path('user_score_history/<int:type_id>/<int:vowel_type>', views.user_score_history, name='user_score_history'),
     path('score_chart', views.score_chart, name='score_chart'),
-    path('score_chart/<int:cat>', views.score_chart, name='score_chart'),
+    path('score_chart/<int:type_id>', views.score_chart, name='score_chart'),
+    path('score_chart/<int:type_id>/<int:vowel_type>', views.score_chart, name='score_chart'),
 ]
 
 

@@ -27,7 +27,7 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             message = messages.add_message(request, messages.SUCCESS,
-                                           'Compte enregistré',
+                                           'Compte enregistré. Connectez-vous',
                                            fail_silently=True)
 
             return redirect(reverse('api_board:index'))
@@ -61,34 +61,53 @@ def user_login(request):
     return render(request, 'registration/login.html', locals())
 
 
-def user_score_history(request):
+@login_required
+def user_score_history(request, type_id=None, vowel_type=None):
     """
     User quiz score history
     """
     # get types ids
-    consonant_type = PhonemeType.objects.get(id=1)
-    vowel_type = PhonemeType.objects.get(id=2)
+    consonants = PhonemeType.objects.get(type_name="Consonnes")
+    vowels = PhonemeType.objects.get(type_name="Voyelles")
+    diphthong = SubPhonemeType.objects.get(id=11)
+    simple_vowel = SubPhonemeType.objects.get(id=6)
+    # if type_id:
+    #     sub_phoneme_type = SubPhonemeType.objects.get(phoneme_type=type_id)
 
     return render(request, 'user/user_score_history.html', locals())
 
 
 @login_required
-def score_chart(request):
+def score_chart(request, type_id=None, vowel_type=None):
     """
     Get user score data, takes optional category
     """
     labels = []
     data = []
+    print('type_id '+ str(type_id))
 
     # by default, if no category is chosen, then takes all category
+    if not type_id:
+        queryset = Score.objects.values('score', 'date').filter(user_id=request.user).order_by('date')
+    else:
 
+        phoneme_type = PhonemeType.objects.get(id=type_id)
+        sub_phonemes_types = SubPhonemeType.objects.values_list('id', flat=True).filter(phoneme_type_id=phoneme_type.id)
+        if not vowel_type:
+            minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(sub_phoneme_type_id__in=sub_phonemes_types)
+            queryset = Score.objects.values('score', 'date').filter(Q(user_id=request.user) & Q(minimal_pair_category_id_id__in=minimal_pairs))
+        else:
+            if vowel_type == 11:
+                minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(
+                    sub_phoneme_type_id=vowel_type)
 
-    queryset = Score.objects.values('score', 'date').filter(user_id=request.user).order_by('date')
-
-        # parent_type = PhonemeType.objects.get(id=cat)
-        # sub_type = MinimalPairCategory.objects.values_list('id', flat=True).filter(sub_phoneme_type_id__in=parent_type)
-        # queryset = Score.objects.values('score', 'date').filter(
-        # (Q(user_id=request.user) & Q(minimal_pair_category_id__in=sub_type))).order_by('date')
+            else:
+                vowel_type = PhonemeType.objects.get(type_name="Voyelles")
+                simple_vowels = SubPhonemeType.objects.values_list('id', flat=True).filter(phoneme_type_id=vowel_type.id).excludes(id=11)
+                minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(
+                    sub_phoneme_type_id=simple_vowels)
+            queryset = Score.objects.values('score', 'date').filter(
+                    Q(user_id=request.user) & Q(minimal_pair_category_id__in=minimal_pairs)).order_by('date')
 
     for entry in queryset:
         labels.append(entry['date'])

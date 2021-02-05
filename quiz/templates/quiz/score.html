@@ -24,9 +24,11 @@
                  </div>
           {% endif %}
 
+           {% include 'message.html' %}
+
   <h4 class="text-center" style="padding:1em;">Score : {{ score }}/{{ length_list }}</h4>
 
-        {% for user_answer, right_answer in sent_answers_list|zip:right_answers_list %}
+        {% for user_answer, right_answer in user_answers_label|zip:right_answers_list %}
 
     <div class="row">
         <div class="col-2">

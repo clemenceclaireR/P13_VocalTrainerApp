@@ -1,0 +1,20 @@
+language: python
+python:
+  - '3.7'
+
+before_script:
+  - pip install -r requirements.txt
+
+env: DJANGO_SETTINGS_MODULE="vocal_trainer.settings.travis"
+
+services:
+  - postgresql
+
+script:
+  - coverage run manage.py test
+
+branches:
+  only:
+    - dev
+
+

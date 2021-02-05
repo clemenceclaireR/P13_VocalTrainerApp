@@ -22,8 +22,8 @@ class CleanQuizAnswerMiddleware(SessionMiddleware):
         list_view_can_keep_score_list = ['quiz', 'answer', 'score', 'save']
         # if url does not contains quiz url keywords, then the user answers are cleared
         if not any(ext in current_url for ext in list_view_can_keep_score_list):
-            request.session["SENT_ANSWER_LIST"] = []
-            request.session['ORIGINAL_QUIZ_QUERY'] = []
+            request.session["user_answers_list"] = []
+            request.session['quiz_query'] = []
             request.session['score'] = None
 
         response = self.get_response(request)

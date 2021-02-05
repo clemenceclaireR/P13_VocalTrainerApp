@@ -18,6 +18,7 @@
              <div class=" my-auto justify-content-center ">
                  <div class="row">
                  <div class="mx-auto justify-content-center text-center col-xs-11 col-sm-8 col-md-7 col-lg-6">
+                      {% include 'message.html' %}
                  <form class="" role="form" method="post" action="{% url 'api_board:api_board_menu' %}">
                     {% csrf_token %}
                     <button type="submit" id="api_board_section_button" class="index_btn green" style="width:100%;" >Tableau API</button>
@@ -41,7 +42,7 @@
       </div>
 
 
-</div>
+
 
 
 
