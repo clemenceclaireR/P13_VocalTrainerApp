@@ -9,7 +9,7 @@ from django.test import TestCase
 from django.urls import reverse
 from quiz.models import Score
 from minimal_pair.models import MinimalPairCategory, MinimalPairInformation
-from api_board.models import SubPhonemeType, PhonemeType, PhonemeInformation
+from ipa_board.models import SubPhonemeType, PhonemeType, PhonemeInformation
 
 
 class SeleniumTest(StaticLiveServerTestCase):
@@ -223,5 +223,30 @@ class UserScoreTest(TestCase):
         User wants to access his score page
         """
         self.client.login(username='user1', password='test')
-        response = self.client.get(reverse('user:user_score_history'))
+        response = self.client.get(reverse('user:user_score_history', args=(1,)))
         self.assertEqual(response.status_code, 200)
+
+    def test_score_ajax_request(self):
+        self.client.login(username='user1', password='test')
+        self.client.get(reverse('user:user_score_history'))
+        response = self.client.post('/score_chart', **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_score_ajax_request_with_base_type(self):
+        self.client.login(username='user1', password='test')
+        self.client.get(reverse('user:user_score_history', args=(1,)))
+        response = self.client.post('/score_chart/1', **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_score_ajax_request_with_simple_vowel_subtype(self):
+        self.client.login(username='user1', password='test')
+        self.client.get(reverse('user:user_score_history', args=(1,)))
+        response = self.client.post('/score_chart/2/5', **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_score_ajax_request_with_diphthong_subtype(self):
+        self.client.login(username='user1', password='test')
+        self.client.get(reverse('user:user_score_history', args=(1,)))
+        response = self.client.post('/score_chart/2/11', **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
+        self.assertEqual(response.status_code, 200)
+

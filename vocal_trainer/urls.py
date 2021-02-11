@@ -23,9 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('minimal_pair.urls', namespace='minimal_pair')),
     path('', include('quiz.urls', namespace='quiz')),
-    path('', include('api_board.urls', namespace='api_board')),
+    path('', include('ipa_board.urls', namespace='ipa__board')),
     path('', include('user.urls', namespace='user')),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 # in order to not raise django.urls.exceptions.NoReverseMatch: 'djdt' is not a registered namespace while testing
@@ -35,4 +36,4 @@ if settings.DEBUG or settings.TESTING_MODE:
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
     ]
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

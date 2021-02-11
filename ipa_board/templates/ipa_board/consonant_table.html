@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% load api_board_tags %}
+{% load ipa_board_tags %}
 
 {% block content %}
 
@@ -17,12 +17,12 @@
 </div>
 
 
-<div class="container col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-10 card o-hidden border-0 shadow my-5">
+<div class="container col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-12 card o-hidden border-0 shadow my-5">
 
       <div class="card-body p-0 ">
           <div class="breadcrumbs">
-            <a href="{% url 'api_board:index' %}">Index</a> >
-            <a href="{% url 'api_board:api_board_menu' %}">Menu du tableau API</a>
+            <a href="{% url 'ipa_board:index' %}">Index</a> >
+            <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu du tableau API</a>
               > Consonnes
          </div>
 
@@ -30,14 +30,12 @@
             <div class="col-12">
               {% include 'message.html' %}
                     <p id="warning" style="color:grey;">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-              <div class="p-5">
                 <div class="row">
-                  <div class="col-12">
                       {% for consonant_title in consonants_type %}
-                    <h2 class="subtype_section">{{ consonant_title.subtype_name }} </h2>
+                    <h2 class="subtype_section col-12">{{ consonant_title.subtype_name }} </h2>
 
 
-                        <div class="consonant_sub_group form-inline col-10">
+                        <div class="consonant_sub_group form-inline col-xs-10">
                             {% for phoneme in phoneme_information|class_phoneme:consonant_title.id %}
                             <div class="dropdown">
 
@@ -93,7 +91,7 @@
                                          }
 
                                         var consonantElement = document.createElement("audio");
-                                        consonantElement.src = "{{ MEDIA_URL }}/phonemes/{{ phoneme.sound_file_name }}";
+                                        consonantElement.src = "{{ MEDIA_URL }}phonemes/{{ phoneme.sound_file_name }}";
                                         $('#play_{{ phoneme.label }}').click(function(){
                                             consonantElement.play();
                                         });
@@ -128,8 +126,6 @@
 
 
                       {% endfor %}
-                  </div>
-                </div>
               </div>
             </div>
 

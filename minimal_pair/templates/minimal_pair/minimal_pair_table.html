@@ -20,7 +20,7 @@
 <div class="container my-auto justify-content-center card o-hidden border-0 shadow my-5">
 
     <div class="breadcrumbs" >
-        <a href="{% url 'api_board:index' %}">Index</a> >
+        <a href="{% url 'ipa_board:index' %}">Index</a> >
         <a href="{% url 'minimal_pair:minimal_pair_menu' %}">Paires minimales</a> >
         {% if parent_category.type_name == 'Consonnes' %}
         <a href="{% url 'minimal_pair:minimal_pair_consonant_menu' %}">{{ parent_category.type_name }}</a>
@@ -40,7 +40,7 @@
          <p id="warning" style="color:grey;">Votre navigateur n'est pas compatible avec Web Speech API.</p>
                 <form class="" role="form" method="post" action="{% url 'quiz:quiz' category.id %}">
                     {% csrf_token %}
-                    <button type="submit" id="api_board_section_button" class="index_btn green ">
+                    <button type="submit" id="ipa_board_section_button" class="index_btn green ">
                         S'entraîner</button>
                 </form>
             </div>
@@ -52,7 +52,7 @@
                 {{ category.phoneme.label }}</button>
         </div>
         <div class="d-flex justify-content-center col-2 align-items-center my-auto"><i class="fas fa-not-equal"></i></div>
-                <div class="col-5 text-center">
+        <div class="col-5 text-center">
             <button  id="play_{{ category.associated_phoneme.label }}" class="phoneme_btn red transparent">
                 {{ category.associated_phoneme|check_if_label_exists }}</button>
         </div>
@@ -60,23 +60,27 @@
 
       <div class="row">
           {% for minimal_pair in minimal_pairs %}
+
+          <!-- check if number is even or odd : if even, base sound, else, associated one -->
           {% if minimal_pair.associated_sound_id.id|divisibleby:2 %}
-            <div class="col-5 text-center align-items-center ">
+            <div class="col-xs-12 col-sm-5 text-center align-items-center ">
                 <div  id="play_first_{{ minimal_pair.label }}" class="minimal_pair_label">
                     <span  id="{{ minimal_pair.label }}_word">{{ minimal_pair.label }}</span>
                     <span  id="{{ minimal_pair.label }}_ipa_word">( {{ minimal_pair.ipa_label }} )</span>
 
                 </div>
             </div>
-          <div class="d-flex justify-content-center col-2 align-items-center my-auto"><i class="fas fa-not-equal"></i></div>
+          <div class="d-flex justify-content-center col-xs-12 col-sm-2 align-items-center my-auto"><i class="fas fa-not-equal"></i></div>
           {% else %}
-          <div class="col-5 text-center">
+          <div class="col-xs-12 col-sm-5 text-center" style="padding-bottom: 1.5em;">
                 <div  id="play_second_{{ minimal_pair.label }}" class="minimal_pair_label">
                     <!-- templatetag à créer pour gérer les mots qui nécessitent un traitement exceptionnel -->
                     <span id="{{ minimal_pair.label }}_associated_word">{{ minimal_pair.label }}</span>
                     <span id="{{ minimal_pair.label }}_associated_ipa_word">( {{ minimal_pair.ipa_label  }} )</span>
                 </div>
             </div>
+
+<!--          <hr size="30">-->
           {% endif %}
 
 

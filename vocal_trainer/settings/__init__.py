@@ -63,8 +63,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', ' 139.59.151.115']
 LOGIN_URL = 'user:login'
 LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'api_board:index'
-LOGIN_REDIRECT_URL = 'api_board:index'
+LOGOUT_REDIRECT_URL = 'ipa_board:index'
+LOGIN_REDIRECT_URL = 'ipa_board:index'
 
 
 # Application definition
@@ -78,7 +78,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'minimal_pair',
     'quiz',
-    'api_board',
+    'ipa_board',
     'user',
     'debug_toolbar',
 ]
@@ -122,7 +122,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
             ],
             'libraries':{
-                'api_board_tags': 'api_board.templatestags.api_board_tags',
+                'ipa_board_tags': 'ipa_board.templatestags.ipa_board_tags',
                 'check_if_label_exists': 'minimal_pair.templatestags.check_if_label_exists',
                 'quiz_tools': 'quiz.templatestags.quiz_tools',
 }

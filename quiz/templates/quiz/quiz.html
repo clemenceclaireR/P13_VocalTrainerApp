@@ -21,7 +21,7 @@
 
         <div class="d-flex justify-content-center">
           <div id="replay_sound" class="text-center quiz_replay_sound">
-              <i class="far fa-play-circle"></i> Rejouer le son
+              <i class="far fa-play-circle"></i> Jouer le son
           </div>
         </div>
             {% for sound_object in questions %}
@@ -58,15 +58,21 @@
             <div class="form-group">
                 {%  if questions.has_next %}
                  <!-- on click, send result -->
-                <a id="next" href="?page={{ questions.next_page_number }}">
+                <script type="text/javascript">
+                next_page = "?page={{ questions.next_page_number }}"
+                </script>
+                <div id="next">
                     <div class="quiz_next_btn" ><i class="fas fa-angle-double-right fa-lg"></i></div>
-                </a>
+                </div>
 
                 {% else %}
                 <!-- on click, send result -->
-                <a href="{% url 'quiz:score' category_id %}">
+                <script type="text/javascript">
+                next_page = "{% url 'quiz:score' category_id %}"
+                </script>
+                <div>
                     <div class="quiz_finish_btn" id="finish">Terminer</div>
-                </a>
+                </div>
                 {% endif %}
             </div>
           </div>

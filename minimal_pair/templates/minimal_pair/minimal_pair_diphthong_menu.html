@@ -19,7 +19,7 @@
             <div class="text-center col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <form class="" role="form" method="post" action="{% url 'minimal_pair:minimal_pair_table' minimal_pair.id %}">
                     {% csrf_token %}
-                    <button type="submit" id="api_board_section_button" class="index_btn green col-10">
+                    <button type="submit" id="ipa_board_section_button" class="index_btn green col-10">
                         {{ minimal_pair.phoneme.label }} // {{ minimal_pair.associated_phoneme|check_if_label_exists }}</button>
                 </form>
             </div>

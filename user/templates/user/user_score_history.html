@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% load api_board_tags %}
+{% load ipa_board_tags %}
 
 {% block content %}
 
@@ -60,6 +60,7 @@
     $(function () {
 
       var $scoreChart = $("#score_chart");
+      console.log($scoreChart.data("url"));
       $.ajax({
         url: $scoreChart.data("url")
         ,

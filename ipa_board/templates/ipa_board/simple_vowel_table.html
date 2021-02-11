@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% load api_board_tags %}
+{% load ipa_board_tags %}
 
 {% block content %}
 
@@ -14,19 +14,18 @@
 
 <div class="my-auto justify-content-center o-hidden my-5">
     <div class="row">
-  <div class="col-xl-6 col-lg-8 col-md-10 col-sm-10 col-xs-10 mx-auto">
+  <div class="col-xl-4 col-lg-5 col-md-10 col-sm-10 col-xs-12 mx-auto">
       <div class="card-body p-0">
               {% include 'message.html' %}
           <p id="warning" style="color:grey;">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-              <div class="p-5">
                 <table class="schema_section">
                     <tbody>
                     <tr style="margin: 5em;">
                         <td style=" text-align: center; font-size: 120%;">
                         <div class="breadcrumbs" style="margin-bottom:1.5rem;">
-                        <a href="{% url 'api_board:index' %}">Index</a> >
-                        <a href="{% url 'api_board:api_board_menu' %}">Menu du tableau API</a> >
-                        <a href="{% url 'api_board:vowel_menu' %}">Voyelles</a>
+                        <a href="{% url 'ipa_board:index' %}">Index</a> >
+                        <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu du tableau API</a> >
+                        <a href="{% url 'ipa_board:vowel_menu' %}">Voyelles</a>
                          > Voyelles simples
                         </div>
                             <svg width="100%" height="500px">
@@ -39,71 +38,82 @@
                                 <line x1="45%" y1="2%" x2="66%" y2="86%" stroke="red"/>
                             </svg>
 
-                        {% for vowel in vowels %}
-                      {% if vowel.label == 'i' %}
+                    {% for vowel in vowels %}
 
-                         <div class="dropdown"
-                              style="position: absolute; left: 0%; width: 2.33em; top: 2%; ;">
+                      {% if vowel.label == 'i' %}
+                         <div class="dropdown diagram-letter"
+                              style="position: absolute; left: 0%; width: 2em; top: 6%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
 
                             {% elif vowel.label == 'u' %}
                          <div class="dropdown"
-                              style="position: absolute; left: 90%; width: 2.33em; top: 1%; ;">
+                              style="position: absolute; left: 86%; width: 2em; top: 6%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                              {% elif vowel.label == 'ɪ' %}
-                        <div class="dropdown" style="position: absolute; left: 29%; width: 2.33em; top: 16%; ;">
+                        <div class="dropdown" style="position: absolute; left: 25%; width: 2em; top: 18%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                             {% elif vowel.label == 'ʊ' %}
 
-                        <div class="dropdown" style="position: absolute; left: 69%; width: 1em; top: 16%; ;">
+                        <div class="dropdown" style="position: absolute; left: 67%; width: 2em; top: 18%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                            {% elif vowel.label == 'ə' %}
 
-                        <div class="dropdown" style="position: absolute; left: 51%; width: 2.7em; top: 40%; ;">
+                        <div class="dropdown" style="position: absolute; left: 51%; width: 2em; top: 43%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                            <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                             {% elif vowel.label == 'ɛ' %}
 
-                        <div class="dropdown" style="position: absolute; left: 28%; width: 2.7em; top: 56%; ;">
+                        <div class="dropdown" style="position: absolute; left: 24%; width: 2em; top: 56%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                              <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                             {% elif vowel.label == 'ɜ' %}
 
-                         <div class="dropdown" style="position: absolute; left: 55%; width: 2.7em; top: 56%; ;">
+                         <div class="dropdown" style="position: absolute; left: 55%; width: 2em; top: 56%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                            <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                              {% elif vowel.label == 'ʌ' %}
 
-                         <div class="dropdown" style="position: absolute; left: 83%; width: 2.7em; top: 56%; ;">
+                         <div class="dropdown" style="position: absolute; left: 83%; width: 2em; top: 56%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                              <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                              {% elif vowel.label == 'ɔ' %}
 
-                         <div class="dropdown" style="position: absolute; left: 90%; width: 2.7em; top: 56%; ;">
+                         <div class="dropdown" style="position: absolute; left: 90%; width: 2em; top: 56%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                               <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                              {% elif vowel.label == 'æ' %}
 
-                          <div class="dropdown" style="position: absolute; left: 37%; width: 2.7em; top: 84%; ;">
+                          <div class="dropdown" style="position: absolute; left: 37%; width: 2em; top: 84%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                              <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
                               {% elif vowel.label == 'ɑ' %}
 
-                            <div class="dropdown"style="position: absolute; left: 86%; width: 2.7em; top: 84%; ;">
+                            <div class="dropdown"style="position: absolute; left: 86%; width: 2em; top: 84%;
+                              background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                              <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}" id="collapse_{{ vowel.label }}"
                                data-toggle="dropdown">{{ vowel.label }}</p>
 
@@ -118,7 +128,7 @@
                                     $(window).bind("load", function () {
 
                                         var vowelElement = document.createElement("audio");
-                                        vowelElement.src = "{{ MEDIA_URL }}/phonemes/{{ vowel.sound_file_name }}";
+                                        vowelElement.src = "{{ MEDIA_URL }}phonemes/{{ vowel.sound_file_name }}";
                                         $('#play_{{ vowel.label }}').click(function(){
                                             vowelElement.play();
                                         });
@@ -209,7 +219,6 @@
         </div>
       </div>
   </div>
-</div>
 
 
 

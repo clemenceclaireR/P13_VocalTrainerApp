@@ -6,8 +6,8 @@ __pycache__/*.pyc
 # Migrations
 minimal_pair/migrations/*.py
 !minimal_pair/migrations/__init__.py
-api_board/migrations/*
-!api_board/migrations/__init__.py
+ipa_board/migrations/*
+!ipa_board/migrations/__init__.py
 quiz/migrations/*
 !quiz/migrations/__init__.py
 user/migrations/*

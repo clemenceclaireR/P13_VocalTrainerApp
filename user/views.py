@@ -10,7 +10,7 @@ import datetime
 import uuid
 from quiz.models import Score
 from minimal_pair.models import MinimalPairCategory
-from api_board.models import SubPhonemeType, PhonemeType
+from ipa_board.models import SubPhonemeType, PhonemeType
 from .forms import UserRegistrationForm, LoginForm
 
 
@@ -30,7 +30,7 @@ def register(request):
                                            'Compte enregistré. Connectez-vous',
                                            fail_silently=True)
 
-            return redirect(reverse('api_board:index'))
+            return redirect(reverse('ipa_board:index'))
 
     return render(request, 'registration/register.html', locals())
 
@@ -103,11 +103,13 @@ def score_chart(request, type_id=None, vowel_type=None):
 
             else:
                 vowel_type = PhonemeType.objects.get(type_name="Voyelles")
-                simple_vowels = SubPhonemeType.objects.values_list('id', flat=True).filter(phoneme_type_id=vowel_type.id).excludes(id=11)
+                simple_vowels = SubPhonemeType.objects.values_list('id', flat=True).filter(phoneme_type_id=vowel_type.id).exclude(id=11)
+                print(simple_vowels)
                 minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(
-                    sub_phoneme_type_id=simple_vowels)
+                    sub_phoneme_type_id__in=simple_vowels)
             queryset = Score.objects.values('score', 'date').filter(
                     Q(user_id=request.user) & Q(minimal_pair_category_id__in=minimal_pairs)).order_by('date')
+    print(queryset)
 
     for entry in queryset:
         labels.append(entry['date'])

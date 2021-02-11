@@ -15,7 +15,7 @@
 
       <div class="card-body p-0 align-content-center">
              <div class="breadcrumbs" style="margin-bottom:0.1rem;">
-                 <a href="{% url 'api_board:index' %}">Index</a> >
+                 <a href="{% url 'ipa_board:index' %}">Index</a> >
                  <a href="{% url 'minimal_pair:minimal_pair_menu' %}">Paires minimales</a> >
                  {% if parent_category.type_name == 'Consonnes' %}
         <a href="{% url 'minimal_pair:minimal_pair_consonant_menu' %}">{{ parent_category.type_name }}</a>
