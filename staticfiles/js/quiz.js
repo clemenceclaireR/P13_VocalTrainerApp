@@ -44,7 +44,6 @@ function initall() {
 }
 
 
-
 function hideButtons() {
      $('#next').hide();
      $('#finish').hide();
@@ -60,6 +59,7 @@ function save_answers() {
     console.log('in save_answer');
     var answer = $("input:radio[name=answer]:checked").val();
 
+
     console.log('answer ' + answer);
 
     $.ajax({
@@ -74,6 +74,7 @@ function save_answers() {
       dataType: 'json',
       success: function (data) {
         console.log("SUCCESS")
+        window.location.href = next_page;
       },
     }
     );
