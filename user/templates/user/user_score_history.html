@@ -12,10 +12,17 @@
 <div id="content">
 
 <div class="container card o-hidden border-0 shadow my-5" style="width=100%;">
-    <div class="card-body p-0">
+    <div class="card-body col-12">
         <div class="row">
-            <div class="col-2 my-auto score_history_menu" >
+                <nav class="navbar navbar-light" id="categoryNav">
 
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+           data-target="#navbar" aria-controls="navbar" aria-expanded="false"
+                aria-label="Toggle navigation">
+              <span>Filtrer</span>
+          </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
                 <p><a href="{% url 'user:user_score_history' %}">Tout</a></p>
                 <p><a href="{% url 'user:user_score_history' consonants.id %}">Consonnes</a></p>
                 <p>Voyelles</p>
@@ -24,28 +31,27 @@
                         <li><a href="{% url 'user:user_score_history' vowels.id simple_vowel.id %}">Voyelles simples</a></li>
                         <li><a href="{% url 'user:user_score_history' vowels.id diphthong.id %}">Diphtongues</a></li>
                     </ul>
-
             </div>
+                </nav>
+        </div>
 
 
-        <div class="col-10">
 
-
+            <div style="height:400px;">
             {% if not type_id is None %}
               {% if vowel_type is None %}
-                <canvas id="score_chart" data-url="{% url 'user:score_chart' type_id %}"></canvas>
+                <canvas id="score_chart" data-url="{% url 'user:score_chart' type_id %}" ></canvas>
               {% else %}
                 <canvas id="score_chart" data-url="{% url 'user:score_chart' type_id vowel_type %}"></canvas>
               {% endif %}
             {% else %}
             <canvas id="score_chart" data-url="{% url 'user:score_chart' %}"></canvas>
             {% endif %}
+                </div>
         </div>
         </div>
     </div>
     </div>
-  </div>
-</div>
 
 
   <!-- external load of jquery -->
@@ -79,6 +85,8 @@
               }]          
             },
             options: {
+               responsive: true,
+               maintainAspectRatio: false,
               scales: {
                yAxes: [{
                  ticks: {

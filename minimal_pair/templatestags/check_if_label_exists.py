@@ -33,5 +33,3 @@ def get_phoneme_ipa_letters(label_id):
     sound = MinimalPairInformation.objects.get(id=label_id)
     phoneme_letters = MinimalPairWordPhonemePlace.objects.get(minimal_pair_id=sound.id)
     return phoneme_letters.ipa_letters
-
-

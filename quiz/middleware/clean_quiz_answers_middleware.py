@@ -1,10 +1,4 @@
 from django.contrib.sessions.middleware import SessionMiddleware
-import random
-import json
-import time
-from django.core import serializers
-from django.http import JsonResponse
-from minimal_pair.models import MinimalPairInformation, MinimalPairCategory
 
 
 class CleanQuizAnswerMiddleware(SessionMiddleware):
@@ -28,5 +22,3 @@ class CleanQuizAnswerMiddleware(SessionMiddleware):
 
         response = self.get_response(request)
         return response
-
-

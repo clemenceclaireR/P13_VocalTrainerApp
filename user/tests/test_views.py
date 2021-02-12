@@ -12,7 +12,7 @@ from minimal_pair.models import MinimalPairCategory, MinimalPairInformation
 from ipa_board.models import SubPhonemeType, PhonemeType, PhonemeInformation
 
 
-class SeleniumTest(StaticLiveServerTestCase):
+class UserSeleniumTest(StaticLiveServerTestCase):
     """
     Simulates user behavior on website
     """
@@ -21,7 +21,7 @@ class SeleniumTest(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         options = webdriver.ChromeOptions()
-        # options.add_argument('--headless')
+        options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
@@ -159,10 +159,13 @@ class UserScoreTest(TestCase):
                                              username="user1",
                                              password="test",
                                              )
-        self.phoneme_type1 = PhonemeType.objects.create(id=1, type_name="Consonnes")
-        self.phoneme_type2 = PhonemeType.objects.create(id=2, type_name="Voyelles")
+        self.phoneme_type1 = PhonemeType.objects.create(id=1,
+                                                        type_name="Consonnes")
+        self.phoneme_type2 = PhonemeType.objects.create(id=2,
+                                                        type_name="Voyelles")
 
-        self.sub_phoneme_type1 = SubPhonemeType.objects.create(id=11
+        self.sub_phoneme_type1 = SubPhonemeType.objects.create\
+            (id=11
                                                                , subtype_name="Diphtongues"
                                                                , phoneme_type_id=PhonemeType.objects.get(
                 id=self.phoneme_type2.id).id)

@@ -1,17 +1,14 @@
-import urllib
 from django.shortcuts import render
-from django.db.models import Window, F
-from django.contrib.auth.decorators import user_passes_test
-from django.db.models.functions import Lead
-from .models import MinimalPairCategory, MinimalPairInformation
 from ipa_board.models import SubPhonemeType, PhonemeType
+from .models import MinimalPairCategory, MinimalPairInformation
 
 
 def minimal_pair_menu(request):
     """
     Display minimal pair category menu
     """
-    return render(request, 'minimal_pair/minimal_pair_menu.html', locals())
+    return render(request, 'minimal_pair/minimal_pair_menu.html'
+                  , locals())
 
 
 def minimal_pair_consonant_menu(request):
@@ -23,14 +20,16 @@ def minimal_pair_consonant_menu(request):
         .values_list('id', flat=True)
     minimal_pairs = MinimalPairCategory.objects.filter\
         (sub_phoneme_type_id__in=consonants_type)
-    return render(request, 'minimal_pair/minimal_pair_consonant_menu.html', locals())
+    return render(request, 'minimal_pair/minimal_pair_consonant_menu.html'
+                  , locals())
 
 
 def minimal_pair_vowels_type_menu(request):
     """
     Display vowels menu
     """
-    return render(request, 'minimal_pair/minimal_pair_vowel_menu.html', locals())
+    return render(request, 'minimal_pair/minimal_pair_vowel_menu.html'
+                  , locals())
 
 
 def minimal_pair_diphthong_menu(request):
@@ -42,7 +41,8 @@ def minimal_pair_diphthong_menu(request):
     minimal_pairs = MinimalPairCategory.objects.filter\
         (sub_phoneme_type_id=diphthong_type.id)
 
-    return render(request, 'minimal_pair/minimal_pair_diphthong_menu.html', locals())
+    return render(request, 'minimal_pair/minimal_pair_diphthong_menu.html'
+                  , locals())
 
 
 def minimal_pair_table(request, phoneme):
@@ -59,7 +59,5 @@ def minimal_pair_table(request, phoneme):
     minimal_pairs = MinimalPairInformation.objects.filter\
         (category_id=phoneme).order_by('id')
 
-    return render(request, 'minimal_pair/minimal_pair_table.html', locals())
-
-
-
+    return render(request, 'minimal_pair/minimal_pair_table.html'
+                  , locals())

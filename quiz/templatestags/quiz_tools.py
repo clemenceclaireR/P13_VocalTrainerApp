@@ -1,12 +1,12 @@
 from django import template
-from minimal_pair.models import MinimalPairWordPhonemePlace, MinimalPairInformation
+from minimal_pair.models import MinimalPairInformation
 
 register = template.Library()
 
 
 @register.filter(name='zip')
-def zip_lists(a, b):
-    return zip(a, b)
+def zip_lists(first_list, second_list):
+    return zip(first_list, second_list)
 
 
 @register.filter()

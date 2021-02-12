@@ -4,4 +4,3 @@ from .models import MinimalPairInformation, MinimalPairCategory, MinimalPairWord
 admin.site.register(MinimalPairInformation)
 admin.site.register(MinimalPairCategory)
 admin.site.register(MinimalPairWordPhonemePlace)
-

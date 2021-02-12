@@ -20,10 +20,13 @@ def consonant_table(request):
     """
     Display consonants
     """
-    consonants_type = SubPhonemeType.objects.filter(phoneme_type=1).order_by('order')
-    phoneme_information = PhonemeInformation.objects.all().order_by('id')
+    consonants_type = SubPhonemeType.objects.filter(phoneme_type=1).\
+        order_by('order')
+    phoneme_information = PhonemeInformation.objects.all().\
+        order_by('id')
     example_words = ExampleWord.objects.all().order_by('label')
-    return render(request, 'ipa_board/consonant_table.html', locals())
+    return render(request, 'ipa_board/consonant_table.html',
+                  locals())
 
 
 def vowels_type_menu(request):
@@ -41,7 +44,8 @@ def diphthong_table(request):
     vowels = PhonemeInformation.objects.filter(sub_phoneme_type=11)
     example_words = ExampleWord.objects.all().order_by('label')
 
-    return render(request, 'ipa_board/diphthong_table.html', locals())
+    return render(request, 'ipa_board/diphthong_table.html',
+                  locals())
 
 
 def simple_vowel_table(request):
