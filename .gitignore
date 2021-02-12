@@ -4,14 +4,14 @@ __pycache__/*.pyc
 .idea/
 
 # Migrations
-minimal_pair/migrations/*.py
-!minimal_pair/migrations/__init__.py
-ipa_board/migrations/*
-!ipa_board/migrations/__init__.py
-quiz/migrations/*
-!quiz/migrations/__init__.py
-user/migrations/*
-!user/migrations/__init__.py
+#minimal_pair/migrations/*.py
+#!minimal_pair/migrations/*.py
+#ipa_board/migrations/*
+#!ipa_board/migrations/__init__.py
+#quiz/migrations/*
+#!quiz/migrations/__init__.py
+#user/migrations/*
+#!user/migrations/__init__.py
 
 # test
 htmlcov/
