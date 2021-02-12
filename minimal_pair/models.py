@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from ipa_board.models import PhonemeInformation, SubPhonemeType
 
 

@@ -1,7 +1,4 @@
 import random
-import json
-import time
-from django.core import serializers
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from django.http import JsonResponse
@@ -10,12 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
 from minimal_pair.models import MinimalPairInformation, MinimalPairCategory
 from ipa_board.models import SubPhonemeType, PhonemeType
 from quiz.models import Score
-from django.core.cache import cache
-from django.views.decorators.csrf import csrf_exempt
 
 
 @never_cache
@@ -131,10 +125,12 @@ def save_answer(request):
         answer = request.POST.get('answer')
         page = request.POST.get('page')
 
-        answer_by_page = {'answer': answer, 'page': page}
+        # answer_by_page = {'answer': answer, 'page': page}
         answers_by_page_list = []
         answers_by_page_list.append({'answer': answer, 'page': page})
-        request.session["user_answers_list"] = request.session["user_answers_list"][:] + answers_by_page_list.copy()
+        request.session["user_answers_list"] = \
+            request.session["user_answers_list"][:]\
+            + answers_by_page_list.copy()
         # print(request.session["user_answers_list"])
 
         sent_answers_list = request.session["user_answers_list"]
