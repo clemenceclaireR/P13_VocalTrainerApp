@@ -14,7 +14,6 @@ services:
   - postgresql
 
 script:
-  - python manage.py makemigrations
   - coverage run manage.py test
 
 branches:
