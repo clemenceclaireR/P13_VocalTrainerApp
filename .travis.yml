@@ -8,13 +8,13 @@ before_script:
   - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python3.7.1/bin
   - export CHROME_BIN=chromium-browser
 
-
 env: DJANGO_SETTINGS_MODULE="vocal_trainer.settings.travis"
 
 services:
   - postgresql
 
 script:
+  - python manage.py makemigrations
   - coverage run manage.py test
 
 branches:
