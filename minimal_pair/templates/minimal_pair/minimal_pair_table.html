@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% load check_if_label_exists %}
+{% load minimal_pair_tags %}
 
 {% block content %}
 
@@ -159,7 +159,8 @@
                $(window).bind("load", function () {
 
                 var phonemeElement = document.createElement("audio");
-                phonemeElement.src = "{{ MEDIA_URL }}phonemes/{{ category.phoneme.sound_file_name }}";
+                //phonemeElement.src = "{{ MEDIA_URL }}phonemes/{{ category.phoneme.sound_file_name }}";
+                phonemeElement.src = "{{ category.phoneme.sound_file_name }}";
                 $('#play_{{ category.phoneme.label }}').click(function(){
                   phonemeElement.play();
                 });
@@ -167,7 +168,8 @@
                 var associatedPhonemeElement = document.createElement("audio");
 
                 if ('{{ category.associated_phoneme.label }}' !== '') {
-                  associatedPhonemeElement.src = "{{ MEDIA_URL }}phonemes/{{ category.associated_phoneme.sound_file_name }}";
+                  //associatedPhonemeElement.src = "{{ MEDIA_URL }}phonemes/{{ category.associated_phoneme.sound_file_name }}";
+                  associatedPhonemeElement.src = "{{ category.associated_phoneme.sound_file_name }}";
                   $('#play_{{ category.associated_phoneme.label }}').click(function(){
                     associatedPhonemeElement.play();
                   });

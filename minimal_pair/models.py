@@ -54,6 +54,7 @@ class MinimalPairInformation(models.Model):
                                             , on_delete=models.CASCADE
                                             , help_text='Associated sound'
                                             , db_column='associated_sound_id'
+                                            , null=True
                                             )
     category_id = models.ForeignKey(MinimalPairCategory
                                     , on_delete=models.CASCADE

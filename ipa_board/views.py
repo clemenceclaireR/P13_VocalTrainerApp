@@ -25,6 +25,7 @@ def consonant_table(request):
     phoneme_information = PhonemeInformation.objects.all().\
         order_by('id')
     example_words = ExampleWord.objects.all().order_by('label')
+
     return render(request, 'ipa_board/consonant_table.html',
                   locals())
 

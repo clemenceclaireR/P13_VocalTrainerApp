@@ -123,7 +123,7 @@ TEMPLATES = [
             ],
             'libraries':{
                 'ipa_board_tags': 'ipa_board.templatestags.ipa_board_tags',
-                'check_if_label_exists': 'minimal_pair.templatestags.check_if_label_exists',
+                'minimal_pair_tags': 'minimal_pair.templatestags.minimal_pair_tags',
                 'quiz_tools': 'quiz.templatestags.quiz_tools',
 }
         },
@@ -132,6 +132,8 @@ TEMPLATES = [
 
 # in order to not raise django.urls.exceptions.NoReverseMatch: 'djdt' is not a registered namespace while testing
 TESTING_MODE = 'test' in sys.argv
+
+TEST_RUNNER = 'tests.init_db_test.CustomTestRunner'
 
 WSGI_APPLICATION = 'vocal_trainer.wsgi.application'
 
@@ -150,6 +152,11 @@ DATABASES = {
        'PORT': '5432',
     },
 }
+
+# import sys
+# if 'test' in sys.argv:
+#     DATABASE_ENGINE = 'sqlite3'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
