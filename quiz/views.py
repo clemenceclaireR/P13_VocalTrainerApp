@@ -31,7 +31,8 @@ def quiz(request, category_id):
     # in order to avoid the query to be executed each time
 
     if page is None:
-        random_sound_list = random.sample(list(all_pairs), min(len(all_pairs), 8))
+        random_sound_list = random.sample(list(all_pairs)
+                                          , min(len(all_pairs), 8))
 
         quiz_query_randomized = MinimalPairInformation.objects.filter \
             (id__in=random_sound_list)
@@ -42,10 +43,12 @@ def quiz(request, category_id):
         request.session['quiz_query'] = sorted(quiz_query_randomized.values(),
                                                key=lambda x: random_val)
 
-    try:
-        paginator = Paginator(request.session['quiz_query'], 1)
-    except KeyError:
-        return HttpResponseRedirect(request.path_info + "?page=" + request.GET.get("page", '1'))
+
+    # try:
+    paginator = Paginator(request.session['quiz_query'], 1)
+    # except KeyError:
+    #     return HttpResponseRedirect(request.path_info + "?page="
+    #                                 + request.GET.get("page", '1'))
 
     try:
         questions = paginator.page(page)
@@ -80,6 +83,7 @@ def score(request, category_id):
 
     # retrieve answers and pages sent by user
     user_sent_data = request.session["user_answers_list"]
+    print(request.session["user_answers_list"])
     user_answers_label = []
     for data_dict in user_sent_data:
         user_answers_label.append(data_dict['answer'])
@@ -89,19 +93,16 @@ def score(request, category_id):
     # print('right_answers_list ' + str(right_answers_list))
 
     # check answers integrity and increment user score
-    keep_one_answer_per_page(request, user_answers_label, right_answers_list)
+    count_score(request, user_answers_label, right_answers_list)
 
     # for display in template
     score = request.session['score']
     return render(request, 'quiz/score.html', locals())
 
 
-def keep_one_answer_per_page(request, user_data, original_data):
+def count_score(request, user_data, original_data):
     """
-    Iterates through dict in order to check if
-    an answer has not been sent multiple time to
-    the same page. If an answer has already
-    been given to a page, it is not kept.
+
     """
     for i in range(len(user_data)):
         try:
@@ -109,7 +110,7 @@ def keep_one_answer_per_page(request, user_data, original_data):
                 request.session['score'] += 1
         except IndexError:
             message = messages.add_message(request, messages.ERROR,
-                                           'Une erreur est survenue lors de l\'enregistreme,t'
+                                           'Une erreur est survenue lors de l\'enregistrement'
                                            'des résultats.')
             return message
 
@@ -122,6 +123,7 @@ def save_answer(request):
     """
     if request.method == 'POST':
 
+        print(request.POST)
         answer = request.POST.get('answer')
         page = request.POST.get('page')
 
@@ -131,9 +133,9 @@ def save_answer(request):
         request.session["user_answers_list"] = \
             request.session["user_answers_list"][:]\
             + answers_by_page_list.copy()
-        # print(request.session["user_answers_list"])
 
         sent_answers_list = request.session["user_answers_list"]
+
         pages_number_list = []
         for data_dict in sent_answers_list:
             if not data_dict['page'] in pages_number_list:
@@ -151,9 +153,9 @@ def save_results(request, category_id):
     Store user result with associated minimal
     pair category and current datetime
     """
-    Score.objects.create(
+    print(Score.objects.create(
         score=request.session['score']
         , user_id=User.objects.get(id=request.user.id)
         , minimal_pair_category_id=MinimalPairCategory.objects.get(id=category_id)
-    )
+    ))
     return redirect(reverse('user:user_score_history'))

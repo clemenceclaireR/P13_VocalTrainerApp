@@ -69,10 +69,16 @@ def user_score_history(request, type_id=None, vowel_type=None):
     # get types ids
     consonants = PhonemeType.objects.get(type_name="Consonnes")
     vowels = PhonemeType.objects.get(type_name="Voyelles")
-    diphthong = SubPhonemeType.objects.get(id=11)
-    simple_vowel = SubPhonemeType.objects.get(id=6)
-    # if type_id:
-    #     sub_phoneme_type = SubPhonemeType.objects.get(phoneme_type=type_id)
+    diphthong = SubPhonemeType.objects.get(id=11) # TODO where name = diphtongue
+    simple_vowel = SubPhonemeType.objects.get(id=6) ##
+    # for title location display
+    if type_id:
+        phoneme_type = PhonemeType.objects.get(id=type_id)
+    if vowel_type:
+        if vowel_type == diphthong.id:
+            vowel_subtype = "Diphtongues"
+        else:
+            vowel_subtype = "Voyelles simples"
 
     return render(request, 'user/user_score_history.html', locals())
 
@@ -104,12 +110,10 @@ def score_chart(request, type_id=None, vowel_type=None):
             else:
                 vowel_type = PhonemeType.objects.get(type_name="Voyelles")
                 simple_vowels = SubPhonemeType.objects.values_list('id', flat=True).filter(phoneme_type_id=vowel_type.id).exclude(id=11)
-                print(simple_vowels)
                 minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(
                     sub_phoneme_type_id__in=simple_vowels)
             queryset = Score.objects.values('score', 'date').filter(
                     Q(user_id=request.user) & Q(minimal_pair_category_id__in=minimal_pairs)).order_by('date')
-    print(queryset)
 
     for entry in queryset:
         labels.append(entry['date'])

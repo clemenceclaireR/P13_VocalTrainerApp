@@ -82,6 +82,7 @@
 
                                     {% block jquery %}
 
+
                                      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                                     <script type="text/javascript">
                                     $(document).ready(function(){
@@ -91,7 +92,8 @@
                                          }
 
                                         var consonantElement = document.createElement("audio");
-                                        consonantElement.src = "{{ MEDIA_URL }}phonemes/{{ phoneme.sound_file_name }}";
+                                        //consonantElement.src = "{{ MEDIA_URL }}phonemes/{{ phoneme.sound_file_name }}";
+                                        consonantElement.src = "{{ phoneme.sound_file_name }}";
                                         $('#play_{{ phoneme.label }}').click(function(){
                                             consonantElement.play();
                                         });

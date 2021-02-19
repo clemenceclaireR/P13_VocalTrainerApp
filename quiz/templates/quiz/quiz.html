@@ -61,8 +61,8 @@
                 <script type="text/javascript">
                 next_page = "?page={{ questions.next_page_number }}"
                 </script>
-                <div id="next">
-                    <div class="quiz_next_btn" ><i class="fas fa-angle-double-right fa-lg"></i></div>
+                <div>
+                    <div id="next" class="quiz_next_btn" ><i class="fas fa-angle-double-right fa-lg"></i></div>
                 </div>
 
                 {% else %}
@@ -70,8 +70,8 @@
                 <script type="text/javascript">
                 next_page = "{% url 'quiz:score' category_id %}"
                 </script>
-                <div>
-                    <div class="quiz_finish_btn" id="finish">Terminer</div>
+                <div class="d-flex justify-content-center">
+                    <div id="finish" class="quiz_finish_btn">Terminer</div>
                 </div>
                 {% endif %}
             </div>
