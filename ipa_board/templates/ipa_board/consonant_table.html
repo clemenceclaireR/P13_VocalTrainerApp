@@ -14,133 +14,111 @@
   <div class="text-center text-white">
     <h3 class="page_title_padding">Tableau API : Consonnes</h3>
   </div>
-</div>
 
-
-<div class="container col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-12 card o-hidden border-0 shadow my-5">
-
-      <div class="card-body p-0 ">
-          <div class="breadcrumbs">
-            <a href="{% url 'ipa_board:index' %}">Index</a> >
-            <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu du tableau API</a>
+  <div class="container col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-12 card o-hidden border-0 shadow my-5">
+    <div class="card-body p-0">
+      <div class="breadcrumbs">
+        <a href="{% url 'ipa_board:index' %}">Index</a> >
+        <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu du tableau API</a>
               > Consonnes
-         </div>
+      </div>
 
-        <div class="row">
-            <div class="col-12">
-              {% include 'message.html' %}
-                    <p id="warning" style="color:grey;">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-                <div class="row">
-                      {% for consonant_title in consonants_type %}
-                    <h2 class="subtype_section col-12">{{ consonant_title.subtype_name }} </h2>
+      <div class="row">
+        <div class="col-12">
+          {% include 'message.html' %}
+            <p id="warning" style="color:grey;">Votre navigateur n'est pas compatible avec Web Speech API.</p>
+            <div class="row">
+              {% for consonant_title in consonants_type %}
+                <h2 class="subtype_section col-12">{{ consonant_title.subtype_name }} </h2>
+                  <div class="consonant_sub_group form-inline col-xs-10">
+                    {% for phoneme in phoneme_information|class_phoneme:consonant_title.id %}
+                      <div class="dropdown">
+                        {% if phoneme.label == 'p' or phoneme.label == 'b' or phoneme.label == 's' or phoneme.label == 'z' %}
+                          <p style="color: #ab261a; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}"
+                             id="collapse_{{ phoneme.label }}" data-toggle="dropdown" >{{ phoneme.label }} </p>
 
+                        {% elif phoneme.label == 't' or phoneme.label == 'd'  or phoneme.label == 'ʃ' or phoneme.label == 'ʒ' %}
+                          <p style="color: #3e97b5;" class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}"
+                             id="collapse_{{ phoneme.label }}" data-toggle="dropdown" >{{ phoneme.label }} </p>
 
-                        <div class="consonant_sub_group form-inline col-xs-10">
-                            {% for phoneme in phoneme_information|class_phoneme:consonant_title.id %}
-                            <div class="dropdown">
+                        {% elif phoneme.label == 'k' or phoneme.label == 'g' or phoneme.label == 't̠ʃ' or phoneme.label == 'd̠ʒ' %}
+                          <p style="color: #39994c; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}"
+                             id="collapse_{{ phoneme.label }}" data-toggle="dropdown" >{{ phoneme.label }} </p>
 
-                                {% if phoneme.label == 'p' or phoneme.label == 'b' or phoneme.label == 's' or phoneme.label == 'z' %}
-                            <p style="color: #ab261a; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}" id="collapse_{{ phoneme.label }}"
-                               data-toggle="dropdown" >{{ phoneme.label }} </p>
+                        {% elif phoneme.label == 'f' or phoneme.label == 'v' or phoneme.label == 'n' or phoneme.label == 'ŋ' %}
+                          <p style="color: #b83272; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}"
+                               id="collapse_{{ phoneme.label }}" data-toggle="dropdown" >{{ phoneme.label }} </p>
 
-                                {% elif phoneme.label == 't' or phoneme.label == 'd'  or phoneme.label == 'ʃ' or phoneme.label == 'ʒ' %}
-                            <p style="color: #3e97b5;" class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}" id="collapse_{{ phoneme.label }}"
-                               data-toggle="dropdown" >{{ phoneme.label }} </p>
+                        {% elif phoneme.label == 'θ' or phoneme.label == 'ð' %}
+                          <p style="color: #f09132; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}"
+                               id="collapse_{{ phoneme.label }}" data-toggle="dropdown" >{{ phoneme.label }} </p>
 
-                                 {% elif phoneme.label == 'k' or phoneme.label == 'g' or phoneme.label == 't̠ʃ' or phoneme.label == 'd̠ʒ' %}
-                            <p style="color: #39994c; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}" id="collapse_{{ phoneme.label }}"
-                               data-toggle="dropdown" >{{ phoneme.label }} </p>
+                        {% else %}
+                          <p class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}"
+                             id="collapse_{{ phoneme.label }}" data-toggle="dropdown" >{{ phoneme.label }} </p>
+                        {% endif %}
 
-                             {% elif phoneme.label == 'f' or phoneme.label == 'v' or phoneme.label == 'n' or phoneme.label == 'ŋ' %}
-                            <p style="color: #b83272; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}" id="collapse_{{ phoneme.label }}"
-                               data-toggle="dropdown" >{{ phoneme.label }} </p>
-
-                            {% elif phoneme.label == 'θ' or phoneme.label == 'ð' %}
-                            <p style="color: #f09132; " class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}" id="collapse_{{ phoneme.label }}"
-                               data-toggle="dropdown" >{{ phoneme.label }} </p>
-
-
-                                {% else %}
-
-                                <p class="phoneme_letter_style " data-target="collapse_{{ phoneme.label }}" id="collapse_{{ phoneme.label }}"
-                               data-toggle="dropdown" >{{ phoneme.label }} </p>
-                                {% endif %}
-
-
-                            <div
-                                 class="dropdown-menu card-body p-2" id="dropDownButton_{{ phoneme.label }}"
+                        <div class="dropdown-menu card-body p-2" id="dropDownButton_{{ phoneme.label }}"
                                  aria-labelledby="dropDownButton_{{ phoneme.label }}">
-                                <form>
-                                <p id="quit_cross_{{ phoneme.label }}" class="float-right"><i class="fas fa-times"></i></p>
-                                <p class="info-section-consonant-title">Consonne "{{ phoneme.label }}"</p>
-                                <p id="play_{{ phoneme.label }}" class="listen-button"><i class="fas fa-volume-up"></i>  Ecouter</p>
-                                <p class="info-section-consonant-title">Exemples</p>
-                                    <!-- for ex in example list -->
-                                    {% for example in example_words|examples:phoneme.id %}
+                          <!-- form allows window to be closed by clicking outside -->
+                          <form>
+                            <p id="quit_cross_{{ phoneme.label }}" class="float-right"><i class="fas fa-times"></i></p>
+                            <p class="info-section-consonant-title">Consonne "{{ phoneme.label }}"</p>
+                            <p id="play_{{ phoneme.label }}" class="listen-button"><i class="fas fa-volume-up"></i>
+                                Ecouter</p>
+                            <p class="info-section-consonant-title">Exemples</p>
+                              <!-- for ex in example list -->
+                              {% for example in example_words|examples:phoneme.id %}
+                                <p id="play_{{ example.label }}" class="listen-button"><i class="fas fa-volume-up"></i>
+                                  {{ example.label }}</p>
 
-                                <p id="play_{{ example.label }}" class="listen-button"><i class="fas fa-volume-up"></i> {{ example.label }}</p>
-
-                                    {% block jquery %}
-
-
-                                     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                                  {% block jquery %}
+                                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                                     <script type="text/javascript">
                                     $(document).ready(function(){
 
-                                    if (!window.speechSynthesis) {
-                                       $("#warning").style.display = "block";
-                                         }
+                                      // display message if browser is not compatible with Web Speech Api
+                                      if (!window.speechSynthesis) {
+                                        $("#warning").style.display = "block";
+                                      }
 
-                                        var consonantElement = document.createElement("audio");
-                                        //consonantElement.src = "{{ MEDIA_URL }}phonemes/{{ phoneme.sound_file_name }}";
-                                        consonantElement.src = "{{ phoneme.sound_file_name }}";
-                                        $('#play_{{ phoneme.label }}').click(function(){
-                                            consonantElement.play();
-                                        });
+                                      // play phoneme sound when given consonant is clicked
+                                      var consonantElement = document.createElement("audio");
+                                      consonantElement.src = "{{ phoneme.sound_file_name }}";
+                                      $('#play_{{ phoneme.label }}').click(function(){
+                                        consonantElement.play();
+                                      });
 
-                                        var audioElement = document.createElement("audio");
-                                        $('#play_{{ example.label }}').click(function(){
-                                            say('{{ example.label }}');
-                                            });
+                                      var audioElement = document.createElement("audio");
+                                      $('#play_{{ example.label }}').click(function(){
+                                        say('{{ example.label }}');
+                                      });
+                                    });
 
-                                        });
-
-                                       $('#quit_cross_{{ phoneme.label }}').click(function () {
-                                        $('#collapse_{{ phoneme.label }}').dropdown('toggle');
-                                        })
+                                    // quit dropdown window when cross is clicked
+                                    $('#quit_cross_{{ phoneme.label }}').click(function () {
+                                      $('#collapse_{{ phoneme.label }}').dropdown('toggle');
+                                     })
 
                                     </script>
 
-                                    {% endblock %}
-
-                                    {% endfor %}
-                                </form>
-
-                            </div>
-
-                                </div>
-
-
-
-                            {% endfor %}
+                                  {% endblock %}
+                              {% endfor %}
+                          </form>
                         </div>
-
-
-
-                      {% endfor %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endfor %}
               </div>
             </div>
-
-
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
-
 {% endblock %}
+
 
 {% block scripts %}
 

@@ -152,8 +152,7 @@ DATABASES = {
        'PORT': '5432',
     },
 }
-
-# import sys
+#
 # if 'test' in sys.argv:
 #     DATABASE_ENGINE = 'sqlite3'
 
