@@ -1,0 +1,45 @@
+@startuml
+
+left to right direction
+
+:Utilisateur:
+
+rectangle "Diagramme de cas d'utilisation" {
+usecase Use1 as "Ecouter un phonème"
+Utilisateur --> (Use1)
+
+usecase Use2 as "Consulter la
+section d'information
+ d'un phonème"
+Utilisateur --> (Use2)
+
+usecase Use3 as "S'entraîner à entendre
+ la différence entre
+ deux paires minimales"
+Utilisateur --> (Use3)
+
+usecase Use4 as "Evaluer sa capacité à
+entendre la différence
+ entre deux paires minimales"
+Utilisateur --> (Use4)
+
+usecase Use5 as "Consulter l'historique des scores"
+Utilisateur --> (Use5)
+(Use5) .> (Use6) : include
+
+usecase Use2.1 as "Ecouter des exemples
+ de mots contenant le phonème"
+
+(Use2.1) .> (Use2) : extends
+
+usecase Use4.1 as "Enregistrer son score"
+
+(Use4.1).> (Use4) : extends
+
+usecase Use6 as "S'authentifier"
+
+(Use4.1) .> (Use6) : include
+
+}
+
+@enduml

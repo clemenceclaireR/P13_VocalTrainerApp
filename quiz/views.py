@@ -19,13 +19,13 @@ def quiz(request, category_id):
     Paginates in order to display one question (sound couple) as a time
     """
     page = request.GET.get('page')
-    print(request.path_info)
 
     # get all the minimal pairs associated to the category sent
     category_id = category_id  # in order to send the number to
 
-    all_pairs = MinimalPairInformation.objects.filter(category_id=category_id) \
-        .values_list('id', flat=True)
+    all_pairs = (MinimalPairInformation.objects
+                 .filter(category_id=category_id)
+                 .values_list('id', flat=True))
 
     # takes only 8 sounds randomly only when quiz is at the beginning
     # in order to avoid the query to be executed each time
@@ -34,8 +34,8 @@ def quiz(request, category_id):
         random_sound_list = random.sample(list(all_pairs)
                                           , min(len(all_pairs), 8))
 
-        quiz_query_randomized = MinimalPairInformation.objects.filter \
-            (id__in=random_sound_list)
+        quiz_query_randomized = (MinimalPairInformation.objects
+                                 .filter(id__in=random_sound_list))
 
         # store a random value in order to mix the query
         random_val = random.random()
@@ -43,12 +43,7 @@ def quiz(request, category_id):
         request.session['quiz_query'] = sorted(quiz_query_randomized.values(),
                                                key=lambda x: random_val)
 
-
-    # try:
     paginator = Paginator(request.session['quiz_query'], 1)
-    # except KeyError:
-    #     return HttpResponseRedirect(request.path_info + "?page="
-    #                                 + request.GET.get("page", '1'))
 
     try:
         questions = paginator.page(page)
@@ -70,9 +65,14 @@ def score(request, category_id):
     category_id = category_id
 
     # for template breadcrumbs
-    category = MinimalPairCategory.objects.get(id=category_id)
-    phoneme_category = SubPhonemeType.objects.get(id=category.sub_phoneme_type_id.id)
-    parent_category = PhonemeType.objects.get(id=phoneme_category.phoneme_type_id)
+    category = (MinimalPairCategory.objects
+                .get(id=category_id))
+
+    phoneme_category = (SubPhonemeType.objects
+                        .get(id=category.sub_phoneme_type_id.id))
+
+    parent_category = (PhonemeType.objects
+                       .get(id=phoneme_category.phoneme_type_id))
 
     # retrieve quiz answers label
     quiz_answers_label = []
@@ -83,7 +83,7 @@ def score(request, category_id):
 
     # retrieve answers and pages sent by user
     user_sent_data = request.session["user_answers_list"]
-    print(request.session["user_answers_list"])
+    # print(request.session["user_answers_list"])
     user_answers_label = []
     for data_dict in user_sent_data:
         user_answers_label.append(data_dict['answer'])
@@ -102,17 +102,11 @@ def score(request, category_id):
 
 def count_score(request, user_data, original_data):
     """
-
+    Increments score if user answer is correct
     """
     for i in range(len(user_data)):
-        try:
-            if user_data[i] == original_data[i]:
-                request.session['score'] += 1
-        except IndexError:
-            message = messages.add_message(request, messages.ERROR,
-                                           'Une erreur est survenue lors de l\'enregistrement'
-                                           'des résultats.')
-            return message
+        if user_data[i] == original_data[i]:
+            request.session['score'] += 1
 
 
 def save_answer(request):
@@ -123,11 +117,9 @@ def save_answer(request):
     """
     if request.method == 'POST':
 
-        print(request.POST)
         answer = request.POST.get('answer')
         page = request.POST.get('page')
 
-        # answer_by_page = {'answer': answer, 'page': page}
         answers_by_page_list = []
         answers_by_page_list.append({'answer': answer, 'page': page})
         request.session["user_answers_list"] = \
@@ -143,7 +135,9 @@ def save_answer(request):
             else:
                 sent_answers_list.remove(data_dict)
 
-        response = JsonResponse(request.POST.get('answer'), safe=False)
+        response = JsonResponse(request.POST.get('answer')
+                                , safe=False)
+
         return response
 
 
@@ -153,9 +147,10 @@ def save_results(request, category_id):
     Store user result with associated minimal
     pair category and current datetime
     """
-    print(Score.objects.create(
+    Score.objects.create(
         score=request.session['score']
         , user_id=User.objects.get(id=request.user.id)
-        , minimal_pair_category_id=MinimalPairCategory.objects.get(id=category_id)
-    ))
+        , minimal_pair_category_id=MinimalPairCategory.objects.get
+                                                    (id=category_id)
+    )
     return redirect(reverse('user:user_score_history'))

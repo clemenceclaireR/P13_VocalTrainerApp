@@ -1,7 +1,5 @@
 /* css button */
 
-// The code is a bit of a mess at the moment! Sorry about that.
-
 
 .checkbox input[type="checkbox"] {
     opacity: 0;
@@ -9,8 +7,6 @@
 
 input[type="radio"] {
   display: none;
-
-
 }
 
 
@@ -38,8 +34,24 @@ label {
   cursor: pointer;
 }
 
+.training_button {
+  border: 2px solid hsl(102, 100%, 32%);
+  background-color: #eaffe0;
+  text-align: center;
+  border-radius: 3px;
+  padding: 1rem;
+  margin: 1rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
 .minimal_pair_label:hover {
   font-weight: bold;
+}
+
+.training_button:hover {
+  font-size: 0.90rem;
 }
 
 
@@ -194,7 +206,7 @@ input[type="radio"]:checked + label {
     font-size: 2rem;
     font-weight: 5em;
     line-height: 1;
-    padding: 20px 20px;
+    padding: 25px 25px;
     text-align: center;
     text-decoration: none;
     display:inline-block;
@@ -207,7 +219,6 @@ input[type="radio"]:checked + label {
     -ms-transition: all 0.2s ease-in-out 0s;
      transition: all 0.2s ease-in-out 0s;
      border-radius: .25rem;
-     margin: 1em;
 }
 
 .phoneme_btn:hover {
@@ -378,9 +389,11 @@ input[type="radio"]:checked + label {
     text-decoration: none;
     text-shadow: #000000 1px 0 2px;
 }
-
-.score_history_menu a {
-    color:#000000;
+.score_history_menu {
+  margin-top: 1rem;
+  border: 2px solid black;
+  border-radius: 25% 10%;
+  box-shadow: 10px 10px 2px 1px rgba(0, 0, 255, .1);
 }
 
 .score_history_menu a:hover {
@@ -390,14 +403,17 @@ input[type="radio"]:checked + label {
 }
 
 .score_history_menu ul {
-    list-style:none;
+    color:#000000;
+    list-style: none;
     margin-left:0;
     padding-left:0;
+    display: inline-block;
+
 }
 
-.score_history_menu li {
-    margin-left: 1rem;
-    margin-bottom: 0.5rem;
+.score_history_menu ul li {
+    font-size:0.8rem;
+    list-style: none;
 }
 
 .diagram-letter {
@@ -443,3 +459,14 @@ input[type="radio"]:checked + label {
     width: 45%;
 }
   }
+
+
+@media only screen and (min-width: 800px) {
+  .score_history_menu ul li {
+    font-size:0.8rem;
+    list-style: none;
+    display: inline;
+    padding-right:1em;
+    padding-left:1em;
+   }
+}

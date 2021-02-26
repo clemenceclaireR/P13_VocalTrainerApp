@@ -11,56 +11,40 @@ from ipa_board.models import SubPhonemeType, PhonemeType, \
 
 class IPABoardTest(TestCase):
     """
-
+    Unit tests for IPA board app
     """
-
-    # def setUp(self):
-        # self.consonant_type = PhonemeType.objects.create \
-        #     (id=1, type_name="Consonnes")
-
-        # self.sub_phoneme_type = SubPhonemeType.objects \
-        #     .create(id=1
-        #             , subtype_name="Occlusives"
-        #             , phoneme_type_id=PhonemeType.objects.get(
-        #         id=self.consonant_type.id).id)
-
-        # self.phoneme1 = PhonemeInformation.objects.create(id=1
-        #                                                   , label='p'
-        #                                                   , sound_file_name='p.mp3'
-        #                                                   , sub_phoneme_type_id=SubPhonemeType.objects.get
-        #     (id=self.sub_phoneme_type.id).id)
 
     def test_index_is_accessible(self):
         """
-        Index page returns success http request
+        Index page is returned successfully
         """
-        response = self.client.post(reverse("ipa_board:index"))
+        response = self.client.get(reverse("ipa_board:index"))
         self.assertTrue(response.status_code, 200)
 
     def test_consonant_table_is_accessible(self):
         """
-
+        Consonant table page is returned successfully
         """
-        response = self.client.post(reverse("ipa_board:consonant_table"))
+        response = self.client.get(reverse("ipa_board:consonant_table"))
         self.assertTrue(response.status_code, 200)
 
     def test_simple_vowels_table_is_accessible(self):
         """
-
+        Simple vowel table page is returned successfully
         """
-        response = self.client.post(reverse("ipa_board:simple_vowel_table"))
+        response = self.client.get(reverse("ipa_board:simple_vowel_table"))
         self.assertTrue(response.status_code, 200)
 
     def test_vowels_type_menu_expected_html(self):
         """
-
+        Vowel menu use appropriate template
         """
         response = self.client.get(reverse("ipa_board:vowel_menu"))
         self.assertTemplateUsed(response, 'ipa_board/vowel_menu.html')
 
     def test_ipa_board_menu_expected_html(self):
         """
-
+        IPA board menu use appropriate template
         """
         response = self.client.get(reverse("ipa_board:ipa_board_menu"))
         self.assertTemplateUsed(response, 'ipa_board/menu_selection.html')
@@ -88,26 +72,10 @@ class IPABoardSeleniumTest(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    # def setUp(cls):
-        # cls.vowel_type = PhonemeType.objects.create(id=1, type_name="Voyelles")
-        # cls.diphthong_type = SubPhonemeType.objects.create(id=11,
-        #                                                    subtype_name="Diphtongues",
-        #                                                    phoneme_type_id=PhonemeType.objects.get(
-        #                                                        id=cls.vowel_type.id).id)
-        # cls.phoneme = PhonemeInformation.objects.create(id=1
-        #                                                 , label='eɪ'
-        #                                                 , sound_file_name='eɪ.mp3'
-        #                                                 , sub_phoneme_type_id=SubPhonemeType.objects.get
-        #     (id=cls.diphthong_type.id).id)
-
-        # cls.example = ExampleWord.objects.create(id=1
-        #                                          , label="Late"
-        #                                          , phoneme_id=PhonemeInformation.objects.get
-        #     (id=cls.phoneme.id).id)
-
     def test_diphthong_diagram_display(cls):
         """
-
+        User click on a phoneme in order to open its dropdown
+        window, then clicks on the sound to listen to it
         """
         cls.selenium.get('%s%s' % (cls.live_server_url, '/diphthong_table'))
 

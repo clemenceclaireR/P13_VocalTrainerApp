@@ -8,9 +8,8 @@ from django.test.runner import DiscoverRunner as BaseRunner
 import time
 from django.test import TestCase
 from django.urls import reverse
-# from quiz.models import Score
-# from minimal_pair.models import MinimalPairCategory, MinimalPairInformation
-# from ipa_board.models import SubPhonemeType, PhonemeType, PhonemeInformation
+from quiz.models import Score
+from minimal_pair.models import MinimalPairCategory
 
 
 class UserSeleniumTest(StaticLiveServerTestCase):
@@ -35,11 +34,6 @@ class UserSeleniumTest(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def setUp(cls):
-        cls.user = User.objects.create_user(username="test",
-                                            password="password"
-                                            )
-
     def test_login(cls):
         """
         Takes user to login form with its data
@@ -48,14 +42,17 @@ class UserSeleniumTest(StaticLiveServerTestCase):
         username_input = cls.selenium.find_element_by_name("username")
         username_input.send_keys('test')
         password_input = cls.selenium.find_element_by_name("password")
-        password_input.send_keys('password')
+        password_input.send_keys('test')
         try:
             time.sleep(1)
-            cls.selenium.find_element_by_xpath('//input[@value="Connexion"]').click()
+            cls.selenium.find_element_by_xpath('//input[@value="Connexion"]')\
+                .click()
         except ElementClickInterceptedException:
-            login_button = cls.selenium.find_element_by_xpath('//input[@value="Connexion"]')
+            login_button = cls.selenium.find_element_by_xpath\
+                ('//input[@value="Connexion"]')
             time.sleep(1)
-            ActionChains(cls.selenium).move_to_element_with_offset(login_button, 0, -100).click().perform()
+            ActionChains(cls.selenium).move_to_element_with_offset\
+                (login_button, 0, -100).click().perform()
 
     def test_register_form(cls):
         """
@@ -70,23 +67,20 @@ class UserSeleniumTest(StaticLiveServerTestCase):
         password_input.send_keys('Str0ngP@ssword')
         try:
             time.sleep(1)
-            cls.selenium.find_element_by_xpath('//input[@value="S\'inscrire"]').click()
+            cls.selenium.find_element_by_xpath('//input[@value="S\'inscrire"]')\
+                .click()
         except ElementClickInterceptedException:
-            register_button = cls.selenium.find_element_by_xpath('//input[@value="S\'inscrire"]')
+            register_button = cls.selenium.find_element_by_xpath\
+                ('//input[@value="S\'inscrire"]')
             time.sleep(1)
-            ActionChains(cls.selenium).move_to_element_with_offset(register_button, 0, -100).click().perform()
+            ActionChains(cls.selenium).move_to_element_with_offset\
+                (register_button, 0, -100).click().perform()
 
 
 class LoginTest(TestCase):
     """
-    Login function test
+    Unit tests for User app login
     """
-
-    # def setUp(self):
-    #     self.user = User.objects.create_user(id=1,
-    #                                          username="test",
-    #                                          password="test",
-    #                                          )
 
     def test_login_return_expected_html(self):
         """
@@ -107,7 +101,8 @@ class LoginTest(TestCase):
 
     def test_login_invalid_credentials(self):
         """
-        Login page does not redirects when right credentials is posted
+        Login page does not redirects when wrong
+        credentials is posted
         """
         response = self.client.post(reverse("user:login"), {
             'username': "wrong_user", 'password': 'wrong_password'
@@ -117,14 +112,8 @@ class LoginTest(TestCase):
 
 class UserRegistrationTest(TestCase):
     """
-    Registration function tests
+    Unit tests for User app registration
     """
-
-    # def setUp(self):
-    #     self.user = User.objects.create_user(id=1,
-    #                                          username="user1",
-    #                                          password="test",
-    #                                          )
 
     def test_register_psw_do_not_match(self):
         """
@@ -152,107 +141,77 @@ class UserRegistrationTest(TestCase):
 
 class UserScoreTest(TestCase):
     """
-    Scoring functionalities tests
+    Unit tests for User app scoring
     """
-
-    # def setUp(self):
-        # self.user = User.objects.create_user(id=1,
-        #                                      username="user1",
-        #                                      password="test",
-        #                                      )
-        # self.phoneme_type1 = PhonemeType.objects.create(id=1,
-        #                                                 type_name="Consonnes")
-        # self.phoneme_type2 = PhonemeType.objects.create(id=2,
-        #                                                 type_name="Voyelles")
-        #
-        # self.sub_phoneme_type1 = SubPhonemeType.objects.create \
-        #     (id=11
-        #      , subtype_name="Diphtongues"
-        #      , phoneme_type_id=PhonemeType.objects.get(
-        #         id=self.phoneme_type2.id).id)
-        # self.sub_phoneme_type2 = SubPhonemeType.objects.create(id=6
-        #                                                        , subtype_name="Pré-fermées"
-        #                                                        , phoneme_type_id=PhonemeType.objects.get(
-        #         id=self.phoneme_type2.id).id)
-        # self.phoneme1 = PhonemeInformation.objects.create(id=1
-        #                                                   , label='eɪ'
-        #                                                   , sound_file_name='eɪ.mp3'
-        #                                                   , sub_phoneme_type_id=SubPhonemeType.objects.get
-        #     (id=self.sub_phoneme_type1.id).id)
-        # self.phoneme2 = PhonemeInformation.objects.create(id=2
-        #                                                   , label='aɪ'
-        #                                                   , sound_file_name='aɪ.mp3'
-        #                                                   , sub_phoneme_type_id=SubPhonemeType.objects.get
-        #     (id=self.sub_phoneme_type1.id).id)
-        #
-        # self.minimal_pair = MinimalPairCategory.objects.create(id=1
-        #                                                        , phoneme=PhonemeInformation.objects.get(
-        #         id=self.phoneme1.id)
-        #                                                        , associated_phoneme=PhonemeInformation.objects.get(
-        #         id=self.phoneme2.id)
-        #                                                        , sub_phoneme_type_id=SubPhonemeType.objects.get(
-        #         id=self.sub_phoneme_type1.id)
-        #                                                        )
-        #
-        # self.score1 = Score.objects.create(id=1
-        #                                    , score=6
-        #                                    , user_id=User.objects.get(id=self.user.id)
-        #                                    , minimal_pair_category_id=MinimalPairCategory.objects.get(
-        #         id=self.minimal_pair.id)
-        #                                    )
-        #
-        # self.score2 = Score.objects.create(id=2
-        #                                    , score=4
-        #                                    , user_id=User.objects.get(id=self.user.id)
-        #                                    , minimal_pair_category_id=MinimalPairCategory.objects.get(
-        #         id=self.minimal_pair.id)
-        #                                    )
-        # self.score3 = Score.objects.create(id=3
-        #                                    , score=7
-        #                                    , user_id=User.objects.get(id=self.user.id)
-        #                                    , minimal_pair_category_id=MinimalPairCategory.objects.get(
-        #         id=self.minimal_pair.id)
-        #                                    )
 
     def test_redirect_if_not_logged_in(self):
         """
-        Not authenticated user is redirect when he wants to access score page
+        Not authenticated user is redirect when
+        he tries to access score page
         """
-
         response = self.client.get(reverse('user:user_score_history'))
         self.assertRedirects(response, '/login?next=/user_score_history')
+        self.assertEqual(response.status_code, 302)
 
     def test_view_if_logged_in(self):
         """
-        User wants to access his score page
+        Authenticated user can access his score page
+        when logged in
         """
         self.client.login(username='test', password='test')
         response = self.client.get(reverse('user:user_score_history', args=(1,)))
         self.assertEqual(response.status_code, 200)
 
     def test_score_ajax_request(self):
+        """
+        Base score chart displayed successfully
+        on Ajax request call
+        """
         self.client.login(username='test', password='test')
+        Score.objects.create(
+            score=5
+            , user_id=User.objects.first()
+            , minimal_pair_category_id=MinimalPairCategory.objects.first()
+        )
         self.client.get(reverse('user:user_score_history'))
-        response = self.client.post('/score_chart', **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
+        response = self.client.post('/score_chart'
+                                    , **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
         self.assertEqual(response.status_code, 200)
 
-    def test_score_ajax_request_with_base_type(self):
+    def test_score_ajax_request_with_consonant_type(self):
+        """
+        Consonant score chart displayed successfully
+        on Ajax request call
+        """
         self.client.login(username='test', password='test')
-        self.client.get(reverse('user:user_score_history',  kwargs={'type_id': '1'}))
-        response = self.client.post('/score_chart/1', **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
+        self.client.get(reverse('user:user_score_history'
+                                ,  kwargs={'type_id': '1'}))
+        response = self.client.post('/score_chart/1'
+                                    , **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
         self.assertEqual(response.status_code, 200)
 
     def test_score_ajax_request_with_simple_vowel_subtype(self):
+        """
+        Simple vowel score chart displayed successfully
+        on Ajax request call
+        """
         self.client.login(username='test', password='test')
-        self.client.get(reverse('user:user_score_history',  kwargs={'type_id': '2', 'vowel_type': '5'}))
-        response = self.client.post('/score_chart/2/5',
+        self.client.get(reverse('user:user_score_history'
+                                ,  kwargs={'type_id': '2', 'vowel_type': '6'}))
+        response = self.client.post('/score_chart/2/6',
                                     **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
         self.assertEqual(response.status_code, 200)
 
     def test_score_ajax_request_with_diphthong_subtype(self):
+        """
+        Diphthong score chart displayed successfully
+        on Ajax request call
+        """
         self.client.login(username='test', password='test')
         self.client.get(reverse('user:user_score_history',
                                 kwargs={'type_id': '2', 'vowel_type': '11'}))
         response = self.client.post('/score_chart/2/11',
                                     **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
         self.assertEqual(response.status_code, 200)
+
+

@@ -69,9 +69,11 @@ def user_score_history(request, type_id=None, vowel_type=None):
     # get types ids
     consonants = PhonemeType.objects.get(type_name="Consonnes")
     vowels = PhonemeType.objects.get(type_name="Voyelles")
-    diphthong = SubPhonemeType.objects.get(id=11) # TODO where name = diphtongue
-    simple_vowel = SubPhonemeType.objects.get(id=6) ##
-    # for title location display
+    diphthong = SubPhonemeType.objects.get(subtype_name="Diphtongues")
+    # all vowels which are not diphthongs are simple vowels, so
+    # just one simple vowel subtype is enough
+    simple_vowel = SubPhonemeType.objects.get(subtype_name="Pré-fermées")
+    # for title location display in template
     if type_id:
         phoneme_type = PhonemeType.objects.get(id=type_id)
     if vowel_type:
@@ -86,34 +88,49 @@ def user_score_history(request, type_id=None, vowel_type=None):
 @login_required
 def score_chart(request, type_id=None, vowel_type=None):
     """
-    Get user score data, takes optional category
+    Get user score data, takes optional categories
     """
     labels = []
     data = []
-    print('type_id '+ str(type_id))
 
     # by default, if no category is chosen, then takes all category
     if not type_id:
-        queryset = Score.objects.values('score', 'date').filter(user_id=request.user).order_by('date')
-    else:
+        queryset = (Score.objects.values('score', 'date')
+                    .filter(user_id=request.user)
+                    .order_by('date'))
 
+    else:
         phoneme_type = PhonemeType.objects.get(id=type_id)
-        sub_phonemes_types = SubPhonemeType.objects.values_list('id', flat=True).filter(phoneme_type_id=phoneme_type.id)
+        sub_phonemes_types = (SubPhonemeType.objects.values_list('id', flat=True)
+                              .filter(phoneme_type_id=phoneme_type.id))
+
         if not vowel_type:
-            minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(sub_phoneme_type_id__in=sub_phonemes_types)
-            queryset = Score.objects.values('score', 'date').filter(Q(user_id=request.user) & Q(minimal_pair_category_id_id__in=minimal_pairs))
+            minimal_pairs = (MinimalPairCategory.objects.values_list('id', flat=True)
+                             .filter(sub_phoneme_type_id__in=sub_phonemes_types))
+            queryset = (Score.objects.values('score', 'date')
+                        .filter(Q(user_id=request.user) &
+                                Q(minimal_pair_category_id_id__in=minimal_pairs)))
+
         else:
-            if vowel_type == 11:
-                minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(
-                    sub_phoneme_type_id=vowel_type)
+            vowel_subtype = SubPhonemeType.objects.get(id=vowel_type)
+
+            if vowel_subtype.subtype_name == "Diphtongues":
+                minimal_pairs = (MinimalPairCategory.objects.values_list('id', flat=True)
+                                 .filter(sub_phoneme_type_id=vowel_subtype.id))
 
             else:
                 vowel_type = PhonemeType.objects.get(type_name="Voyelles")
-                simple_vowels = SubPhonemeType.objects.values_list('id', flat=True).filter(phoneme_type_id=vowel_type.id).exclude(id=11)
-                minimal_pairs = MinimalPairCategory.objects.values_list('id', flat=True).filter(
-                    sub_phoneme_type_id__in=simple_vowels)
-            queryset = Score.objects.values('score', 'date').filter(
-                    Q(user_id=request.user) & Q(minimal_pair_category_id__in=minimal_pairs)).order_by('date')
+                simple_vowels = (SubPhonemeType.objects.values_list('id', flat=True)
+                                 .filter(phoneme_type_id=vowel_type.id)
+                                 .exclude(subtype_name="Diphtongues"))
+
+                minimal_pairs = (MinimalPairCategory.objects.values_list('id', flat=True)
+                                 .filter(sub_phoneme_type_id__in=simple_vowels))
+
+            queryset = (Score.objects.values('score', 'date')
+                        .filter(Q(user_id=request.user) &
+                                Q(minimal_pair_category_id__in=minimal_pairs))
+                        .order_by('date'))
 
     for entry in queryset:
         labels.append(entry['date'])

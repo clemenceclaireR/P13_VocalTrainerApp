@@ -1,0 +1,26 @@
+@startuml
+
+header Diagramme de séquence : Quizz
+
+loop pour chaque son dans la liste de son
+    ":Quizz" -> ":Quizz": choisirRéponse()
+alt dernier son de las liste
+":Quizz" -> ":Résultats": voirRésultatsQuiz()
+end
+end
+
+
+loop pour chaque son dans la liste de son
+alt réponse correcte
+    ":Résultats" -> ":Résultats": incrémenterScore()
+end
+end
+
+":Résultats" -> ":Résultats": afficherBonnesEtMauvaisesRéponses()
+
+
+
+opt Authentifié
+":Résultats" -> ":Historique des scores": enregistrerScore()
+end
+@enduml
