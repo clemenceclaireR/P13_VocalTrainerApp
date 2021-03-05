@@ -1,0 +1,50 @@
+@startuml
+
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+skinparam rectangle {
+    roundCorner<<Concept>> 10
+}
+
+rectangle "Computer" <<device>> as "C1" {
+  component "Firefox" <<browser>> {
+    artifact "JS/JQuery" <<artifact>>
+  }
+}
+
+rectangle "Smartphone" <<device>> as "C2" {
+  component "Firefox2" <<browser>> {
+    artifact "JS/JQuery2" <<artifact>>
+  }
+}
+
+rectangle "Tablet" <<device>> as "C3" {
+  component "Firefox3" <<browser>> {
+    artifact "JS/JQuery3" <<artifact>>
+  }
+}
+
+rectangle "Virtual Private Server Debian 10" as "VPS" {
+  component Gunicorn <<HTTPServer>>
+  component Nginx <<HTTPServer>>
+  component VocalTrainerApp <<artifact>> {
+  component Django
+  component Python3.8
+  }
+  database Postgres {
+  artifact Table0
+  }
+}
+
+VPS -right- C1
+VPS -right- C2
+VPS -right- C3
+
+Gunicorn -[hidden]-> Nginx
+Nginx -[hidden]- VocalTrainerApp
+VocalTrainerApp -[hidden]- Postgres
+Django -[hidden]-> Python3.8
+
+
+
+@enduml

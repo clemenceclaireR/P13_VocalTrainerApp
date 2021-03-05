@@ -16,7 +16,9 @@
     <div class="row">
       <div class="col-xl-4 col-lg-5 col-md-10 col-sm-10 col-xs-12 mx-auto">
         <div class="card-body p-0">
-          <p id="warning" style="color:grey;">Votre navigateur n'est pas compatible avec Web Speech API.</p>
+          <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
+          <p id="warning_voices">Votre système ne semble pas être doté de voix disponible
+              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
             {% include 'message.html' %}
               <table class="schema_section">
                 <tbody>
@@ -195,12 +197,11 @@
    </div>
 </div>
 
-
-
 {% endblock %}
 
 {% block scripts %}
-
+    <script type="text/javascript" src="{% static 'js/WSA_incompatibility.js' %}"></script>
+    <script type="text/javascript">verify_WSA_compatibility()</script>
     {{ block.super }}
 
 {% endblock %}

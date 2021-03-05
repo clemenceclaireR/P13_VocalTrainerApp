@@ -1,0 +1,20 @@
+@startuml
+
+() "User sessions" as US
+() "Sound recognition quiz" as SRQ
+() "IPA phoneme consultation" as IPA
+() "Minimal pair recognition" as MPR
+
+
+frame "<< subsystem >> Presentation " <<internal structure>>{
+   [Authentification] -left- US
+   [Quiz] -left-  SRQ
+   [IPA Board] -left- IPA
+   [Minimal pairs] -left- MPR
+
+  [Authentification] -[hidden]-> [Quiz]
+  [Quiz] -[hidden]-> [IPA Board]
+  [IPA Board] -[hidden]-> [Minimal pairs]
+}
+
+@enduml

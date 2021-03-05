@@ -15,7 +15,9 @@
 <div class="container mx-auto card o-hidden border-0 shadow my-5" >
   <div class="col-xl-12 col-lg-12 col-md-12">
       <div class="card-body p-0">
-
+        <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
+        <p id="warning_voices">Votre système ne semble pas être doté de voix disponible
+              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
 
            <h4 class="text-center quiz_title_padding">Sélectionnez le bon mot</h4>
 
@@ -103,7 +105,8 @@
 
 {% block scripts %}
 
-
+    <script type="text/javascript" src="{% static 'js/WSA_incompatibility.js' %}"></script>
+    <script type="text/javascript">verify_WSA_compatibility()</script>
     {{ block.super }}
 
 

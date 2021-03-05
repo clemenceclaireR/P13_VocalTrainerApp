@@ -16,8 +16,7 @@ def minimal_pair_consonant_menu(request):
     Display page where user choose a type of minimal
     pair belonging to the consonants category
     """
-    consonant_type = PhonemeType.objects.get(type_name="Consonnes"
-                                             )
+    consonant_type = PhonemeType.objects.get(type_name="Consonnes")
     consonants_subtypes = (SubPhonemeType.objects
                            .filter(phoneme_type=consonant_type.id)
                            .values_list('id', flat=True))
@@ -47,6 +46,23 @@ def minimal_pair_diphthong_menu(request):
                      .filter(sub_phoneme_type_id=diphthong_type.id))
 
     return render(request, 'minimal_pair/minimal_pair_diphthong_menu.html'
+                  , locals())
+
+
+def minimal_pair_simple_vowel_menu(request):
+    """
+    Display page where user choose a type of
+    minimal pair belonging to the simple vowel category
+    """
+    vowel_type = PhonemeType.objects.get(type_name="Voyelles")
+    simple_vowel_types = (SubPhonemeType.objects
+                           .filter(phoneme_type=vowel_type.id)
+                           .values_list('id', flat=True)
+                          .exclude(subtype_name="Diphtongues"))
+    minimal_pairs = (MinimalPairCategory.objects
+                     .filter(sub_phoneme_type_id__in=simple_vowel_types))
+
+    return render(request, 'minimal_pair/minimal_pair_simple_vowel_menu.html'
                   , locals())
 
 
