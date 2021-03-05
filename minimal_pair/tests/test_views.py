@@ -45,6 +45,16 @@ class MinimalPairTest(TestCase):
         self.assertTemplateUsed(response, 'minimal_pair/minimal_pair_diphthong_menu.html')
         self.assertTrue(response.status_code, 200)
 
+    def test_minimal_pair_simple_simple_vowel_menu_return_expected_html(self):
+        """
+        Minimal pair simple vowels menu is returned
+        successfully with its associated template
+        """
+        response = self.client.get(reverse('minimal_pair:minimal_pair_simple_vowel_menu'))
+        self.assertTemplateUsed(response, 'minimal_pair/minimal_pair_simple_vowel_menu.html')
+        self.assertTrue(response.status_code, 200)
+
+
     def test_minimal_pair_table_return_expected_html(self):
         """
         Phoneme associated minimal pair menu table

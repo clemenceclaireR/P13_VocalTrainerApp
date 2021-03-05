@@ -10,6 +10,8 @@ urlpatterns = [
          , name='minimal_pair_vowels_type_menu'),
     path('minimal_pair_diphthong_menu', views.minimal_pair_diphthong_menu
          , name='minimal_pair_diphthong_menu'),
+    path('minimal_pair_simple_vowel_menu', views.minimal_pair_simple_vowel_menu
+         , name='minimal_pair_simple_vowel_menu'),
     path('minimal_pair_menu', views.minimal_pair_menu
          , name='minimal_pair_menu'),
     path('minimal_pair_table/<int:phoneme>', views.minimal_pair_table

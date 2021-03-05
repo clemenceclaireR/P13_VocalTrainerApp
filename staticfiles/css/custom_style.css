@@ -346,8 +346,8 @@ input[type="radio"]:checked + label {
 }
 
 .page_title_padding {
-  padding-top: 4em;
-  padding-bottom: 2em;
+  margin-top: 4em;
+  margin-bottom: 2em;
 }
 
 .quiz_title_padding {
@@ -371,11 +371,11 @@ input[type="radio"]:checked + label {
   padding-left: 1.5rem;
 }
 
-#warning {
-  color: red;
+#warning_browser, #warning_voices {
   display: none;
-  font-size: 1.4rem;
+  color:grey;
 }
+
 
 .save_score_button {
     color:#000000;
@@ -448,7 +448,7 @@ input[type="radio"]:checked + label {
 
 @media only screen and (max-width: 600px) {
   .page_title_padding {
-     padding: 1em;
+     margin-top: 2.5em;
      font-size: 1.75em;
   }
 }

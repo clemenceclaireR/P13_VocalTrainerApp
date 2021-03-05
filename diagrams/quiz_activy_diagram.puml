@@ -1,0 +1,23 @@
+@startuml
+
+title Diagramme d'activité : Quizz
+
+start
+
+:Débuter le quizz;
+
+repeat
+  :Choisir l'une des deux réponses lorsque le son est joué;
+repeat while (Dernière question ?) is (no)
+
+:Consulter le score;
+
+if (Utilisateur authentifié?) then (yes)
+   :Enregistrer score;
+   stop
+
+else (non)
+  stop
+
+
+@enduml

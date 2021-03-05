@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import  HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Sum, Q
 from django.http import JsonResponse
-from django.db.models import F, Func, Value, CharField
-import datetime
-import uuid
-from quiz.models import Score
-from minimal_pair.models import MinimalPairCategory
 from ipa_board.models import SubPhonemeType, PhonemeType
 from .forms import UserRegistrationForm, LoginForm
+from .utils import get_all_score, get_sub_phoneme_types,\
+    get_filtered_score, get_diphthong_pairs\
+    , get_simple_vowels_pairs, get_filtered_vowels_score
 
 
 def register(request):
@@ -95,42 +92,26 @@ def score_chart(request, type_id=None, vowel_type=None):
 
     # by default, if no category is chosen, then takes all category
     if not type_id:
-        queryset = (Score.objects.values('score', 'date')
-                    .filter(user_id=request.user)
-                    .order_by('date'))
+        queryset = get_all_score(request)
 
     else:
-        phoneme_type = PhonemeType.objects.get(id=type_id)
-        sub_phonemes_types = (SubPhonemeType.objects.values_list('id', flat=True)
-                              .filter(phoneme_type_id=phoneme_type.id))
+        sub_phonemes_types = get_sub_phoneme_types(phoneme_type_id=type_id)
 
         if not vowel_type:
-            minimal_pairs = (MinimalPairCategory.objects.values_list('id', flat=True)
-                             .filter(sub_phoneme_type_id__in=sub_phonemes_types))
-            queryset = (Score.objects.values('score', 'date')
-                        .filter(Q(user_id=request.user) &
-                                Q(minimal_pair_category_id_id__in=minimal_pairs)))
+            queryset = get_filtered_score(request, sub_phonemes_types)
 
         else:
-            vowel_subtype = SubPhonemeType.objects.get(id=vowel_type)
+            vowel_subtype = (SubPhonemeType
+                             .objects
+                             .get(id=vowel_type))
 
             if vowel_subtype.subtype_name == "Diphtongues":
-                minimal_pairs = (MinimalPairCategory.objects.values_list('id', flat=True)
-                                 .filter(sub_phoneme_type_id=vowel_subtype.id))
+                minimal_pairs = get_diphthong_pairs(vowel_subtype)
 
             else:
-                vowel_type = PhonemeType.objects.get(type_name="Voyelles")
-                simple_vowels = (SubPhonemeType.objects.values_list('id', flat=True)
-                                 .filter(phoneme_type_id=vowel_type.id)
-                                 .exclude(subtype_name="Diphtongues"))
+                minimal_pairs = get_simple_vowels_pairs()
 
-                minimal_pairs = (MinimalPairCategory.objects.values_list('id', flat=True)
-                                 .filter(sub_phoneme_type_id__in=simple_vowels))
-
-            queryset = (Score.objects.values('score', 'date')
-                        .filter(Q(user_id=request.user) &
-                                Q(minimal_pair_category_id__in=minimal_pairs))
-                        .order_by('date'))
+            queryset = get_filtered_vowels_score(request, minimal_pairs)
 
     for entry in queryset:
         labels.append(entry['date'])
