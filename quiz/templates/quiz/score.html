@@ -6,96 +6,110 @@
 
 <div class="container-fluid justify-content-center">
 
-<div id="content">
-  <div class="text-center text-white">
-    <h3 class="page_title_padding">Résultats</h3>
-  </div>
-
-<div class="container col-lg-4 col-md-7 col-sm-8 col-xs-10 card o-hidden border-0 shadow my-5">
-
-      <div class="card-body p-0 align-content-center">
-
-        <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-        <p id="warning_voices">Votre système ne semble pas être doté de voix disponible
-              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
-
-             <div class="breadcrumbs" style="margin-bottom:0.1rem;">
-                 <a href="{% url 'ipa_board:index' %}">Index</a> >
-                 <a href="{% url 'minimal_pair:minimal_pair_menu' %}">Paires minimales</a> >
-                 {% if parent_category.type_name == 'Consonnes' %}
-        <a href="{% url 'minimal_pair:minimal_pair_consonant_menu' %}">{{ parent_category.type_name }}</a>
-        {% else %}
-            <a href="">{{ parent_category.type_name }}</a> <!-- voyelles --> >
-                 </div>
-          {% endif %}
-
-           {% include 'message.html' %}
-
-  <h4 class="text-center" style="padding:1em;">Score : {{ score }}/{{ length_list }}</h4>
-
-        {% for user_answer, right_answer in user_answers_label|zip:right_answers_list %}
-
-    <div class="row">
-        <div class="col-2">
-            <p style="font-size:1.5em;">{{ forloop.counter }}</p>
-        </div>
-      {% if user_answer == right_answer %}
-        <div class="col-2">
-            <i style="color: green; font-size:1.3em;" class="fas fa-check"></i>
-        </div>
-        <div class="col-5 " >
-          <p class="score_answer" id="user_right_answer_{{ user_answer }}" style="color:green; font-size:1.5em;">{{ user_answer }}</p>
-        </div>
-      {% else %}
-        <div class="col-2">
-            <i style="color: red; font-size:1.3em;" class="fas fa-times"></i>
-        </div>
-       <div class="col-5 " style="color:green; ">
-           <p >
-               <span class="score_answer" id="user_wrong_answer_{{ user_answer }}" style="color:red; text-decoration: line-through;">
-                   {{ user_answer }}</span>
-               <span class="score_answer" id="right_answer_{{ right_answer }}" style="color:green;">({{ right_answer }})</span>
-           </p>
-        </div>
-        {% endif %}
+  <div id="content">
+    <div class="text-center text-white">
+      <h3 class="page_title_padding">Résultats</h3>
     </div>
 
-                  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-          <script type="text/javascript">
+    <div class="container col-lg-4 col-md-7 col-sm-8 col-xs-10 card-font o-hidden border-0 shadow my-5">
+      <div class="card-body p-0 align-content-center">
+        <p id="warning_browser">Votre navigateur ne semble pas être compatible avec Web Speech API.</p>
+        <p id="warning_voices">Votre système n'est peut-être pas être doté de voix disponible
+              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
 
+        <div class="breadcrumbs" style="margin-bottom:0.1rem;">
+          <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
+          <a href="{% url 'minimal_pair:minimal_pair_menu' %}">Paires minimales</a> >
+          {% if parent_category.type_name == 'Consonnes' %}
+            <a href="{% url 'minimal_pair:minimal_pair_consonant_menu' %}">
+                {{ parent_category.type_name }}
+            </a>
+          {% else %}
+            <!-- voyelles -->
+            <a href="{% url 'minimal_pair:minimal_pair_vowels_type_menu' %}">
+                {{ parent_category.type_name }}
+            </a>  >
+            {% if parent_category.type_name == 'Voyelles' and phoneme_category.subtype_name == 'Diphtongues' %}
+              <!-- diphthongues -->
+              <a href="{% url 'minimal_pair:minimal_pair_diphthong_menu' %}">
+                  {{ phoneme_category.subtype_name }}
+              </a>
+            {% else %}
+              <!-- voyelles simples -->
+              <a href="{% url 'minimal_pair:minimal_pair_simple_vowel_menu' %}">Voyelles simples</a>
+            {% endif %}
+          {% endif %}
+        </div>
 
-           var audioElement = document.createElement("audio");
-                 $('#user_right_answer_{{ user_answer }}').click(function(){
-                    say('{{ user_answer }}');
-                     });
-                    $('#user_wrong_answer_{{ user_answer }}').click(function(){
-                    say('{{ user_answer }}');
-                     });
-                     $('#right_answer_{{ right_answer }}').click(function(){
-                    say('{{ right_answer }}');
-                     });
-                     </script>
+        {% include 'message.html' %}
 
-        {% endfor %}
+        <h4 class="text-center" style="padding:1em;">Score : {{ score }}/{{ length_list }}</h4>
+
+          {% for user_answer, right_answer in user_answers_label|zip:right_answers_list %}
+
+            <div class="row">
+              <div class="col-2">
+                <p style="font-size:1.5em;">{{ forloop.counter }}</p>
+              </div>
+              {% if user_answer == right_answer %}
+                <div class="col-2">
+                  <i style="color: green; font-size:1.3em;" class="fas fa-check"></i>
+                </div>
+                <div class="col-5 " >
+                  <p class="score_answer" id="user_right_answer_{{ user_answer }}"
+                     style="color:green; font-size:1.5em;">{{ user_answer }}</p>
+                </div>
+              {% else %}
+                <div class="col-2">
+                  <i style="color: red; font-size:1.3em;" class="fas fa-times"></i>
+                </div>
+                <div class="col-5 " style="color:green; ">
+                  <p>
+                    <span class="score_answer" id="user_wrong_answer_{{ user_answer }}"
+                          style="color:red; text-decoration: line-through;">
+                     {{ user_answer }}
+                    </span>
+                    <span class="score_answer" id="right_answer_{{ right_answer }}"
+                          style="color:green;">({{ right_answer }})</span>
+                  </p>
+                </div>
+              {% endif %}
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script type="text/javascript">
+
+              var audioElement = document.createElement("audio");
+              $('#user_right_answer_{{ user_answer }}').click(function(){
+                say('{{ user_answer }}');
+              });
+
+              $('#user_wrong_answer_{{ user_answer }}').click(function(){
+                say('{{ user_answer }}');
+              });
+
+              $('#right_answer_{{ right_answer }}').click(function(){
+                say('{{ right_answer }}');
+               });
+            </script>
+
+          {% endfor %}
 
 
           {% if user.is_authenticated %}
-          <div class="text-center" id="">
+            <div class="text-center" id="">
               <form action="{% url 'quiz:save_results' category_id %}" role="form" method="post">
                   {% csrf_token %}
-
-                  <button class="save_score_button quiz_finish_btn" type="submit">Enregistrer</button>
+                  <button class="save_score_button quiz_finish_btn"
+                          type="submit">Enregistrer
+                  </button>
               </form>
-        </div>
+            </div>
           {% endif %}
 
+      </div>
+    </div>
   </div>
-
-
-</div>
-
-</div>
-
 </div>
 
 {% endblock %}
@@ -103,6 +117,5 @@
 {% block scripts %}
 
     {{ block.super }}
-
 
 {% endblock %}
