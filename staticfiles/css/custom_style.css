@@ -18,7 +18,7 @@ label {
   display: block;
   background: white;
   border: 2px solid hsl(208, 36.1%, 32.5%);
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 1rem;
   text-align: center;
   box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);
@@ -28,22 +28,24 @@ label {
 .minimal_pair_label {
   border: 2px solid hsl(195, 22%, 45%);
   text-align: center;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 1rem;
   margin: 1rem;
   cursor: pointer;
+  background-color: rgb(48, 63, 77, 0.6);
+  color: white;
 }
 
 .training_button {
-  border: 2px solid hsl(102, 100%, 32%);
-  background-color: #eaffe0;
+  border: 2px solid black;
+  background-color: #1f478c;
   text-align: center;
-  border-radius: 3px;
   padding: 1rem;
   margin: 1rem;
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: bold;
+  color: white;
 }
 
 .minimal_pair_label:hover {
@@ -51,7 +53,7 @@ label {
 }
 
 .training_button:hover {
-  font-size: 0.90rem;
+  background-color : #0f2140;
 }
 
 
@@ -98,8 +100,7 @@ input[type="radio"]:checked + label {
 }
 
 .quiz_next_btn {
-    background:#db9c97;
-    color: white;
+    color: #160b54
     padding: 1rem;
     margin-bottom: 2em;
     width: 8%;
@@ -108,35 +109,28 @@ input[type="radio"]:checked + label {
     font-size: 1.5 em;
     font-weight: 600;
     text-align: center;
-    border-radius: .30rem;
-    border: 2px solid #936d6d;
 }
 
-/*
-
-.minimal_pair_label {
-  border: 2px solid hsl(195, 22%, 45%);
-  text-align: center;
-  border-radius: 20px;
-  padding: 1rem;
-  margin: 1rem;
-  cursor: pointer;
+.quiz_next_btn:hover {
+  color: #7d7b8a;
 }
-*/
 
-.quiz_finish_btn {
-    background:rgb(194, 255, 210, 0.5);
-      border: 2px solid #498f21;
+
+.quiz_finish_btn, .save_score_button {
+  background:rgb(28, 156, 51, 0.5);
+  /*border: 2px solid #498f21;*/
   text-align: center;
-  border-radius: 20px;
+  /*border-radius: 10px;*/
   padding: 1rem;
   margin: 1rem;
   cursor: pointer;
   font-size: 1.25rem;
   width : 80%;
+  font-variant: small-caps;
+  border: 2px solid transparent;
 }
 
-.quiz_finish_btn:hover {
+.quiz_finish_btn:hover, .save_score_button:hover {
     font-weight: bold;
 }
 
@@ -241,13 +235,20 @@ input[type="radio"]:checked + label {
 
 
 .green {
-    background:#10bc98;
+    background:#7abfaa;
     color: #000000;
-    box-shadow: 0 3px 0 #0c8d72;
+    font-variant: small-caps;
+    width:100%;
 }
+
+.minimal_pair_menu_button {
+  font-variant: normal;
+}
+
 .green:hover{
     background:#13d7ae;
 }
+
 .green:active, .green:focus{
     background:#0fae8d;
 }
@@ -266,8 +267,21 @@ input[type="radio"]:checked + label {
   box-sizing:border-box
 }
 
+.card-font {
+/* 223, 242, 242, 1*/
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.15rem;
+  background-color: rgb(223, 242, 242, 0.8);
+}
+
 .index_background {
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.2) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/background_index.jpg");
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.2) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/ny_background.jpeg");
     background-repeat: repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -376,19 +390,6 @@ input[type="radio"]:checked + label {
   color:grey;
 }
 
-
-.save_score_button {
-    color:#000000;
-    font-weight: bold;
-    font-size: 1.15rem;
-
-}
-
-.save_score_button:hover {
-    color:#000000;
-    text-decoration: none;
-    text-shadow: #000000 1px 0 2px;
-}
 .score_history_menu {
   margin-top: 1rem;
   border: 2px solid black;

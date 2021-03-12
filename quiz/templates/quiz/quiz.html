@@ -4,101 +4,100 @@
 
 {% block content %}
 
-
 <div class="container-fluid footer_padding justify-content-center">
 
-<div id="content">
-  <div class="text-center text-white">
-    <h3 class="page_title_padding">Quizz</h3>
-  </div>
+  <div id="content">
+    <div class="text-center text-white">
+      <h3 class="page_title_padding">Quizz</h3>
+    </div>
 
-<div class="container mx-auto card o-hidden border-0 shadow my-5" >
-  <div class="col-xl-12 col-lg-12 col-md-12">
-      <div class="card-body p-0">
-        <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-        <p id="warning_voices">Votre système ne semble pas être doté de voix disponible
+    <div class="container mx-auto card-font o-hidden border-0 shadow my-5" >
+      <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="card-body p-0">
+          <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
+          <p id="warning_voices">Votre système n'est peut-être pas être doté de voix disponible
               pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
 
-           <h4 class="text-center quiz_title_padding">Sélectionnez le bon mot</h4>
+          <h4 class="text-center quiz_title_padding">Sélectionnez le bon mot</h4>
 
-        <div class="d-flex justify-content-center">
-          <div id="replay_sound" class="text-center quiz_replay_sound">
+          <div class="d-flex justify-content-center">
+            <div id="replay_sound" class="text-center quiz_replay_sound">
               <i class="far fa-play-circle"></i> Jouer le son
-          </div>
-        </div>
-            {% for sound_object in questions %}
-
-          <form>
-              {% csrf_token %}
-
-              <div class="row">
-                <div class="radio text-center col-xs-12 col-sm-12 col-md-6 col-lg-6" id="first_answer"
-                     style="padding-bottom: 2em; padding-top:2em;" >
-
-                    <input name="answer" type="radio" id="answer_1" value="{{ sound_object.label }}"
-                               style="margin-bottom : 1em; margin-top: 1em; ">
-                     <label for="answer_1" class="quiz_answer_label">
-                         {{ sound_object.label }}
-                    </label>
-                 </div>
-              <div class="radio text-center col-xs-12 col-sm-12 col-md-6 col-lg-6 " id="second_answer"
-                   style="padding-bottom: 2em; padding-top:2em;" >
-
-                    {% with associated_sound_label=sound_object.associated_sound_id_id|get_associated_sound_id %}
-                  <input type="radio" name="answer" id="answer_2" value="{{ associated_sound_label }}"
-                         style="margin-bottom : 1em; margin-top: 1em; ">
-                  <label for="answer_2" class="quiz_answer_label">
-                      {{ associated_sound_label }}
-                     </label>
-                  {% endwith %}
-                </div>
-              </div>
-              </form>
-
-
-           <div class="paginator">
-            <div class="form-group">
-                {%  if questions.has_next %}
-                 <!-- on click, send result -->
-                <script type="text/javascript">
-                next_page = "?page={{ questions.next_page_number }}"
-                </script>
-                <div>
-                    <div id="next" class="quiz_next_btn" ><i class="fas fa-angle-double-right fa-lg"></i></div>
-                </div>
-
-                {% else %}
-                <!-- on click, send result -->
-                <script type="text/javascript">
-                next_page = "{% url 'quiz:score' category_id %}"
-                </script>
-                <div class="d-flex justify-content-center">
-                    <div id="finish" class="quiz_finish_btn">Terminer</div>
-                </div>
-                {% endif %}
             </div>
           </div>
 
+          {% for sound_object in questions %}
 
-        <script type="text/javascript">
-           var page = {{ questions.number }};
-           var sound = '{{ sound_object.label }}';
-        </script>
+            <form>
+              {% csrf_token %}
+                <div class="row">
+                  <div class="radio text-center col-xs-12 col-sm-12 col-md-6 col-lg-6"
+                     id="first_answer" style="padding-bottom: 2em; padding-top:2em;">
+                    <input name="answer" type="radio" id="answer_1" value="{{ sound_object.label }}"
+                               style="margin-bottom : 1em; margin-top: 1em; ">
+                    <label for="answer_1" class="quiz_answer_label quiz_label">
+                         {{ sound_object.label }}
+                    </label>
+                  </div>
+                  <div class="radio text-center col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+                     id="second_answer" style="padding-bottom: 2em; padding-top:2em;" >
+                    {% with associated_sound_label=sound_object.associated_sound_id_id|get_associated_sound_id %}
+                      <input type="radio" name="answer" id="answer_2" value="{{ associated_sound_label }}"
+                         style="margin-bottom : 1em; margin-top: 1em; ">
+                      <label for="answer_2" class="quiz_answer_label quiz_label">
+                        {{ associated_sound_label }}
+                      </label>
+                    {% endwith %}
+                  </div>
+                </div>
+            </form>
+
+            <div class="paginator">
+              <div class="form-group">
+                {%  if questions.has_next %}
+                  <!-- on click, send result -->
+                  <script type="text/javascript">
+                    // store next page number in order to
+                    // be retrieved by ajax request
+                    next_page = "?page={{ questions.next_page_number }}"
+                  </script>
+
+                  <div>
+                    <div id="next" class="quiz_next_btn" >
+                      <i class="fas fa-angle-double-right fa-lg"></i>
+                    </div>
+                  </div>
+
+                {% else %}
+                  <!-- on click, send result -->
+                  <script type="text/javascript">
+                    next_page = "{% url 'quiz:score' category_id %}"
+                  </script>
+
+                  <div class="d-flex justify-content-center">
+                    <div id="finish" class="quiz_finish_btn">Terminer</div>
+                  </div>
+                  {% endif %}
+              </div>
+            </div>
 
 
-        <script type="text/javascript" src="{% static 'js/quiz.js' %}"></script>
+            <script type="text/javascript">
+              // store actual page and right answer
+              var page = {{ questions.number }};
+              var sound = '{{ sound_object.label }}';
+            </script>
+
+            <script type="text/javascript" src="{% static 'js/quiz.js' %}"></script>
 
 
           {% endfor %}
           
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-</div>
-
-</div>
-
 
 
 {% endblock %}
@@ -108,6 +107,5 @@
     <script type="text/javascript" src="{% static 'js/WSA_incompatibility.js' %}"></script>
     <script type="text/javascript">verify_WSA_compatibility()</script>
     {{ block.super }}
-
 
 {% endblock %}

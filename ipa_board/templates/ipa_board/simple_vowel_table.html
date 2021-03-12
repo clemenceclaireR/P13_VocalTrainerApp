@@ -8,8 +8,9 @@
 <div class="container-fluid footer_padding">
 
 <div id="content">
-  <div class="text-center  text-white">
-    <h3 class="page_title_padding">Tableau API : Voyelles - Simples</h3>
+  <div class="text-center text-white page_title_padding">
+    <h3>Tableau phonétique anglaise</h3>
+    <h4>Voyelles simples</h4>
   </div>
 
   <div class="my-auto justify-content-center o-hidden my-5">
@@ -25,8 +26,8 @@
               <tr style="margin: 5em;">
                 <td style=" text-align: center; font-size: 120%;">
                   <div class="breadcrumbs" style="margin-bottom:1.5rem;">
-                    <a href="{% url 'ipa_board:index' %}">Index</a> >
-                    <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu du tableau API</a> >
+                    <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
+                    <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu tableau phonétique anglaise</a> >
                     <a href="{% url 'ipa_board:vowel_menu' %}">Voyelles</a>
                          > Voyelles simples
                   </div>
@@ -99,7 +100,7 @@
                            id="collapse_{{ vowel.label }}" data-toggle="dropdown">{{ vowel.label }}</p>
 
                     {% elif vowel.label == 'æ' %}
-                      <div class="dropdown" style="position: absolute; left: 37%; width: 2em; top: 84%;
+                      <div class="dropdown" style="position: absolute; left: 32%; width: 2em; top: 70%;
                               background-color:rgba(188, 200, 224, 0.3);border-radius: 50%;">
                         <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
                            id="collapse_{{ vowel.label }}" data-toggle="dropdown">{{ vowel.label }}</p>
@@ -129,7 +130,7 @@
                       <form>
                         <p id="quit_cross_{{ vowel.label }}" class="quit-cross float-right">
                             <i class="fas fa-times"></i></p>
-                        <p class="info-section-consonant-title">Diphtongue {{ vowel.label }}</p>
+                        <p class="info-section-consonant-title">Voyelle {{ vowel.label }}</p>
                         <p id="play_{{ vowel.label }}" class="listen-button"><i class="fas fa-volume-up"></i>
                             Ecouter</p>
                         <p class="info-section-consonant-title">Exemples</p>

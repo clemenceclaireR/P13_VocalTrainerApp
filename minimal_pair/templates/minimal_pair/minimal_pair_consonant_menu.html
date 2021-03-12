@@ -6,11 +6,12 @@
 
 {% block content %}
 
-<div class="container-fluid footer_padding index_background justify-content-center footer_padding">
+<div class="container-fluid footer_padding justify-content-center footer_padding">
 
   <div id="content">
-    <div class="text-center text-white">
-      <h2 class="page_title_padding">Paires minimales - Consonnes </h2>
+    <div class="text-center text-white page_title_padding">
+      <h2>Paires minimales</h2>
+      <h3>Consonnes</h3>
     </div>
 
     <div class="justify-content-center">
@@ -20,7 +21,7 @@
             <form class="" role="form" method="post"
                   action="{% url 'minimal_pair:minimal_pair_table' minimal_pair.id %}">
               {% csrf_token %}
-                <button type="submit" class="index_btn green col-10">
+                <button type="submit" class="index_btn green minimal_pair_menu_button col-10">
                   {{ minimal_pair.phoneme.label }} //
                     {{ minimal_pair.associated_phoneme|check_if_label_exists }}
                 </button>

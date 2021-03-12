@@ -79,6 +79,13 @@ class ExampleWord(models.Model):
                                 , db_column='phoneme_id'
                                 )
     label = models.CharField(max_length=254
-                             , help_text='Word name'
+                             , help_text='Word label'
                              , db_column='label'
                              )
+
+    ipa_label = models.CharField(max_length=254
+                                 , help_text='IPA word label'
+                                 , verbose_name='IPA word label'
+                                 , db_column='ipa_label'
+                                 , null=True
+                                 )

@@ -8,15 +8,16 @@
 <div class="container-fluid footer_padding">
 
 <div id="content">
-  <div class="text-center text-white">
-    <h3 class="page_title_padding">Tableau API : Consonnes</h3>
+  <div class="text-center text-white page_title_padding">
+    <h3>Tableau phonétique anglaise</h3>
+    <h4>Consonnes</h4>
   </div>
 
   <div class="container col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-12 card o-hidden border-0 shadow my-5">
     <div class="card-body p-0">
       <div class="breadcrumbs">
-        <a href="{% url 'ipa_board:index' %}">Index</a> >
-        <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu du tableau API</a>
+        <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
+        <a href="{% url 'ipa_board:ipa_board_menu' %}">Menu tableau phonétique anglaise</a>
               > Consonnes
       </div>
 
@@ -82,7 +83,7 @@
                               {% for example in example_words|examples:phoneme.id %}
                                 <p id="play_{{ example.label }}" class="listen-button">
                                   <i class="fas fa-volume-up"></i>
-                                  {{ example.label }}</p>
+                                  {{ example.label }} {{ example.ipa_label }}</p>
 
                                   {% block jquery %}
 
