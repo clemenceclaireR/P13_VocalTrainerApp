@@ -89,12 +89,20 @@ input[type="radio"]:checked + label {
    font-weight: bold;
 }
 
-.score_answer {
-    font-size:1.5em;
+.score {
+    font-size:1.2em;
 }
 
-.score_answer:hover {
-    font-size:1.5em;
+.score_right_answer {
+   color:green;
+}
+
+.score_wrong_answer {
+   color:red;
+   text-decoration: line-through;
+}
+
+.score_answer:hover, .score_wrong_answer:hover  {
     font-weight: bold;
     cursor: pointer;
 }
@@ -375,7 +383,7 @@ input[type="radio"]:checked + label {
   width: 100%;
   height: 400px;
   /*text-align: center;*/
-  background: white;
+
 }
 
 .breadcrumbs {
@@ -393,8 +401,15 @@ input[type="radio"]:checked + label {
 .score_history_menu {
   margin-top: 1rem;
   border: 2px solid black;
-  border-radius: 25% 10%;
-  box-shadow: 10px 10px 2px 1px rgba(0, 0, 255, .1);
+  box-shadow: 1px 1px 10px #a3a3a3 inset;
+  padding: 1em;
+  background: white;
+}
+
+.score_history_menu a {
+    color:#000000;
+    text-decoration: none;
+    font-variant: small-caps;
 }
 
 .score_history_menu a:hover {
@@ -418,9 +433,25 @@ input[type="radio"]:checked + label {
 }
 
 .diagram-letter {
-    background-color:rgba(188, 200, 224, 0.3);
     border-radius: 50%;
+    position: absolute;
+    width: 8%;
+    height:8%;
+    background-color:rgba(219, 180, 190, 0.5);
+
 }
+
+i-letter {
+  height:8%;
+  top: 6%;
+}
+
+u-letter {
+   height:8%;
+    top: 6%;
+}
+
+
 
 @media only screen and (max-width: 700px) {
 

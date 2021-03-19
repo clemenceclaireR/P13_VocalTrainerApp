@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import MinimalPairInformation, MinimalPairCategory, MinimalPairWordPhonemePlace
+from .models import MinimalPairInformation, MinimalPairCategory, MinimalPairWordPhonemeLetters
 
 admin.site.register(MinimalPairInformation)
 admin.site.register(MinimalPairCategory)
-admin.site.register(MinimalPairWordPhonemePlace)
+admin.site.register(MinimalPairWordPhonemeLetters)

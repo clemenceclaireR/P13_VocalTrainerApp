@@ -14,7 +14,8 @@
           {{ category.associated_phoneme|check_if_label_exists }}</h4>
     </div>
 
-    <div class="container my-auto justify-content-center card-font o-hidden border-0 shadow my-5">
+    <div class="container my-auto justify-content-center card-font o-hidden border-0 shadow my-5
+     col-xs-12 col-md-10 col-lg-6">
       <div class="breadcrumbs">
         <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
         <a href="{% url 'minimal_pair:minimal_pair_menu' %}">Paires minimales</a> >
@@ -34,11 +35,7 @@
         > {{ category.phoneme.label }} // {{ category.associated_phoneme|check_if_label_exists }}
       </div>
 
-      <div>
-        <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-        <p id="warning_voices">Votre système ne semble pas être doté de voix disponible
-              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
-      </div>
+      {% include 'web_speech_api_alert.html' %}
 
       <div class="row">
         <div class="d-flex mx-auto text-center col-xs-12 col-sm-12 col-md-4 col-lg-4 justify-content-center">
@@ -71,7 +68,7 @@
         {% for minimal_pair in minimal_pairs %}
           <!-- check if number is even or odd : if even, it is base sound
             loaded from database, else, get its associated associated one -->
-          {% if minimal_pair.associated_sound_id.id|divisibleby:2 %}
+          {% if minimal_pair.associated_word_id.id|divisibleby:2 %}
             <div class="col-xs-12 col-sm-5 text-center align-items-center ">
               <div  id="play_first_{{ minimal_pair.label }}" class="minimal_pair_label">
                 <span  id="{{ minimal_pair.label }}_word">{{ minimal_pair.label }}</span>
@@ -159,7 +156,7 @@
     <script type="text/javascript">
       $(window).bind("load", function () {
         var phonemeElement = document.createElement("audio");
-        phonemeElement.src = "{{ category.phoneme.sound_file_name }}";
+        phonemeElement.src = "{{ category.phoneme.sound_file_path }}";
         // play phoneme sound
         $('#play_{{ category.phoneme.label }}').click(function(){
           phonemeElement.play();
@@ -169,7 +166,7 @@
           // checks if there is an associated phoneme
           // play the phoneme sound
           if ('{{ category.associated_phoneme.label }}' !== '') {
-            associatedPhonemeElement.src = "{{ category.associated_phoneme.sound_file_name }}";
+            associatedPhonemeElement.src = "{{ category.associated_phoneme.sound_file_path }}";
             $('#play_{{ category.associated_phoneme.label }}').click(function(){
               associatedPhonemeElement.play();
             });

@@ -11,11 +11,9 @@
       <h3 class="page_title_padding">Résultats</h3>
     </div>
 
-    <div class="container col-lg-4 col-md-7 col-sm-8 col-xs-10 card-font o-hidden border-0 shadow my-5">
+    <div class="container col-xl-3 col-lg-4 col-md-7 col-sm-8 col-xs-10 card-font o-hidden border-0 shadow my-5">
       <div class="card-body p-0 align-content-center">
-        <p id="warning_browser">Votre navigateur ne semble pas être compatible avec Web Speech API.</p>
-        <p id="warning_voices">Votre système n'est peut-être pas être doté de voix disponible
-              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
+        {% include 'web_speech_api_alert.html' %}
 
         <div class="breadcrumbs" style="margin-bottom:0.1rem;">
           <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
@@ -47,30 +45,31 @@
 
           {% for user_answer, right_answer in user_answers_label|zip:right_answers_list %}
 
-            <div class="row">
+            <div class="row score">
               <div class="col-2">
-                <p style="font-size:1.5em;">{{ forloop.counter }}</p>
+                <p >{{ forloop.counter }}</p>
               </div>
               {% if user_answer == right_answer %}
                 <div class="col-2">
-                  <i style="color: green; font-size:1.3em;" class="fas fa-check"></i>
+                  <i class="fas fa-check score_right_answer"></i>
                 </div>
-                <div class="col-5 " >
-                  <p class="score_answer" id="user_right_answer_{{ user_answer }}"
-                     style="color:green; font-size:1.5em;">{{ user_answer }}</p>
+                <div class="col-5 text-center" >
+                  <p class="score_answer score_right_answer" id="user_right_answer_{{ user_answer }}">
+                    {{ user_answer }}
+                  </p>
                 </div>
               {% else %}
                 <div class="col-2">
-                  <i style="color: red; font-size:1.3em;" class="fas fa-times"></i>
+                  <i class="fas fa-times score_wrong_answer"></i>
                 </div>
-                <div class="col-5 " style="color:green; ">
+                <div class="col-5 text-center">
                   <p>
-                    <span class="score_answer" id="user_wrong_answer_{{ user_answer }}"
-                          style="color:red; text-decoration: line-through;">
+                    <span class="score_answer score_wrong_answer" id="user_wrong_answer_{{ user_answer }}"
+                          >
                      {{ user_answer }}
                     </span>
-                    <span class="score_answer" id="right_answer_{{ right_answer }}"
-                          style="color:green;">({{ right_answer }})</span>
+                    <span class="score_answer score_right_answer" id="right_answer_{{ right_answer }}"
+                          >({{ right_answer }})</span>
                   </p>
                 </div>
               {% endif %}

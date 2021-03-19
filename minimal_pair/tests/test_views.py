@@ -1,7 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse
-from minimal_pair.models import MinimalPairCategory, MinimalPairInformation, MinimalPairWordPhonemePlace
-from ipa_board.models import SubPhonemeType, PhonemeType, PhonemeInformation
 
 
 class MinimalPairTest(TestCase):

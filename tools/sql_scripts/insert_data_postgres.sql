@@ -32,7 +32,7 @@ VALUES
 
 INSERT INTO "phoneme_information"
 (
-"id","label", "sound_file_name", "sub_phoneme_type_id"
+"id","label", "sound_file_path", "sub_phoneme_type_id"
 ) 
 VALUES 
 (1, 'p', 'https://res.cloudinary.com/crvocaltrainer/video/upload/v1613509597/phonemes/p.mp3', 1),
@@ -78,7 +78,7 @@ VALUES
 
 INSERT INTO "minimal_pair_category"
 (
-  "id", "phoneme", "associated_phoneme", "sub_phoneme_type_id"
+  "id", "phoneme_id", "associated_phoneme_id", "sub_phoneme_type_id"
 )
 VALUES
 (1, 9, 11, 2),
@@ -100,7 +100,7 @@ VALUES
 
 INSERT INTO "minimal_pair_information"
 (
-  "id", "label", "ipa_label", "associated_sound_id", "category_id"
+  "id", "label", "ipa_label", "associated_word_id", "category_id"
 )
 VALUES
 (1, 'thick',  '/θɪk/', 2, 1),
@@ -521,7 +521,7 @@ VALUES
 (192, 'u', 'u'),
 (193, 'ou', 'ʊ'),
 (194, 'oe', 'u'),
-(195, 'oo', 'u'),
+(195, 'oo', 'ʊ'),
 (196, 'oo', 'u'),
 (197, 'oo',  'ʊ'),
 (198, 'ewe', 'u'),

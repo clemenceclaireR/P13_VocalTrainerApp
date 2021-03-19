@@ -37,7 +37,8 @@ class SubPhonemeType(models.Model):
                                      )
     order = models.IntegerField(null=True
                                 , db_column='order'
-                                , help_text='Order in which types are displayed in template'
+                                , help_text='Order in which types '
+                                            'are displayed in template'
                                 )
 
 
@@ -53,9 +54,9 @@ class PhonemeInformation(models.Model):
                              , help_text='Phoneme name'
                              , db_column='label'
                              )
-    sound_file_name = models.CharField(max_length=254
+    sound_file_path = models.CharField(max_length=254
                                        , help_text='Associated file name'
-                                       , db_column='sound_file_name'
+                                       , db_column='sound_file_path'
                                        )
     sub_phoneme_type = models.ForeignKey(SubPhonemeType
                                          , on_delete=models.CASCADE
@@ -87,5 +88,4 @@ class ExampleWord(models.Model):
                                  , help_text='IPA word label'
                                  , verbose_name='IPA word label'
                                  , db_column='ipa_label'
-                                 , null=True
                                  )

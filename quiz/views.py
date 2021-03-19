@@ -1,11 +1,9 @@
 import random
-from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from minimal_pair.models import MinimalPairInformation, MinimalPairCategory
 from ipa_board.models import SubPhonemeType, PhonemeType
@@ -18,6 +16,7 @@ def quiz(request, category_id):
     Renders quiz page.
     Paginates in order to display one question (sound couple) as a time
     """
+    test = MinimalPairInformation.objects.get(id=1)
     page = request.GET.get('page')
 
     # get all the minimal pairs associated to the category sent

@@ -14,14 +14,14 @@ class MinimalPairCategory(models.Model):
                                 , on_delete=models.CASCADE
                                 , verbose_name='First phoneme'
                                 , help_text='Phoneme'
-                                , db_column='phoneme'
+                                , db_column='phoneme_id'
                                 , related_name="first_phoneme_id"
                                 )
     associated_phoneme = models.ForeignKey(PhonemeInformation
                                            , on_delete=models.CASCADE
                                            , verbose_name='Associated phoneme'
                                            , help_text='Associated phoneme'
-                                           , db_column='associated_phoneme'
+                                           , db_column='associated_phoneme_id'
                                            , null=True
                                            , related_name="second_phoneme_id"
                                            )
@@ -50,10 +50,10 @@ class MinimalPairInformation(models.Model):
                                  , help_text='IPA sound name'
                                  , db_column='ipa_label'
                                  )
-    associated_sound_id = models.ForeignKey('self'
+    associated_word_id = models.ForeignKey('self'
                                             , on_delete=models.CASCADE
                                             , help_text='Associated sound'
-                                            , db_column='associated_sound_id'
+                                            , db_column='associated_word_id'
                                             , null=True
                                             )
     category_id = models.ForeignKey(MinimalPairCategory
@@ -63,13 +63,13 @@ class MinimalPairInformation(models.Model):
                                     )
 
 
-class MinimalPairWordPhonemePlace(models.Model):
+class MinimalPairWordPhonemeLetters(models.Model):
     """
     Show the phoneme place in word entry in MinimalPairInformation
     """
 
     class Meta:
-        db_table = 'minimal_pair_word_phoneme_place'
+        db_table = 'minimal_pair_word_phoneme_letters'
 
     minimal_pair_id = models.OneToOneField(
         MinimalPairInformation
