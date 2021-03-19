@@ -6,38 +6,38 @@
 {% block content %}
 
 <div class="container-fluid footer_padding index_background">
+  <div id="content" style="padding-top:5rem;">
 
-<div id="content" style="padding-top:5rem;">
-
-
-<div class="container col-lg-6 col-md-9 col-sm-10 col-xs-10 my-auto justify-content-center card o-hidden border-0 shadow my-5">
-    <div class="card-body p-0 align-content-center" >
+    <div class="container col-lg-6 col-md-9 col-sm-10 col-xs-10 my-auto justify-content-center card o-hidden border-0 shadow my-5">
+      <div class="card-body p-0 align-content-center" >
         {% if not  user.is_authenticated %}
           <div class="row">
-              <div class="col-lg-12">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h2 class="h4 text-gray-900 mb-4">Inscription</h2>
-                  </div>
-                  <form action="{% url 'user:register' %}" method="post">
-                    {{ user_form.as_p }}
-                    {% csrf_token %}
-                    <p><input type="submit" value="S'inscrire" class="btn btn-primary btn-user btn-block"></p>
-                  </form>
-                  <hr>
-                  <div class="text-center">
-                    <a href="{% url 'user:login' %}">Vous avez déjà un compte ? Connectez-vous</a>
-                  </div>
+            <div class="col-lg-12">
+              <div class="p-5">
+                <div class="text-center">
+                  <h2 class="h4 text-gray-900 mb-4">Inscription</h2>
+                </div>
+                <form action="{% url 'user:register' %}" method="post">
+                  {{ user_form.as_p }}
+                  {% csrf_token %}
+                  <p>
+                      <input type="submit" value="S'inscrire" class="btn btn-primary btn-user btn-block">
+                  </p>
+                </form>
+                <hr>
+                <div class="text-center">
+                  <a href="{% url 'user:login' %}">Vous avez déjà un compte ? Connectez-vous</a>
                 </div>
               </div>
+            </div>
         {% else %}
           <p class="text-center active_padding">Vous avez déjà un compte
             auquel vous êtes actuellement connecté.</p>
         {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 

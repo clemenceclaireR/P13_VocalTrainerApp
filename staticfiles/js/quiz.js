@@ -1,35 +1,36 @@
-console.time("program");
+// grant jquery access in script
 var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
 script.type = 'text/javascript';
 document.getElementsByTagName('head')[0].appendChild(script);
 
 window.onload = function() {
-var saveAnswerButton ;
-var cookie = document.cookie
-var csrfToken = cookie.substring(cookie.indexOf('=') + 1)
-var audioElement = document.createElement("audio");
 
-$('#next').hide();
-$('#finish').hide();
+  // variable initiation
+  var saveAnswerButton ;
+  var cookie = document.cookie
+  var csrfToken = cookie.substring(cookie.indexOf('=') + 1)
+  var audioElement = document.createElement("audio");
 
-initall();
-
-$('#answer_1').change(function(){
-     show_button();
-});
-
-$('#answer_2').change(function(){
-    show_button();
-});
-
-$('#replay_sound').click(function(){
-   say(sound);
-});
+  // hide next/finish button until user click on an answer
+  $('#next').hide();
+  $('#finish').hide();
 
 
+  // listen on event in order to show next/finish button if
+  // user click on an answer
+  document.getElementById("answer_1").addEventListener("change", show_button, false);
+  document.getElementById("answer_2").addEventListener("change", show_button, false);
+  // replay sound if user click on the replay button
+  document.getElementById("replay_sound").addEventListener("change", say_sound, false);
 
-function initall() {
+
+  init_all();
+
+
+function init_all() {
+    // play sound when window is displayed, shuffle answers
+    // and save answer when next/finish button is clicked
     say(sound);
     placeAnswersRandomly()
     saveAnswerButton=document.getElementById('finish');
@@ -44,23 +45,23 @@ function initall() {
 }
 
 
-function hideButtons() {
-     $('#next').hide();
-     $('#finish').hide();
+function say_sound() {
+  // triggers sound playing
+  say(sound);
 }
 
+
 function show_button() {
-     $('#next').show();
-     $('#finish').show();
+  // display hidden next/finish button
+  $('#next').show();
+  $('#finish').show();
 }
 
 
 function save_answers() {
-    console.log('in save_answer');
-    var answer = $("input:radio[name=answer]:checked").val();
-
-
-    console.log('answer ' + answer);
+  // get user answer and send it to django through ajax request
+  // if success, goes to next page
+  var answer = $("input:radio[name=answer]:checked").val();
 
     $.ajax({
       type: "POST",
@@ -82,15 +83,16 @@ function save_answers() {
 }
 
 function placeAnswersRandomly() {
-        var right_answer_place = Math.floor(Math.random() * 2);
-        if (right_answer_place === 0) {
-            var d = document.getElementById('first_answer');
-            console.log(d);
-            d.parentNode.appendChild(d);
-        }
-    }
+  // place right answer randomly to left or right
+  var right_answer_place = Math.floor(Math.random() * 2);
+  if (right_answer_place === 0) {
+    var d = document.getElementById('first_answer');
+    d.parentNode.appendChild(d);
+  }
+}
+
 }
 
 
-console.timeEnd("program");
+
 

@@ -13,7 +13,7 @@
     <h4>Consonnes</h4>
   </div>
 
-  <div class="container col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-12 card o-hidden border-0 shadow my-5">
+  <div class="container col-lg-6 col-md-10 col-sm-10 col-xs-12 card-font o-hidden border-0 shadow my-5">
     <div class="card-body p-0">
       <div class="breadcrumbs">
         <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
@@ -24,9 +24,7 @@
       <div class="row">
         <div class="col-12">
           {% include 'message.html' %}
-            <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-            <p id="warning_voices">Votre système ne semble pas être doté de voix disponible
-              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
+            {% include 'web_speech_api_alert.html' %}
             <div class="row">
               {% for consonant_title in consonants_type %}
                 <h2 class="subtype_section col-12">{{ consonant_title.subtype_name }} </h2>
@@ -95,7 +93,7 @@
 
                                       // play phoneme sound when given consonant is clicked
                                       var consonantElement = document.createElement("audio");
-                                      consonantElement.src = "{{ phoneme.sound_file_name }}";
+                                      consonantElement.src = "{{ phoneme.sound_file_path }}";
                                       $('#play_{{ phoneme.label }}').click(function(){
                                         consonantElement.play();
                                       });

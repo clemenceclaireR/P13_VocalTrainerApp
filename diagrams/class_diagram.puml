@@ -8,29 +8,30 @@ skinparam class {
 
 class PhonemeType {
   id: Integer
-  typeName : String
+  typeName: String
 }
 
 class SubPhonemeType {
   id: Integer
-  subtypeName : String
-  phonemeType : Integer
+  subtypeName: String
+  phonemeType: Integer
   order : Integer
 }
 PhonemeType "1" -- "1..*" SubPhonemeType
 
 class PhonemeInformation {
   id: Integer
-  label : String
-  soundFileName : String
-  subPhonemeType :Integer
+  label: String
+  soundFilePath: String
+  subPhonemeType:Integer
 }
 PhonemeInformation "1..*" -- "1" SubPhonemeType
 
 class ExampleWord {
   id: Integer
-  label : String
-  phonemeId :Integer
+  label: String
+  ipa_label: String
+  phonemeId:Integer
 }
 
 ExampleWord "1..*"  -- "1" PhonemeInformation
@@ -38,7 +39,7 @@ ExampleWord "1..*"  -- "1" PhonemeInformation
 class MinimalPairCategory {
   id: Integer
   phoneme: Integer
-  associatedPhoneme : Integer
+  associatedPhoneme: Integer
   subPhonemeTypeId: Integer
 }
 
@@ -48,25 +49,25 @@ class MinimalPairInformation {
   id: Integer
   label: String
   IpaLabel: String
-  associatedSoundId: Integer
-  categoryId : Integer
+  associatedWordId: Integer
+  categoryId: Integer
 }
 
 MinimalPairInformation "1..*" -- "1" MinimalPairCategory
 
-class MinimalPairWordPhonemePlace {
-  minimalPairId : Integer
+class MinimalPairWordPhonemeLetters {
+  minimalPairId: Integer
   letters: String
-  ipaLetters : String
+  ipaLetters: String
 }
 
-MinimalPairWordPhonemePlace "1" -- "1" MinimalPairInformation
+MinimalPairWordPhonemeLetters "1" -- "1" MinimalPairInformation
 
 class Score {
   id: Integer
   score: String
   date: Date
-  minimalPairCategoryId : String
+  minimalPairCategoryId: String
 }
 
 Score "1..*" -- "1" MinimalPairCategory

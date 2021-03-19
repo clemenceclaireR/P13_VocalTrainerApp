@@ -14,9 +14,7 @@
     <div class="container mx-auto card-font o-hidden border-0 shadow my-5" >
       <div class="col-xl-12 col-lg-12 col-md-12">
         <div class="card-body p-0">
-          <p id="warning_browser">Votre navigateur n'est pas compatible avec Web Speech API.</p>
-          <p id="warning_voices">Votre système n'est peut-être pas être doté de voix disponible
-              pour pratiquer le Text-to-Speech. Pour voir comment y remédier, consulter le README.</p>
+          {% include 'web_speech_api_alert.html' %}
 
           <h4 class="text-center quiz_title_padding">Sélectionnez le bon mot</h4>
 
@@ -41,7 +39,7 @@
                   </div>
                   <div class="radio text-center col-xs-12 col-sm-12 col-md-6 col-lg-6 "
                      id="second_answer" style="padding-bottom: 2em; padding-top:2em;" >
-                    {% with associated_sound_label=sound_object.associated_sound_id_id|get_associated_sound_id %}
+                    {% with associated_sound_label=sound_object.associated_word_id_id|get_associated_sound_id %}
                       <input type="radio" name="answer" id="answer_2" value="{{ associated_sound_label }}"
                          style="margin-bottom : 1em; margin-top: 1em; ">
                       <label for="answer_2" class="quiz_answer_label quiz_label">
@@ -92,7 +90,7 @@
 
 
           {% endfor %}
-          
+
         </div>
       </div>
     </div>

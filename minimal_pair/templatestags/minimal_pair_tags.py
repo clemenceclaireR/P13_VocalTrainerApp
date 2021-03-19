@@ -1,5 +1,5 @@
 from django import template
-from minimal_pair.models import MinimalPairWordPhonemePlace, MinimalPairInformation
+from minimal_pair.models import MinimalPairWordPhonemeLetters, MinimalPairInformation
 
 register = template.Library()
 
@@ -21,7 +21,7 @@ def get_phoneme_letters(label_id):
     Returns words phoneme letters
     """
     sound = MinimalPairInformation.objects.get(id=label_id)
-    phoneme_letters = MinimalPairWordPhonemePlace.objects.get(minimal_pair_id=sound.id)
+    phoneme_letters = MinimalPairWordPhonemeLetters.objects.get(minimal_pair_id=sound.id)
     return phoneme_letters.letters
 
 
@@ -31,5 +31,5 @@ def get_phoneme_ipa_letters(label_id):
     Returns words international phonetic alphabet phoneme letters
     """
     sound = MinimalPairInformation.objects.get(id=label_id)
-    phoneme_letters = MinimalPairWordPhonemePlace.objects.get(minimal_pair_id=sound.id)
+    phoneme_letters = MinimalPairWordPhonemeLetters.objects.get(minimal_pair_id=sound.id)
     return phoneme_letters.ipa_letters
