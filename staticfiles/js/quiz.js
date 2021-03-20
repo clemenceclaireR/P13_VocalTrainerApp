@@ -22,7 +22,7 @@ window.onload = function() {
   document.getElementById("answer_1").addEventListener("change", show_button, false);
   document.getElementById("answer_2").addEventListener("change", show_button, false);
   // replay sound if user click on the replay button
-  document.getElementById("replay_sound").addEventListener("change", say_sound, false);
+  document.getElementById("replay_sound").addEventListener("click", say_sound, false);
 
 
   init_all();

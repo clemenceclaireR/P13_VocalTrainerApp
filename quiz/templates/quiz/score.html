@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="container-fluid justify-content-center">
+<div class="container-fluid footer_padding justify-content-center">
 
   <div id="content">
     <div class="text-center text-white">
@@ -54,7 +54,8 @@
                   <i class="fas fa-check score_right_answer"></i>
                 </div>
                 <div class="col-5 text-center" >
-                  <p class="score_answer score_right_answer" id="user_right_answer_{{ user_answer }}">
+                  <p class="score_answer score_right_answer" id="{{ forloop.counter }}_user_right_answer">
+
                     {{ user_answer }}
                   </p>
                 </div>
@@ -64,12 +65,13 @@
                 </div>
                 <div class="col-5 text-center">
                   <p>
-                    <span class="score_answer score_wrong_answer" id="user_wrong_answer_{{ user_answer }}"
-                          >
+                    <span class="score_answer score_wrong_answer"
+                          id="{{ forloop.counter }}_user_wrong_answer">
                      {{ user_answer }}
                     </span>
-                    <span class="score_answer score_right_answer" id="right_answer_{{ right_answer }}"
-                          >({{ right_answer }})</span>
+                    <span class="score_answer score_right_answer"
+                          id="{{ forloop.counter }}_right_answer">
+                      ({{ right_answer }})</span>
                   </p>
                 </div>
               {% endif %}
@@ -79,15 +81,15 @@
             <script type="text/javascript">
 
               var audioElement = document.createElement("audio");
-              $('#user_right_answer_{{ user_answer }}').click(function(){
+              $('#{{ forloop.counter }}_user_right_answer').click(function(){
                 say('{{ user_answer }}');
               });
 
-              $('#user_wrong_answer_{{ user_answer }}').click(function(){
+              $('#{{ forloop.counter }}_user_wrong_answer').click(function(){
                 say('{{ user_answer }}');
               });
 
-              $('#right_answer_{{ right_answer }}').click(function(){
+              $('#{{ forloop.counter }}_right_answer').click(function(){
                 say('{{ right_answer }}');
                });
             </script>
