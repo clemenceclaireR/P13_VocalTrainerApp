@@ -2,6 +2,7 @@
 {% load static %}
 
 {% load minimal_pair_tags %}
+{% load quiz_tools %}
 
 {% block content %}
 
@@ -65,7 +66,9 @@
       </div>
 
       <div class="row">
-        {% for minimal_pair in minimal_pairs %}
+
+        {% for minimal_pair, minimal_pair_phoneme_letters, minimal_pair_ipa_phoneme_letters in minimal_pairs %}
+
           <!-- check if number is even or odd : if even, it is base sound
             loaded from database, else, get its associated associated one -->
           {% if minimal_pair.associated_word_id.id|divisibleby:2 %}
@@ -76,8 +79,8 @@
               </div>
             </div>
 
-            <div class="d-flex justify-content-center col-xs-12 col-sm-2 align-items-center my-auto">
-                <i class="fas fa-not-equal"></i>
+            <div class="d-flex justify-content-center col-xs-12 col-sm-2 align-items-center equal_icon">
+                <i class="fas fa-not-equal" ></i>
             </div>
           {% else %}
             <div class="col-xs-12 col-sm-5 text-center" style="padding-bottom: 1.5em;">
@@ -89,13 +92,11 @@
 
           {% endif %}
 
-          <!-- for each word, stores the word letters which have to be
-            colored in red -->
-          {% with minimal_pair_phoneme_letters=minimal_pair.id|get_phoneme_letters %}
-          {% with minimal_pair_ipa_letters=minimal_pair.id|get_phoneme_ipa_letters %}
 
           <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
           <script type="text/javascript">
+
+
             var audioElement = document.createElement("audio");
             // play minimal pair sound on click
             $('#play_first_{{ minimal_pair.label }}').click(function(){
@@ -107,37 +108,36 @@
             });
 
             // color minimal pairs phoneme letters in red
-            $("#{{ minimal_pair.label }}_word:contains('{{ minimal_pair_phoneme_letters }}')").each(function () {
-            $(this).html($(this).html().replace("{{minimal_pair_phoneme_letters}}",
-              "<span style='color:red;'>{{minimal_pair_phoneme_letters}}</span>"));
+            $("#{{ minimal_pair.label }}_word:contains('{{ minimal_pair_phoneme_letters.letters }}')").each(function () {
+            $(this).html($(this).html().replace("{{ minimal_pair_phoneme_letters.letters }}",
+              "<span style='color:red;'>{{ minimal_pair_phoneme_letters.letters }}</span>"));
             });
 
-            $("#{{ minimal_pair.label }}_associated_word:contains('{{ minimal_pair_phoneme_letters }}')").each(function () {
+            $("#{{ minimal_pair.label }}_associated_word:contains('{{ minimal_pair_phoneme_letters.letters }}')").each(function () {
               // if word is "sees", its phoneme being s, JS colors the first s encountered by default.
               // here we move it manually to the second s encountered.
               if ("{{ minimal_pair.label }}" === 'sees') {
                 $(this).html($(this).html().replace("{{ minimal_pair.label }}",
                   "see<span style='color:red;'>s</span>"));
               } else {
-                $(this).html($(this).html().replace("{{ minimal_pair_phoneme_letters }}",
-                "<span style='color:red;'>{{ minimal_pair_phoneme_letters }}</span>"));
+                $(this).html($(this).html().replace("{{ minimal_pair_phoneme_letters.letters }}",
+                "<span style='color:red;'>{{ minimal_pair_phoneme_letters.letters }}</span>"));
               }
             });
 
             $("#{{ minimal_pair.label }}_associated_ipa_word:contains('{{ minimal_pair.ipa_label }}')").each(function () {
-              $(this).html($(this).html().replace("{{ minimal_pair_ipa_letters }}",
-              "<span style='color:red;'>{{ minimal_pair_ipa_letters }}</span>"));
+              $(this).html($(this).html().replace("{{  minimal_pair_ipa_phoneme_letters.ipa_letters }}",
+              "<span style='color:red;'>{{  minimal_pair_ipa_phoneme_letters.ipa_letters }}</span>"));
             });
 
 
             $("#{{ minimal_pair.label }}_ipa_word:contains('{{ minimal_pair.ipa_label }}')").each(function () {
-              $(this).html($(this).html().replace("{{ minimal_pair_ipa_letters }}",
-                "<span style='color:red;'>{{ minimal_pair_ipa_letters }}</span>"));
+              $(this).html($(this).html().replace("{{  minimal_pair_ipa_phoneme_letters.ipa_letters }}",
+                "<span style='color:red;'>{{  minimal_pair_ipa_phoneme_letters.ipa_letters }}</span>"));
             });
 
           </script>
-          {% endwith %}
-          {% endwith %}
+
         {% endfor %}
 
       </div>
