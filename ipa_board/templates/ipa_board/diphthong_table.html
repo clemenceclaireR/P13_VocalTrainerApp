@@ -144,7 +144,7 @@
                               <p class="info-section-consonant-title">Exemples</p>
                                 {% for example in example_words|examples:vowel.id %}
                                   <p id="play_{{ example.label }}" class="listen-button"><i class="fas fa-volume-up"></i>
-                                    {{ example.label }}</p>
+                                    {{ example.label }} {{ example.ipa_label }}</p>
 
                                   {% block jquery %}
                                   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

@@ -21,7 +21,7 @@ Here are the results of our own observations:
 | Opera       |  OK           | X         | OK     | X       | OK     |
 | Brave       |  OK           | X         | OK     | OK      | OK     |
 
-####Firefox on Linux troubleshooting
+#### Firefox on Linux troubleshooting
 
 The following libraries have to be installed on your system
 in order to provide voices that your browser will use :
@@ -35,7 +35,7 @@ Unfortunately, it seems to have no effect on Chromium browser.
 See also details compatibility information on Web Speech API official page : 
 https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API#Browser_compatibility
 
-##Installation
+## Installation
 
 ### Install on Debian 
 

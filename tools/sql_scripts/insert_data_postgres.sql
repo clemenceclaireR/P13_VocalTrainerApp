@@ -322,7 +322,7 @@ VALUES
 
 
 
-INSERT INTO "minimal_pair_word_phoneme_place"
+INSERT INTO "minimal_pair_word_phoneme_letters"
 (
     "minimal_pair_id", "letters", "ipa_letters"
 )
