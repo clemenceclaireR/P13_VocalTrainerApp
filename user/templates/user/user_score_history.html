@@ -40,10 +40,10 @@
           </button>
 
 
-          <div class="score_history_menu collapse navbar-collapse text-center inline-block" id="navbar">
+          <div class="score_history_menu collapse navbar-collapse  inline-block" id="navbar">
             <p><a href="{% url 'user:user_score_history' %}">Tout</a></p>
             <p><a href="{% url 'user:user_score_history' consonants.id %}">Consonnes</a></p>
-            <p>Voyelles</p>
+            <p><a href="{% url 'user:user_score_history' vowels.id %}">Voyelles</a></p>
               <ul id="score_filter_nav">
                 <li><a href="{% url 'user:user_score_history' vowels.id %}">Tout</a></li>
                 <li><a href="{% url 'user:user_score_history' vowels.id simple_vowel.id %}">Voyelles simples</a></li>

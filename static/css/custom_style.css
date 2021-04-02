@@ -333,7 +333,7 @@ input[type="radio"]:checked + label {
   border: 2px solid black;
   box-shadow: 1px 1px 10px #a3a3a3 inset;
   padding: 1em;
-  background: white;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .score_history_menu a {
