@@ -30,7 +30,7 @@ PhonemeInformation "1..*" -- "1" SubPhonemeType
 class ExampleWord {
   id: Integer
   label: String
-  ipa_label: String
+  ipaLabel: String
   phonemeId:Integer
 }
 

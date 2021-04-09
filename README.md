@@ -37,15 +37,27 @@ https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API#Browser_compatib
 
 ## Installation
 
-### Install on Debian 
+### Get the repository
 
-#### PostgreSQL Database
+Pull this repository.
+
+### PostgreSQL Database
+
+#### On Debian
 
     apt install postgresql postgresql-client
+
+#### On Windows or MacOS
+
+Get the installer on the official page.
 
 #### Dependencies
 
     pip install -r requirements.txt
+
+/!\ On MacOS, you might need to add Postgres on path :
+
+    export PATH=$PATH:/Library/PostgreSQL/<version>/bin 
     
 #### Get the database ready
 
@@ -67,7 +79,7 @@ matching the version currently installed on your computer :
 https://chromedriver.chromium.org/downloads
 
 We provides the __run_tests.sh__ file which will executes tests for each app and will generate
-the coverage report.
+the coverage report (line breaks are in unix format).
 
 Note : We chose to run tests separately for each application. The reason is that a common
 database setUp has been define in order to be used by all TestCas classes without having

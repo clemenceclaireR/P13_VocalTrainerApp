@@ -5,8 +5,6 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import ElementClickInterceptedException
-from ipa_board.models import SubPhonemeType, PhonemeType, \
-    PhonemeInformation, ExampleWord
 
 
 class IPABoardTest(TestCase):
