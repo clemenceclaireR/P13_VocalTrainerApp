@@ -19,8 +19,7 @@ usecase Use3 as "S'entraîner à entendre
 Utilisateur --> (Use3)
 
 usecase Use4 as "Evaluer sa capacité à
-entendre la différence
- entre deux paires minimales"
+distinguer paires minimales"
 Utilisateur --> (Use4)
 
 usecase Use5 as "Consulter l'historique des scores"

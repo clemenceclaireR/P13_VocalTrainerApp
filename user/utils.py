@@ -42,7 +42,8 @@ def get_filtered_score(request, sub_phoneme_list):
                 .objects
                 .values('score', 'date')
                 .filter(Q(user_id=request.user) &
-                        Q(minimal_pair_category_id_id__in=minimal_pairs)))
+                        Q(minimal_pair_category_id_id__in=minimal_pairs))
+                .order_by('date'))
 
     return queryset
 

@@ -87,9 +87,8 @@ def score(request, category_id):
     for data_dict in user_sent_data:
         user_answers_label.append(data_dict['answer'])
 
+    # store the list length in order to display score in the template
     length_list = len(right_answers_list)
-    # print('sent data' + str(user_answers_label))
-    # print('right_answers_list ' + str(right_answers_list))
 
     # check answers integrity and increment user score
     count_score(request, user_answers_label, right_answers_list)

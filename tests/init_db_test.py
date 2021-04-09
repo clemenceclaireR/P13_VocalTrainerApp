@@ -8,7 +8,7 @@ from quiz.models import Score
 class CustomTestRunner(BaseRunner):
     """
     Load the database with data to be shared between
-    different apps TestCases
+    different TestCases classes
     """
 
     def setup_databases(self, *args, **kwargs):
