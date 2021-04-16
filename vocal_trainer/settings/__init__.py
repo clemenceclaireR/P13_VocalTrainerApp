@@ -152,9 +152,8 @@ DATABASES = {
        'PORT': '5432',
     },
 }
-#
-# if 'test' in sys.argv:
-#     DATABASE_ENGINE = 'sqlite3'
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 
 # Password validation

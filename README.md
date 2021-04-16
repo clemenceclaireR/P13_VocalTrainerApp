@@ -78,11 +78,11 @@ Tests are configured to run on chrome driver. Download the chrome driver
 matching the version currently installed on your computer :
 https://chromedriver.chromium.org/downloads
 
-We provides the __run_tests.sh__ file which will executes tests for each app and will generate
+We provide the __run_tests.sh__ file which will executes tests for each app and will generate
 the coverage report (line breaks are in unix format).
 
 Note : We chose to run tests separately for each application. The reason is that a common
-database setUp has been define in order to be used by all TestCas classes without having
+database setUp has been defined in order to be used by all TestCas classes without having
 to recreate instances everytime (or almost!). However, Selenium classes does not 
 support it well. The first Selenium class test will use it, but the data persistence is lost
 for all Selenium classes which run after.

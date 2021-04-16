@@ -2,7 +2,6 @@ from django.test.runner import DiscoverRunner as BaseRunner
 from django.contrib.auth.models import User
 from minimal_pair.models import MinimalPairCategory, MinimalPairInformation, MinimalPairWordPhonemeLetters
 from ipa_board.models import SubPhonemeType, PhonemeType, PhonemeInformation, ExampleWord
-from quiz.models import Score
 
 
 class CustomTestRunner(BaseRunner):

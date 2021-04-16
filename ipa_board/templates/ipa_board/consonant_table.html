@@ -13,7 +13,8 @@
     <h4>Consonnes</h4>
   </div>
 
-  <div class="container col-lg-6 col-md-10 col-sm-10 col-xs-12 card-font o-hidden border-0 shadow my-5">
+  <div class="container col-lg-7 col-md-10 col-sm-10 col-xs-12 card-font o-hidden border-0 shadow my-5">
+    <!-- ipa board breadcrumbs -->
     <div class="card-body p-0">
       <div class="breadcrumbs">
         <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
@@ -26,6 +27,7 @@
           {% include 'message.html' %}
             {% include 'web_speech_api_alert.html' %}
             <div class="row">
+              <!-- dynamic loading of consonants groups and its phonemes -->
               {% for consonant_title in consonants_type %}
                 <h2 class="subtype_section col-12">{{ consonant_title.subtype_name }} </h2>
                   <div class="consonant_sub_group form-inline col-xs-10">
@@ -66,6 +68,7 @@
                             {{ phoneme.label }}</p>
                         {% endif %}
 
+                        <!-- dynamic loading of phoneme information in a dropdown window -->
                         <div class="dropdown-menu card-body p-2" id="dropDownButton_{{ phoneme.label }}"
                                  aria-labelledby="dropDownButton_{{ phoneme.label }}">
                           <!-- form allows window to be closed by clicking outside -->

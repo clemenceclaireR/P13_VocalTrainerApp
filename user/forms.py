@@ -1,15 +1,12 @@
-#! usr/bin/env python3
-# -*- Coding: UTF-8 -*-
-
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UsernameField
 
 
 class LoginForm(forms.Form):
     """
     Login form
     """
+
     username = forms.CharField(required=True,
                                widget=forms.TextInput
                                (attrs=
@@ -57,6 +54,7 @@ class UserRegistrationForm(forms.ModelForm):
         """
         Check if password are identical ; if its not, clean
         """
+
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Les mots de passes ne sont pas identiques.')
