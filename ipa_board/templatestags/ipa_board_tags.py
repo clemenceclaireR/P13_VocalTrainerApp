@@ -14,6 +14,6 @@ def class_phoneme(phoneme, consonant_title):
 @register.filter
 def examples(example, phoneme):
     """
-    Get examples associated to the phoneme
+    Get examples associated to a given phoneme
     """
     return example.filter(phoneme_id=phoneme)

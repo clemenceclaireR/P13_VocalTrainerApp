@@ -94,7 +94,7 @@ def minimal_pair_table(request, phoneme):
         phoneme_ipa_letters.append((MinimalPairWordPhonemeLetters.objects
                                     .get(minimal_pair_id=pair.id)))
 
-    # aggregates them in a tuple in order to it for the template
+    # aggregates them in a tuple in order to return it for the template use
     minimal_pairs = zip(minimal_pairs_words, phoneme_letters, phoneme_ipa_letters)
 
     return render(request, 'minimal_pair/minimal_pair_table.html'

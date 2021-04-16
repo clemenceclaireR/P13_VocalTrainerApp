@@ -6,6 +6,9 @@ register = template.Library()
 
 @register.filter(name='zip')
 def zip_lists(first_list, second_list):
+    """
+    Aggregates both lists in a tuple
+    """
     return zip(first_list, second_list)
 
 

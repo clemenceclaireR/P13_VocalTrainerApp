@@ -17,6 +17,7 @@
 
     <div class="container my-auto justify-content-center card-font o-hidden border-0 shadow my-5
      col-xs-12 col-md-10 col-lg-6">
+      <!-- minimal pairs breadcrumbs -->
       <div class="breadcrumbs">
         <a href="{% url 'ipa_board:index' %}">Page d'accueil</a> >
         <a href="{% url 'minimal_pair:minimal_pair_menu' %}">Paires minimales</a> >
@@ -38,6 +39,7 @@
 
       {% include 'web_speech_api_alert.html' %}
 
+      <!-- access to quiz -->
       <div class="row">
         <div class="d-flex mx-auto text-center col-xs-12 col-sm-12 col-md-4 col-lg-4 justify-content-center">
           <form role="form" method="post" action="{% url 'quiz:quiz' category.id %}">
@@ -49,6 +51,7 @@
         </div>
       </div>
 
+      <!-- minimal pairs phonemes -->
       <div class="row" style="margin-bottom:1em;">
         <div class="col-5 text-center">
           <button  id="play_{{ category.phoneme.label }}" class="phoneme_btn red transparent">
@@ -65,6 +68,7 @@
         </div>
       </div>
 
+      <!-- minimal pairs  -->
       <div class="row">
 
         {% for minimal_pair, minimal_pair_phoneme_letters, minimal_pair_ipa_phoneme_letters in minimal_pairs %}
