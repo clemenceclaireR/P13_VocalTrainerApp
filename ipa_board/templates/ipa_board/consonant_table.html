@@ -5,6 +5,10 @@
 
 {% block content %}
 
+{% load cache %}
+
+{% cache 900 consonants_table %}
+
 <div class="container-fluid footer_padding">
 
 <div id="content">
@@ -129,6 +133,7 @@
       </div>
     </div>
   </div>
+{% endcache %}
 {% endblock %}
 
 
