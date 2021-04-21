@@ -1,3 +1,5 @@
+import locale
+
 from django.shortcuts import render, redirect, reverse
 from django.http import  HttpResponseRedirect
 from django.contrib.auth import authenticate, login
@@ -116,6 +118,12 @@ def score_chart(request, type_id=None, vowel_type=None):
     for entry in queryset:
         labels.append(entry['date'])
         data.append(entry['score'])
+
+    # try to get french locale in OS, else get default set one
+    try:
+        locale.setlocale(locale.LC_ALL, 'fr_FR')
+    except Exception as e:
+        locale.setlocale(locale.LC_ALL, '')
 
     # reformat datetime format to DD-MM-YY string
     labels[:] = [date.strftime('%d-%b-%Y') for date in labels]

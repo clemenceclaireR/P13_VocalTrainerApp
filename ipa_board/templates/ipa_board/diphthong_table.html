@@ -5,6 +5,10 @@
 
 {% block content %}
 
+{% load cache %}
+
+{% cache 900 diphthongs_table %}
+
 <div class="container-fluid justify-content-center footer_padding">
 
 <div id="content">
@@ -191,7 +195,7 @@
        </div>
      </div>
 
-
+{% endcache %}
 {% endblock %}
 
 {% block scripts %}

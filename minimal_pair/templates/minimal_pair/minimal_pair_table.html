@@ -6,6 +6,9 @@
 
 {% block content %}
 
+{% load cache %}
+
+{% cache 900 minimal_pairs phoneme_id %}
 
 <div class="container-fluid footer_padding">
   <div id="content">
@@ -28,10 +31,10 @@
             <a href="{% url 'minimal_pair:minimal_pair_vowels_type_menu' %}">{{ parent_category.type_name }}</a>
             {% if parent_category.type_name == 'Voyelles' and phoneme_category.subtype_name == 'Diphtongues' %}
               <!-- diphthongues -->
-              <a href="{% url 'minimal_pair:minimal_pair_diphthong_menu' %}">>{{ phoneme_category.subtype_name }}</a>
+              > <a href="{% url 'minimal_pair:minimal_pair_diphthong_menu' %}">{{ phoneme_category.subtype_name }}</a>
             {% else %}
                <!-- voyelles simples -->
-               <a href="{% url 'minimal_pair:minimal_pair_simple_vowel_menu' %}">> Voyelles simples</a>
+               > <a href="{% url 'minimal_pair:minimal_pair_simple_vowel_menu' %}"> Voyelles simples</a>
             {% endif %}
           {% endif %}
         > {{ category.phoneme.label }} // {{ category.associated_phoneme|check_if_label_exists }}
@@ -148,6 +151,10 @@
     </div>
   </div>
 </div>
+
+{% endcache %}
+
+
 {% endblock %}
 
 {% block scripts %}

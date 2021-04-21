@@ -12,6 +12,7 @@ env: DJANGO_SETTINGS_MODULE="vocal_trainer.settings.travis"
 
 services:
   - postgresql
+  - redis-server
 
 script:
   - coverage run manage.py test ipa_board

@@ -17,7 +17,6 @@ import dj_database_url
 import sys
 from django.contrib.messages import constants as messages
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,8 +25,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
         },
         'simple': {
             'format': '%(levelname)s %(message)s'
@@ -45,7 +44,6 @@ LOGGING = {
         },
     },
 }
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -66,7 +64,6 @@ LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'ipa_board:index'
 LOGIN_REDIRECT_URL = 'ipa_board:index'
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,7 +79,6 @@ INSTALLED_APPS = [
     'user',
     'debug_toolbar',
 ]
-
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -105,6 +101,19 @@ MIDDLEWARE = [
     'quiz.middleware.clean_quiz_answers_middleware.CleanQuizAnswerMiddleware',
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
+CACHE_TTL = 60 * 15
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 ROOT_URLCONF = 'vocal_trainer.urls'
 
@@ -121,11 +130,11 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
             ],
-            'libraries':{
+            'libraries': {
                 'ipa_board_tags': 'ipa_board.templatestags.ipa_board_tags',
                 'minimal_pair_tags': 'minimal_pair.templatestags.minimal_pair_tags',
                 'quiz_tools': 'quiz.templatestags.quiz_tools',
-}
+            }
         },
     },
 ]
@@ -137,24 +146,22 @@ TEST_RUNNER = 'tests.init_db_test.CustomTestRunner'
 
 WSGI_APPLICATION = 'vocal_trainer.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # POSTGRES
 DATABASES = {
     'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'vocal_trainer',
-       'USER': 'postgres',
-       'PASSWORD': 'postgres',
-       'HOST': 'localhost',
-       'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'vocal_trainer',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     },
 }
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -174,7 +181,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 INTERNAL_IPS = ('127.0.0.1',)
@@ -189,7 +195,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -199,7 +204,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
-    )
+)
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT,"resources")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "resources")
 MEDIA_URL = '/media/'
