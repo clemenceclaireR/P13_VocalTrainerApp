@@ -314,7 +314,6 @@ input[type="radio"]:checked + label {
   position: relative;
   width: 100%;
   height: 400px;
-  /*text-align: center;*/
 }
 
 .breadcrumbs {
@@ -334,7 +333,7 @@ input[type="radio"]:checked + label {
   border: 2px solid black;
   box-shadow: 1px 1px 10px #a3a3a3 inset;
   padding: 1em;
-  background: white;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .score_history_menu a {
@@ -370,7 +369,6 @@ input[type="radio"]:checked + label {
     background-color:rgba(219, 180, 190, 0.5);
 }
 
-
 @media only screen and (max-width: 700px) {
   section {
     flex-direction: column;
@@ -385,8 +383,8 @@ input[type="radio"]:checked + label {
 
   .quiz_replay_sound {
     width: 100%;
-}
   }
+}
 
 @media only screen and (min-width: 701px) and (max-width: 900px) {
   .consonant_sub_group {
@@ -398,6 +396,10 @@ input[type="radio"]:checked + label {
   .page_title_padding {
      margin-top: 2.5em;
      font-size: 1.75em;
+  }
+
+  .app_title {
+    padding: 3rem;
   }
 }
 
