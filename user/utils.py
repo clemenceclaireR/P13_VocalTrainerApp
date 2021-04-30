@@ -1,3 +1,5 @@
+import locale
+
 from django.db.models import Q
 from quiz.models import Score
 from minimal_pair.models import MinimalPairCategory
@@ -95,3 +97,12 @@ def get_filtered_vowels_score(request, minimal_pairs):
                 .order_by('date'))
     return queryset
 
+
+def set_local_variable():
+    """
+    Try to get french locale in OS, else get default set one
+    """
+    try:
+        locale.setlocale(locale.LC_ALL, 'fr_FR')
+    except Exception as e:
+        locale.setlocale(locale.LC_ALL, '')

@@ -1,5 +1,3 @@
-import locale
-
 from django.shortcuts import render, redirect, reverse
 from django.http import  HttpResponseRedirect
 from django.contrib.auth import authenticate, login
@@ -10,7 +8,8 @@ from ipa_board.models import SubPhonemeType, PhonemeType
 from .forms import UserRegistrationForm, LoginForm
 from .utils import get_all_score, get_sub_phoneme_types,\
     get_filtered_score, get_diphthong_pairs\
-    , get_simple_vowels_pairs, get_filtered_vowels_score
+    , get_simple_vowels_pairs, get_filtered_vowels_score\
+    , set_local_variable
 
 
 def register(request):
@@ -120,10 +119,7 @@ def score_chart(request, type_id=None, vowel_type=None):
         data.append(entry['score'])
 
     # try to get french locale in OS, else get default set one
-    try:
-        locale.setlocale(locale.LC_ALL, 'fr_FR')
-    except Exception as e:
-        locale.setlocale(locale.LC_ALL, '')
+    set_local_variable()
 
     # reformat datetime format to DD-MM-YY string
     labels[:] = [date.strftime('%d-%b-%Y') for date in labels]

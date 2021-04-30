@@ -13,7 +13,7 @@
 
 <div id="content">
   <div class="text-center text-white page_title_padding">
-    <h3>Tableau phonétique anglaise</h3>
+    <h3>Tableaux de la phonétique anglaise</h3>
     <h4>Diphtongues</h4>
   </div>
 
@@ -52,16 +52,16 @@
                         <line x1="69%" y1="20%" x2="70%" y2="25%" stroke="#c554c7"/>
 
                         <line x1="17%" y1="30%" x2="27%" y2="20%" stroke="#349961"/>
-                        <line x1="27%" y1="20%" x2="24%" y2="20%" stroke="#349961"/>
+                        <line x1="27%" y1="20%" x2="23%" y2="20%" stroke="#349961"/>
                         <line x1="27%" y1="20%" x2="26%" y2="25%" stroke="#349961"/>
 
                         <line x1="91%" y1="58%" x2="35%" y2="20%" stroke="black"/>
-                        <line x1="35%" y1="20%" x2="38%" y2="19%" stroke="black"/>
+                        <line x1="35%" y1="20%" x2="39%" y2="19%" stroke="black"/>
                         <line x1="35%" y1="20%" x2="36%" y2="25%" stroke="black"/>
 
                         <line x1="89%" y1="28%" x2="73%" y2="18%" stroke="#f09132"/>
                         <line x1="73%" y1="18%" x2="77%" y2="17%" stroke="#f09132"/>
-                        <line x1="73%" y1="18%" x2="76%" y2="23%" stroke="#f09132"/>
+                        <line x1="73%" y1="18%" x2="75%" y2="23%" stroke="#f09132"/>
                       </svg>
 
 
@@ -93,36 +93,36 @@
                         {% if vowel.label == 'aɪ' %}
                           <div class="dropdown"
                              style="position: absolute; left: 33%; width: 8%; height:8%; top: 40%; color: blue; ;
-                              background-color:rgba(121, 186, 247, 0.3);border-radius: 50%;">
+                               white-space:nowrap;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
                                id="collapse_{{ vowel.label }}" data-toggle="dropdown">{{ vowel.label }}</p>
 
                         {% elif vowel.label == 'oʊ' %}
-                          <div class="dropdown"
+                          <div class="dropdown diphthong_letter"
                              style="position: absolute; left: 80%; width: 8%; height:8%; top: 22%; color: #f09132;
-                             background-color:rgba(242, 186, 123, 0.3);border-radius: 50%;">
+                              white-space:nowrap;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
                                id="collapse_{{ vowel.label }}" data-toggle="dropdown">{{ vowel.label }}</p>
 
 
                         {% elif vowel.label == 'ɔɪ'  %}
-                          <div class="dropdown"
+                          <div class="dropdown diphthong_letter"
                              style="position: absolute; left: 49%; width: 8%; height:8%; top: 28%; color: black;
-                              background-color:rgba(188, 191, 198, 0.3);border-radius: 50%;">
+                               white-space:nowrap;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
                                 id="collapse_{{ vowel.label }}" data-toggle="dropdown">{{ vowel.label }}</p>
 
                         {% elif vowel.label == 'eɪ'  %}
-                          <div class="dropdown"
+                          <div class="dropdown diphthong_letter"
                              style="position: absolute; left: 16%; width: 8%; height:8%; top: 25%; color: #349961;
-                             background-color:rgba(189, 242, 159, 0.3);border-radius: 50%;">
+                              white-space:nowrap;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
                                 id="collapse_{{ vowel.label }}" data-toggle="dropdown">{{ vowel.label }}</p>
 
                         {% elif vowel.label == 'aʊ' %}
-                          <div class="dropdown"
+                          <div class="dropdown diphthong_letter"
                              style="position: absolute; left: 55%; width: 8%; height:8%; top: 43%; color: #c554c7;
-                             background-color:rgba(239, 201, 230, 0.3);border-radius: 50%;">
+                             white-space:nowrap;">
                             <p class="vowel_letter_style" data-target="collapse_{{ vowel.label }}"
                                id="collapse_{{ vowel.label }}" data-toggle="dropdown">{{ vowel.label }}</p>
 

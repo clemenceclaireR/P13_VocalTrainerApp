@@ -82,24 +82,14 @@ Tests are configured to run on chrome driver. Download the chrome driver
 matching the version currently installed on your computer :
 https://chromedriver.chromium.org/downloads
 
-#### Configuration file
 
-In order to omit not relevant files from tests coverage, you can
-create a _.coveragerc_ file in the project root and add the path to the 
-files to discriminate :
-    
-    [run]
-    omit=
-    */site-packages/*
-    */distutils/*
-    */tests/*
-
-The above configurations omits all files from the given directories
-wherever they are on your disk.
 
 #### Launcher
 We provide the __run_tests.sh__ file which will executes tests for each app and will generate
 the coverage report (line breaks are in unix format).
+
+In order to omit not relevant files from tests coverage, we
+created a _.coveragerc_ file in the project root.
 
 Note : We chose to run tests separately for each application. The reason is that a common
 database setUp has been defined in order to be used by all TestCas classes without having
