@@ -6,9 +6,6 @@
 
 {% block content %}
 
-{% load cache %}
-
-{% cache 900 minimal_pairs phoneme_id %}
 
 <div class="container-fluid footer_padding">
   <div id="content">
@@ -151,8 +148,6 @@
     </div>
   </div>
 </div>
-
-{% endcache %}
 
 
 {% endblock %}
