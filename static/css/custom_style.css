@@ -110,7 +110,7 @@ input[type="radio"]:checked + label {
     color: #160b54
     padding: 1rem;
     margin-bottom: 2em;
-    width: 8%;
+    /*width: 8%;*/
     float: right;
     cursor: pointer;
     font-size: 1.5em;
