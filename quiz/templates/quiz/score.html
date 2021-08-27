@@ -99,16 +99,16 @@
           {% endfor %}
 
 
-          {% if user.is_authenticated %}
-            <div class="text-center" id="">
-              <form action="{% url 'quiz:save_results' category_id %}" role="form" method="post">
-                  {% csrf_token %}
-                  <button class="save_score_button quiz_finish_btn"
-                          type="submit">Enregistrer
-                  </button>
-              </form>
-            </div>
-          {% endif %}
+<!--          {% if user.is_authenticated %}-->
+<!--            <div class="text-center" id="">-->
+<!--              <form action="" role="form" method="post">-->
+<!--                  {% csrf_token %}-->
+<!--                  <button class="save_score_button quiz_finish_btn"-->
+<!--                          type="submit">Enregistrer-->
+<!--                  </button>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          {% endif %}-->
 
       </div>
     </div>
