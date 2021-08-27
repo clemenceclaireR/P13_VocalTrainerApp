@@ -139,16 +139,16 @@ def save_answer(request):
         return response
 
 
-@login_required
-def save_results(request, category_id):
-    """
-    Store user result with associated minimal
-    pair category and current datetime
-    """
-    Score.objects.create(
-        score=request.session['score']
-        , user_id=User.objects.get(id=request.user.id)
-        , minimal_pair_category_id=MinimalPairCategory.objects.get
-                                                    (id=category_id)
-    )
-    return redirect(reverse('user:user_score_history'))
+# @login_required
+# def save_results(request, category_id):
+#     """
+#     Store user result with associated minimal
+#     pair category and current datetime
+#     """
+#     Score.objects.create(
+#         score=request.session['score']
+#         , user_id=User.objects.get(id=request.user.id)
+#         , minimal_pair_category_id=MinimalPairCategory.objects.get
+#                                                     (id=category_id)
+#     )
+#     return redirect(reverse('user:user_score_history'))

@@ -88,18 +88,18 @@ class QuizTest(TestCase):
         self.assertEqual(len(response.context['user_answers_label']), 8)
         self.assertEqual(len(response.context['right_answers_list']), 8)
 
-    def test_save_score(self):
-        """
-        Check if score is registered
-        """
-        self.client.login(username='test', password='test')
-        session = self.client.session
-        session['score'] = 7
-        session.save()
-        response = self.client.get(reverse('quiz:save_results', kwargs={
-            'category_id': '1'}))
-        self.assertEqual(Score.objects.all().count(), 1)
-        self.assertEqual(response.status_code, 302)
+    # def test_save_score(self):
+    #     """
+    #     Check if score is registered
+    #     """
+    #     self.client.login(username='test', password='test')
+    #     session = self.client.session
+    #     session['score'] = 7
+    #     session.save()
+    #     response = self.client.get(reverse('quiz:save_results', kwargs={
+    #         'category_id': '1'}))
+    #     self.assertEqual(Score.objects.all().count(), 1)
+    #     self.assertEqual(response.status_code, 302)
 
 
 class SeleniumQuizTest(StaticLiveServerTestCase):
